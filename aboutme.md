@@ -19,3 +19,6 @@ I am majoring in Computer Science in Busan National University.
 I was a Taekwondo Athlete, but I can't do it anymore because of a big injury called a cruciate ligament rupture.
 
 I studied English in the UK and the Philippines for a total of 1 year.
+
+### Countries I've visited / traveled
+UK, Porland, France, Italy, Germany, Austria, Iceland, Philippine, China and more in the future ...
