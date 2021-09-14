@@ -15,9 +15,8 @@ author: Janghwan Kim
 
 navbar-links:
   About Me: "aboutme"
-  Resources:
-    - Baekjoon: "baekjoon"
-    - Programmers: "programmer"
+  Baekjoon: "baekjoon"
+  Programmers: "programmer"
   Project: "project"
   Github: "https://github.com/harley-hwan"
   
