@@ -19,6 +19,8 @@ navbar-links:
     - Baekjoon: "baekjoon"
     - Programmers: "programmer"
   Project: "project"
+  Github: "https://github.com/harley-hwan"
+  
 
 # --- Logo --- #
 
