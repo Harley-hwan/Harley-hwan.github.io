@@ -1,3 +1,13 @@
+---
+layout: post
+title: Programmers 징검다리
+subtitle: Programmers KAKAO 개발자 겨울 인턴십
+gh-repo: harley-hwan/harley-hwan.github.io
+gh-badge: [star, fork, follow]
+tags: [programmers, kakao, algorithm, c++]
+comments: true
+---
+
 https://programmers.co.kr/learn/courses/30/lessons/64062
 
 
