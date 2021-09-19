@@ -4,7 +4,7 @@ title: EQTransformer model
 subtitle: Earthquake transformer - deap learning model
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [eqtransformer, deap learning, machinelearning, python, bigdata]
+tags: [eqtransformer, deap learning, machine learning, python, big data science]
 comments: true
 ---
 
