@@ -36,10 +36,7 @@ comments: true
 
 
 ## 입출력 예
-
-
-
-
+![image](https://user-images.githubusercontent.com/68185569/133933238-8ea1b1a2-c89d-4b93-8d8c-40cc419b32b7.png)
 
 ## 입출력 예 설명
 
