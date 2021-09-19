@@ -1,3 +1,14 @@
+---
+layout: post
+title: EQTransformer model 
+subtitle: Earthquake transformer - deap learning model
+gh-repo: harley-hwan/harley-hwan.github.io
+gh-badge: [star, fork, follow]
+tags: [eqtransformer, deap learning, machinelearning, python, bigdata]
+comments: true
+---
+
+
 # EQTransformer 코드 실행 및 설명
 - 최초 작성일: 2021년 7월 29일(목)
 - 논문: https://rdcu.be/b58li
