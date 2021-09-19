@@ -19,7 +19,7 @@ comments: true
 [TOC]
 
 ## 코드 실행
-- colab 위치: https://colab.research.google.com/drive/1NKkoyqYCYCrzbWvHo8J6jIHCuN5DAdKC?usp=sharing
+- colab 위치: https://colab.research.google.com/drive/1hmBsEhi4hozDsI6aCdfL1t6FBR69WXRc?usp=sharing
 - colab 런타임 gpu 설정
 
 ## 논문 설명
