@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Programmers 스킬트리 c++
-subtitle: Summer, Winter Coding(~2018)
+subtitle: Summer, Winter Coding(~2018) (c++)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [programmers, 프로그래머스, algorithm, skill trees]
