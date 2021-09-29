@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Programmers 스킬트리 c++
-subtitle: Summer, Winter Coding(~2018)
+title: Programmers 스킬트리
+subtitle: Summer, Winter Coding(~2018) (c++)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [programmers, 프로그래머스, algorithm, skill trees]
@@ -36,10 +36,7 @@ comments: true
 
 
 ## 입출력 예
-
-
-
-
+![image](https://user-images.githubusercontent.com/68185569/133933238-8ea1b1a2-c89d-4b93-8d8c-40cc419b32b7.png)
 
 ## 입출력 예 설명
 
