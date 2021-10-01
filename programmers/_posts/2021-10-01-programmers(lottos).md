@@ -1,17 +1,17 @@
 ---
 layout: post
 title: Programmers 로또의 최고 순서와 최저 순위
-subtitle: 프로그래머스 > Level1 > 로또의 최고 순서와 최저 순위
+subtitle: 2021 Dev-Matching: 웹 백엔드 개발자(상반기) (c++)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [programmers, 프로그래머스, algorithm, level1]
+tags: [programmers, 프로그래머스, algorithm, c++, level1]
 comments: true
 ---
 
 # Programmers 로또의 최고 순서와 최저 순위
 
 - 최초 작성일: 2021년 10월 01일(금)
-- 주소: https://programmers.co.kr/learn/courses/30/lessons/77484#fn1
+- 주소: https://programmers.co.kr/learn/courses/30/lessons/77484
 
 ## 목차
 [TOC]
