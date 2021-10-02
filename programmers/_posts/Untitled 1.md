@@ -8,7 +8,6 @@ tags: [programmers, 프로그래머스, algorithm, c++]
 comments: true
 ---
 
-
 # Programmers 로또의 최고 순서와 최저 순위
 
 - 최초 작성일: 2021년 10월 01일(금)
