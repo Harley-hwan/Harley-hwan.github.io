@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Programmers 로또의 최고순서와 최저순위
-subtitle: 2021 Dev-Matching: 웹 백엔드 개발자(상반기) (c++)
+title: Programmers 로또의 최고 순서와 최저 순위
+subtitle: 2021 Dev-Matching 웹 백엔드 개발자(상반기) (c++)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [programmers, 프로그래머스, algorithm, c++]
@@ -78,7 +78,7 @@ comments: true
 - 처음에 이 문제를 봤을 때, 두 벡터를 정렬하고 시작하고 싶어서 정렬을 했었는데, 어차피 다 돌거면 그럴 필요가 없었다.
 - 그런데 여기서 추가해줄 것이 있는데, 아래의 코드를 보면 break한 부분을 볼 수 있는데 그것은 같은 것을 찾았을 때 혹은 0을 발견했을 때에는 나머지 숫자와의 비교가 불필요하므로 바로 작업을 멈추고 다음 단계로 넘어가도록 해주어야 시간을 줄일 수 있다.
 
-
+---
 
 ```c++
 #include <iostream>
