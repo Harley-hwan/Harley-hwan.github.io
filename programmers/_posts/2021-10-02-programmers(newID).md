@@ -5,7 +5,7 @@ subtitle: 2021 KAKAO BLIND RECRUITMENT
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [programmers, 프로그래머스, algorithm, c++]
-comments: true프프초 작성일: 2021년 10월 02일(토)
+comments: true
 ---
 
 # Programmers 신규 아이디 추천
