@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Programmers 로또의 최고 순서와 최저 순위
+title: Programmers 로또의 최고순서와 최저순위
 subtitle: 2021 Dev-Matching: 웹 백엔드 개발자(상반기) (c++)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
