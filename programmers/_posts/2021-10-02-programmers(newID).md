@@ -49,7 +49,7 @@ comments: true프프초 작성일: 2021년 10월 02일(토)
 
 ## 입출력 예
 
-![image](https://user-images.githubusercontent.com/68185569/133933238-8ea1b1a2-c89d-4b93-8d8c-40cc419b32b7.png)
+![image](https://user-images.githubusercontent.com/68185569/135711898-2dfb6ba2-5058-4a3d-9c7d-5073fc7bb2c4.png)
 
 
 
