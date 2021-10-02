@@ -6,7 +6,6 @@ gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [programmers, 프로그래머스, algorithm, c++]
 comments: true
-
 ---
 
 # Programmers 로또의 최고 순서와 최저 순위
