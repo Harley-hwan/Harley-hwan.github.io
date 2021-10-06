@@ -129,13 +129,3 @@ int solution(string s) {
         s = regex_replace(s, regex("nine"), "9");    
         return stoi(s);
     }
-    
-    int main () {
-        ios_base::sync_with_stdio(false);
-        cin.tie(0);
-    
-        string s = "one4seveneight";
-        cout << solution(s);
-    
-        return 0;
-    }
