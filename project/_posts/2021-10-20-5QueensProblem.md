@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 5-Queens Problem 머신러닝
-subtitle: 유전 알고리즘(genetic algorithm)
+subtitle: 유전 알고리즘 (Genetic Algorithm)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [machinelearning, 머신러닝, algorithm, genetic]
@@ -263,7 +263,7 @@ Genetic Algorithm은 Local Search Algorithms처럼 탐욕적 알고리즘의 일
     
 ﻿
     
-(5-Queens Problem with Genetic Algorithm.py)
+
 
 ```python
 import matplotlib.pyplot as plt
