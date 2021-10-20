@@ -93,7 +93,7 @@ vertical 적으로 한 줄에는 Queen이 하나만 존재한다.
 
 index값인 0~9를 같이 저장해서 출력한 이유는 나중에 Selection을 할 건데 그때 잘 정렬이 되었는지 확인하기 위함이다.
 
-![image](https://user-images.githubusercontent.com/68185569/138053485-d1807344-e11f-4e4e-b47a-863e77fdda27.png)
+![image](https://user-images.githubusercontent.com/68185569/138057062-a9af474d-9255-41cd-89ec-32efa30bf6f5.png)
 
 
 ﻿
