@@ -10,7 +10,7 @@ comments: true
 
 
 
-# <center> 5-Queens Problem (Genetic Algorithm) </center>
+# 5-Queens Problem (Genetic Algorithm)
 
 - 최초 작성일: 2021년 10월 20일(수)
 
@@ -20,9 +20,6 @@ comments: true
 
 ## 문제 설명
 
-
-﻿
-
 N-Queens Problem에서 n의 값을 5로 하고
 
 (즉, 5x5 체스판에 5개의 퀸(상하좌우 대각선의 말들을 잡아먹음)을
@@ -31,9 +28,10 @@ N-Queens Problem에서 n의 값을 5로 하고
 
 Genetic Algorithm(유전 알고리즘)으로 풀어보자.
 
+﻿
 
 
-## 1) Chromosome design (염색체 디자인)**
+## 1) Chromosome design (염색체 디자인)
 
 ![image](https://user-images.githubusercontent.com/68185569/138053274-7e2a7fda-5ac3-48cb-91d6-c03583440d4a.png)
 
@@ -42,9 +40,9 @@ Genetic Algorithm(유전 알고리즘)으로 풀어보자.
 
 위의 그림은 체스판에 놓인 퀸의 위치를 표시한 것이다.
 
+﻿
 
-
-## 2) Initialization (초기화)**
+## 2) Initialization (초기화)
 
 np.array([1, 2, 3, 4, 5] 와 같이
 
@@ -58,7 +56,8 @@ np.array([1, 2, 3, 4, 5] 와 같이
 
 ![image](https://user-images.githubusercontent.com/68185569/138053350-707e1f4b-30d3-4879-92e7-cc78cb2fe6d9.png)
 
-
+﻿
+ 
 ## 3) Fitness (적합도)
 
 
@@ -97,9 +96,9 @@ index값인 0~9를 같이 저장해서 출력한 이유는 나중에 Selection�
 ![image](https://user-images.githubusercontent.com/68185569/138053485-d1807344-e11f-4e4e-b47a-863e77fdda27.png)
 
 
+﻿
 
-
-## 4) Selection**
+## 4) Selection
 
 
 
@@ -130,7 +129,7 @@ Index값이 무작위로 섞인 모습이므로 죽은 퀸 수를 기준으로 �
 
 (해당 출력 화면을 위해 다시 실행하여 데이터 값이 다르므로 참고만 한다.)
 
-
+﻿
 
 ## 5) Crossover
 
@@ -153,9 +152,9 @@ Index값이 무작위로 섞인 모습이므로 죽은 퀸 수를 기준으로 �
 ![image](https://user-images.githubusercontent.com/68185569/138053704-957de6dd-4448-426e-afc5-f0ac87d20610.png)
 
 
+﻿
 
-
-## 6) Mutation (돌연변이 생성) & Update generation**
+## 6) Mutation (돌연변이 생성) & Update generation
 
 
 
@@ -176,9 +175,9 @@ Index값이 무작위로 섞인 모습이므로 죽은 퀸 수를 기준으로 �
 
 ![image](https://user-images.githubusercontent.com/68185569/138053848-776f1cfa-edb6-440f-ac03-41414a334527.png)
 
-## 7) Go back to 3)**
-
-
+﻿
+ 
+## 7) Go back to 3)
 
 새로운 세대에 대한 Fitness를 다시 시행하고 Selection 하는 등의 과정을 반복한다.
 
@@ -188,10 +187,9 @@ Target value를 0으로 설정을 했는데 모든 것들이 0이 되는 경우�
 
 
 
-
+﻿
 
 ## ⩥ 결론
-
 
 
 Genetic Algorithm의 목적은 유일한 해를 찾기 보다는 적합한 값들을 찾는 것을 목적으로 하는 것이기 때문에 매 실행 때마다 모델이 적합하다고 생각하는 값들은 항상 변할 수밖에 없다.
@@ -224,7 +222,7 @@ Genetic Algorithm은 Local Search Algorithms처럼 탐욕적 알고리즘의 일
 
 ![image](https://user-images.githubusercontent.com/68185569/138053937-c035d185-f673-4882-bcaf-634e662b5576.png)
 
-
+﻿
 
 ### <실제 코드 실행 결과값 (1)>
 
@@ -240,7 +238,7 @@ Genetic Algorithm은 Local Search Algorithms처럼 탐욕적 알고리즘의 일
 
 ![image](https://user-images.githubusercontent.com/68185569/138053992-663c1315-0faf-474c-b492-4e10a30a8848.png)
 
-
+﻿
 
 ### <실제 코드 실행 결과값 (2)>
 
@@ -262,9 +260,8 @@ Genetic Algorithm은 Local Search Algorithms처럼 탐욕적 알고리즘의 일
 
 ![image](https://user-images.githubusercontent.com/68185569/138054026-7a7a7a1b-c274-48c9-bf68-066c432518ff.png)
 
-</center>
     
-    
+﻿
     
 (5-Queens Problem with Genetic Algorithm.py)
 
