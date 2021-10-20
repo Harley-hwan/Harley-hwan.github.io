@@ -258,7 +258,7 @@ Genetic Algorithm은 Local Search Algorithms처럼 탐욕적 알고리즘의 일
 
 결과적으로 Genetic 알고리즘의 모든 경우의 수를 경험해보고 그 과정으로 인해 적합한 해를 찾아간다는 특성상 더욱 많은 다양성을 두면 적합한 해를 찾기 더 쉬운 모습을 확인할 수 있었다
 
-![image](https://user-images.githubusercontent.com/68185569/138054026-7a7a7a1b-c274-48c9-bf68-066c432518ff.png)
+![image](https://user-images.githubusercontent.com/68185569/138061485-d708acdd-6e2a-4070-8e48-f223261c9ffa.png)
 
     
 ﻿
