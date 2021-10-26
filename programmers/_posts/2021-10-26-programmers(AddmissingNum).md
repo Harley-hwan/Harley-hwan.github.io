@@ -10,7 +10,7 @@ comments: true
 
 # Programmers 없는 숫자 더하기
 
-- 최초 작성일: 2021년 10월 26일(수)
+- 최초 작성일: 2021년 10월 26일()
 - 주소: https://programmers.co.kr/learn/courses/30/lessons/86051
 
 ## 목차
