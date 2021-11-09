@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 머신러닝을 활용한 경량 지진탐지 모델 개발
-subtitle: Earthquake transformer - deap learning model
+title: Facial Emotion Detection (Based on HD Computing)
+subtitle: UCI GREAT Project
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [eqtransformer, deap learning, machine learning, python, big data science]
