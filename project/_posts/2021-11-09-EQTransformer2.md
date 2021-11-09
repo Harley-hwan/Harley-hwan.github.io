@@ -12,10 +12,10 @@ comments: true
 
 - 최초 작성일: 2021년 11월 9일(월)
 
-## 목차
-[TOC]
+---
 
-## 문제 설명
+![image](https://user-images.githubusercontent.com/68185569/140888790-2e3c2988-0070-4762-b8d5-324a9e1a667f.png)
+
 ![image](https://user-images.githubusercontent.com/68185569/140887271-98c6b265-5cbc-403d-b474-788468155ee7.png)
 
 ![image](https://user-images.githubusercontent.com/68185569/140887325-42226c9b-fe24-4fea-afe4-674eeddc3b7d.png)
