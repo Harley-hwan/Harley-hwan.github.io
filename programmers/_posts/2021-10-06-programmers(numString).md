@@ -11,7 +11,7 @@ comments: true
 # Programmers 숫자 문자열과 영단어
 
 - 최초 작성일: 2021년 10월 06일(수)
-- 주소: https://programmers.co.kr/learn/courses/30/lessons/81301
+- 주소: <https://programmers.co.kr/learn/courses/30/lessons/81301>
 
 ## 목차
 

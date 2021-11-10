@@ -11,7 +11,7 @@ comments: true
 # Programmers 로또의 최고 순서와 최저 순위
 
 - 최초 작성일: 2021년 10월 01일(금)
-- 주소: https://programmers.co.kr/learn/courses/30/lessons/77484
+- 주소: <https://programmers.co.kr/learn/courses/30/lessons/77484>
 
 ## 목차
 [TOC]

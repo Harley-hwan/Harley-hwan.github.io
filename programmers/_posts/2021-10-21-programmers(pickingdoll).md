@@ -12,7 +12,7 @@ comments: true
 # Programmers 크레인 인형뽑기 게임
 
 - 최초 작성일: 2021년 10월 21일(목)
-- 주소: https://programmers.co.kr/learn/courses/30/lessons/64061
+- 주소: <https://programmers.co.kr/learn/courses/30/lessons/64061>
 
 ## 목차
 
