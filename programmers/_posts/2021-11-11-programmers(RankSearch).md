@@ -12,7 +12,7 @@ comments: true
 # Programmers 순위 검색
 
 - 최초 작성일: 2021년 11월 11일(수)
-- 주소: https://programmers.co.kr/learn/courses/30/lessons/72412
+- 주소: <https://programmers.co.kr/learn/courses/30/lessons/72412>
 
 ## 목차
 
