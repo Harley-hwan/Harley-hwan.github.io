@@ -6,13 +6,12 @@ gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [eqtransformer, deap learning, machine learning, python, big data science]
 comments: true
-
 ---
 
 # Facial Emotion Detection (Based on HD Computing)
 
 - 최초 작성일: 2021년 11월 9일(월)
-- 주소: https://github.com/harley-hwan/UCIproject
+- 주소: <https://github.com/harley-hwan/UCIproject>
 - 프로젝트명: Global Research Experience in Artificial inTelligence(GREAT) 
 - 주최자: UCI (미국 캘리포니아 어바인 대학)
 - 후원: 부산대학교
