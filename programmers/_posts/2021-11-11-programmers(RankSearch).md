@@ -114,13 +114,12 @@ comments: true
 
 - 위의 과정을 반복하여, answer 벡터를 전부 출력한다.
 
-  
-
 ---
 
+하지만 이렇게 정확성은 다 통과했지만, 효율성 면에서 모두 시간 초과가 발생했다.
+더 효율적인 알고리즘이 필요한 것 같다. 언제든지 지적은 환영합니다.
 
-
-![image-20211111151740994](C:\Users\harley\AppData\Roaming\Typora\typora-user-images\image-20211111151740994.png)
+![image](https://user-images.githubusercontent.com/68185569/141248125-068d176b-519d-4f0d-b6a6-a98c32355d37.png)
 
 ---
 
