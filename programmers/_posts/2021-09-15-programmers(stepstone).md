@@ -8,7 +8,7 @@ tags: [programmers, 프로그래머스, kakao, algorithm, c++]
 comments: true
 ---
 
-https://programmers.co.kr/learn/courses/30/lessons/64062
+<https://programmers.co.kr/learn/courses/30/lessons/64062>
 
 
 ![image](https://user-images.githubusercontent.com/68185569/133344222-724d8ddc-01e5-4bfd-9813-fe440ba7ad10.png)
