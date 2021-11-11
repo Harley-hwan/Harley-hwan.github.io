@@ -11,15 +11,15 @@ comments: true
 
 # EQTransformer 코드 실행 및 설명
 - 최초 작성일: 2021년 7월 29일(목)
-- 논문: https://rdcu.be/b58li
-- github 주소: https://github.com/smousavi05/EQTransformer
+- 논문: <https://rdcu.be/b58li>
+- github 주소: <https://github.com/smousavi05/EQTransformer>
 
 
 ## 목차
 [TOC]
 
 ## 코드 실행
-- colab 위치: https://colab.research.google.com/drive/1hmBsEhi4hozDsI6aCdfL1t6FBR69WXRc?usp=sharing
+- colab 위치: <https://colab.research.google.com/drive/1hmBsEhi4hozDsI6aCdfL1t6FBR69WXRc?usp=sharing>
 - colab 런타임 gpu 설정
 
 ## 논문 설명
