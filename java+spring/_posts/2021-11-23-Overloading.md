@@ -1,14 +1,14 @@
 ---
 layout: post
-title: Java
-subtitle: 월간 코드 챌린지 시즌1
+title: 오버로딩(Overloading)이란? (Java)
+subtitle: Overloading 개념
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [programmers, 프로그래머스, algorithm, c++]
+tags: [java, overloading]
 comments: true
 ---
 
-# Overloading
+# 오버로딩 (Overloading)
 
 - 최초 작성일: 2021년 11월 23일(화)
 
