@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 오버로딩(Overloading)이란? (Java)
+title: 오버로딩 Overloading이란?
 subtitle: Overloading 개념
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
