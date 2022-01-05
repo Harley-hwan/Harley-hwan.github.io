@@ -6,7 +6,7 @@ subtitle: Why you'd want to go on a date with me
 
 My name is Janghwan Kim. (My English name is Harley)
 
-- Developer & Researcher of Golfzon (Sensor development)
+- Developer & Researcher of GOLFZON (Sensor development)
 - Computer Science
 - Busan National University (Graduated)
 - language: C++ / Python / Java
@@ -15,9 +15,9 @@ What else do you need? Ask me whatever...
 
 ### My story
 
-I am working in Golfzon as developer & researcher
+I am working in GOLFZON as developer & researcher
 
-I am Responsible for sensor development.
+I am responsible for sensor development.
 
 I majored in Computer Science at Pusan National University
 
