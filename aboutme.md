@@ -6,15 +6,20 @@ subtitle: Why you'd want to go on a date with me
 
 My name is Janghwan Kim. (My English name is Harley)
 
+- Developer & Researcher of Golfzon (Sensor development)
 - Computer Science
-- Busan National University
-- language: C++ / Python
+- Busan National University (Graduated)
+- language: C++ / Python / Java
 
 What else do you need? Ask me whatever...
 
 ### My story
 
-I am majoring in Computer Science in Busan National University.
+I am working in Golfzon as developer & researcher
+
+I am Responsible for sensor development.
+
+I majored in Computer Science at Pusan National University
 
 I was a Taekwondo Athlete, but I can't do it anymore because of a big injury called a cruciate ligament rupture.
 
