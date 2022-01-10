@@ -1,6 +1,6 @@
 ---
 layout: post
-title: opencv(c++) 설치 및 초기설정
+title: opencv(c++) 1. 설치 및 초기설정
 subtitle: visual studio를 활용하여 c++로 opencv 시작해보자.
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
