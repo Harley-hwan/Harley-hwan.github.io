@@ -12,7 +12,7 @@ comments: true
 
 - 최초 작성일: 2022년 1월 10일(월)
 
-![image](https://user-images.githubusercontent.com/68185569/148713016-ce9aba13-75d8-49e0-bad4-f9ec805ef808.png)
+![image](https://user-images.githubusercontent.com/68185569/148719352-40177ab8-e963-44da-9eb4-9eae86597ddd.png)
 
 
 ## 목차
