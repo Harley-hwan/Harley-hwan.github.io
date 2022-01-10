@@ -69,15 +69,13 @@ https://sourceforge.net/projects/opencvlibrary/
 
 설정을 완료했으면 아래의 코드를 입력해보고, 빨간 줄이 뜨며 에러가 뜨면 설정이 잘못된 것이고 에러가 사라지면 잘 된것이다.
 
-![image](https://user-images.githubusercontent.com/68185569/148718391-2a2d4a5c-7437-4da7-90b3-bf2b196b9b35.png)
-![image](https://user-images.githubusercontent.com/68185569/148718463-e93e286a-5da4-457c-89bf-7bbea594a5bf.png)
+![image](https://user-images.githubusercontent.com/68185569/148719308-24bf3323-72f8-46b8-90a6-f5eb9b7cb75c.png)
 
 자, 이제 그러면 간단한 코드를 통해 이미지를 띄워보는 예제를 실행해보자.
 
 시작하기에 앞서 이미지 파일을 아무거나 하나 준비하자. 그 다음 아래의 사진처럼 솔루션 탐색기(Solution Explorer)에서 현재 실행중인 프로젝트명(opencvEX)에서 마우스 우측 버튼을 누르면 oepn Folder in File Explorer를 클릭하면 현재 프로젝트의 파일 위치를 열 수 있다. 그러면 거기다 이미지 파일을 저장해두자.
 
-![image](https://user-images.githubusercontent.com/68185569/148718595-e1094765-325a-455b-a888-0dabfa38f1cc.png)
-![image](https://user-images.githubusercontent.com/68185569/148718747-a646d4c4-6d58-4b04-84de-e009756e783e.png)
+![image](https://user-images.githubusercontent.com/68185569/148719296-24b3c0b3-7c02-4e5f-a5f8-4f865896bdad.png)
 
 <br/>
 
