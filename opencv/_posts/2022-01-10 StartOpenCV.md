@@ -61,7 +61,6 @@ https://sourceforge.net/projects/opencvlibrary/
 
 위의 사진처럼 Project > Property를 누르면 아래 창이 뜨고, 아래 사진에서 보이는 것처럼 본인이 opencv를 설치했던 경로를 추가해준다. (opencv_world455d.lib 의 경우에는 각자 설치한 버전마다 상이할 수 있음)
 
-![image](https://user-images.githubusercontent.com/68185569/148718136-64f922bf-a706-48f6-968e-dc62a43830f2.png)
 ![image](https://user-images.githubusercontent.com/68185569/148718173-d9eadcc5-5461-43c0-8e00-0af75f19acfc.png)
 ![image](https://user-images.githubusercontent.com/68185569/148718165-f713ea5f-f76b-4535-bee1-02631b901ca6.png)
 ![image](https://user-images.githubusercontent.com/68185569/148718183-76abf632-4082-4868-8f52-4384b66b4606.png)
@@ -71,7 +70,6 @@ https://sourceforge.net/projects/opencvlibrary/
 설정을 완료했으면 아래의 코드를 입력해보고, 빨간 줄이 뜨며 에러가 뜨면 설정이 잘못된 것이고 에러가 사라지면 잘 된것이다.
 
 ![image](https://user-images.githubusercontent.com/68185569/148718391-2a2d4a5c-7437-4da7-90b3-bf2b196b9b35.png)
-
 ![image](https://user-images.githubusercontent.com/68185569/148718463-e93e286a-5da4-457c-89bf-7bbea594a5bf.png)
 
 자, 이제 그러면 간단한 코드를 통해 이미지를 띄워보는 예제를 실행해보자.
