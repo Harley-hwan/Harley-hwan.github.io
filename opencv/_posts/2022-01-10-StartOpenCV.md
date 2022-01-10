@@ -88,6 +88,9 @@ https://sourceforge.net/projects/opencvlibrary/
 ## Result
 ![image](https://user-images.githubusercontent.com/68185569/148719433-43369948-e333-497b-a2f4-7b5530027d90.png)
 
+<br/>
+
+---
 
 ```c++
 #include <opencv2/imgcodecs.hpp>
