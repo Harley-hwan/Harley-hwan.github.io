@@ -48,6 +48,8 @@ https://sourceforge.net/projects/opencvlibrary/
 
 그러면 opencv 폴더가 생성이 된다.
 
+## 초기 설정
+
 그러면 이제 간단한 실습을 위해 Visual Studio를 실행하여 빈 프로젝트(Empty Project)를 하나 생성해보자.
 나는 프로젝트명을 opencvEX로 했다. (원하는 걸로 하면 됨.)
 
@@ -71,6 +73,8 @@ https://sourceforge.net/projects/opencvlibrary/
 
 ![image](https://user-images.githubusercontent.com/68185569/148719308-24bf3323-72f8-46b8-90a6-f5eb9b7cb75c.png)
 
+## 실습
+
 자, 이제 그러면 간단한 코드를 통해 이미지를 띄워보는 예제를 실행해보자.
 
 시작하기에 앞서 이미지 파일을 아무거나 하나 준비하자. 그 다음 아래의 사진처럼 솔루션 탐색기(Solution Explorer)에서 현재 실행중인 프로젝트명(opencvEX)에서 마우스 우측 버튼을 누르면 oepn Folder in File Explorer를 클릭하면 현재 프로젝트의 파일 위치를 열 수 있다. 그러면 거기다 이미지 파일을 저장해두자.
@@ -80,6 +84,10 @@ https://sourceforge.net/projects/opencvlibrary/
 <br/>
 
 이제 직접 아래의 코드를 입력하고 F5 키를 눌러 실행해보자.
+
+## Result
+![image](https://user-images.githubusercontent.com/68185569/148719433-43369948-e333-497b-a2f4-7b5530027d90.png)
+
 
 ```c++
 #include <opencv2/imgcodecs.hpp>
