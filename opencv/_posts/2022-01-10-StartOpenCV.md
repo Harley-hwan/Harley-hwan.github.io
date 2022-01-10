@@ -1,7 +1,7 @@
 ---
 layout: post
 title: opencv 시작하기 (c++)
-subtitle: visual studio를 활용하여 c++로 opencv를 사용해보자.
+subtitle: visual studio로 opencv 시작하기
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [opencv, c++, vs, visual studio]
