@@ -83,7 +83,7 @@ https://sourceforge.net/projects/opencvlibrary/
 
 <br/>
 
-이제 직접 아래의 코드를 입력하고 F5 키를 눌러 실행해보자.
+이제 직접 아래의 코드를 입력하고 F5 (Ctrl + F5) 키를 눌러 실행해보자.
 
 ## Result
 ![image](https://user-images.githubusercontent.com/68185569/148719433-43369948-e333-497b-a2f4-7b5530027d90.png)
