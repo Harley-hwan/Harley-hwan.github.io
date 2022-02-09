@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [MFC] 색상 슬라이드 프로그램 작성
+title: (MFC) 색상 슬라이드 프로그램 작성
 subtitle: 슬라이더(Slider Control)의 이용
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
@@ -29,134 +29,205 @@ comments: true
 
 ### 다이얼로그 편집/디자인
 
-![image](https://user-images.githubusercontent.com/68185569/152954786-dfd9ea8c-d6d4-4b26-b854-31f2c76e6137.png)
+우선, 다이얼로그를 편집하자. 아래와 같이 Resource View에서 해당 다이얼로그를 더블클릭하고, 다이얼로그에 있는 컨트롤들을 모두 삭제한다. (Ctrl + A) + Delete 하면 된다.
+
+![image](https://user-images.githubusercontent.com/68185569/153106813-89d8ff42-1f4d-460f-89c2-7675a7e1695f.png)
 
 <br/>
 
+그러면, Toolbox를 통해 컨트롤과 속성을 아래와 같이 설정한다.
 
+![image](https://user-images.githubusercontent.com/68185569/152954786-dfd9ea8c-d6d4-4b26-b854-31f2c76e6137.png)
+![image](https://user-images.githubusercontent.com/68185569/153106446-2434722e-c9b4-4fa5-ad25-1cc40e5635a1.png)
+
+<br/>
+
+### 변수 추가
+
+위의 단계를 마쳤으면, 이제 멤버 변수들을 추가해보자.
+
+우선, 'Slide Control'에 멤버 변수를 추가한다.
+
+[메뉴]-[프로젝트]-[클래스 마법사] 를 클릭하거나 [Ctrl + Shift + X] 키를 눌러 [클래스 마법사]를 실행한다.
+
+그러면, 아래 이미지처럼 창이 뜨는데, Class Name을 고르고 [멤버 변수] 탭에서 'IDC_SLIDER_R'을 클릭한 후 'Add Variable (변수 추가)' 버튼을 눌러 다음과 같이 설정한다.
+
+![image](https://user-images.githubusercontent.com/68185569/153107609-8ca1f3e4-34bc-4086-93e0-004364f003a8.png)
+
+![image](https://user-images.githubusercontent.com/68185569/153106710-7ac6fdc1-0eee-4d60-8d20-cf22ba5b4e12.png)
+
+<br/>
+
+마찬가지로, 'IDC_SLIDER_G'와 'IDC_SLIDER_B' 도 똑같이 설정한다.
+
+<br/>
+
+다음으로, [멤버 변수] 탭에서 'IDC_EDIT_R'을 클릭하고 'Add Variable (변수 추가)' 버튼을 눌러 다음과 같이 설정하고, 'IDC_EDIT_G', 'IDC_EDIT_B'도 똑같이 설정한다. 
+
+![image](https://user-images.githubusercontent.com/68185569/153107847-9beecc9a-ceaa-406c-acf3-c53c5e83eeb2.png)
+
+<br/>
+
+설정을 마치면 아래와 같이 확인할 수 있다.
+
+![image](https://user-images.githubusercontent.com/68185569/153107445-3d3cc9ab-54fe-4724-8f8d-0366b922141f.png)
+
+<br/>
+
+그러면, [Class View]-[RGBSlide]-[CRGBSlideDlg] 에 'SLIDER Control' 변수 3개와 'EDIT Control' 변수 3개가 생성된 것을 확인할 수 있다.
+
+![image](https://user-images.githubusercontent.com/68185569/153108693-a3ae6bc4-cd2b-4ad1-b0f1-37e19ff73707.png)
+
+<br/>
+
+마지막으로, [Class View]-[CRGBSlideDlg]에서 마우스 오른쪽 버튼을 누르고 [Add]-[Add Variable]를 클릭하여 다음과 같이 변수를 하나 추가해준다.
+
+![image](https://user-images.githubusercontent.com/68185569/153109231-5fe5a9cd-5976-43b2-aa27-cd420f94103a.png)
 
 <br/>
 
 ### 코드 작성
 
-'MClock2.Dlg.h' 헤더 파일에 변수 선언을 위해 [Solution Explorer]-[MClock2]-[Header Files]에서 'MClock2Dlg.h' 을 더블클릭하고 다음과 같이 코드를 추가한다.
-
-![image](https://user-images.githubusercontent.com/68185569/152735010-8171480e-1d46-467a-80bf-25f198c17e0c.png)
-
-```c++
-// CMClock2Dlg dialog
-class CMClock2Dlg : public CDialogEx
-{
-// Construction
-public:
-	CMClock2Dlg(CWnd* pParent = nullptr);	// standard constructor
-
-	CRect screen;
-	int vsize, hsize;
-
-	UINT htimer;
-
-// Dialog Data
-```
+ OnInitDialog() 함수에서 RGB 값을 각각 초기화한다.
+ 
+ [Class View]-[RGBSlide]-[CRGBSlideDlg]-[OnInitdialog()]를 더블클릭해서 추가하면 된다.
+ 
+![image](https://user-images.githubusercontent.com/68185569/153109498-9d9f5d6d-69b0-4b64-b7de-21a5a4993b82.png)
 
 <br/>
 
-다음으로 OnInitDialog() 함수의 변수를 초기화 시켜준다.
-
-[Class View]-[MClock2]-[CMClock2Dlg]-[OnInitDialog()]를 더블클릭한 후 다음과 같이 코드를 추가한다.
-
-![image](https://user-images.githubusercontent.com/68185569/152735134-267c3704-aede-41bc-81e6-9a5183134635.png)
+다음으로, OnPaint() 함수에 다음과 같이 코드를 삽입해준다.
 
 ```c++
-BOOL CMClock2Dlg::OnInitDialog()
+void CRGBSlideDlg::OnPaint()
 {
-	CDialogEx::OnInitDialog();
-
-	// Add "About..." menu item to system menu.
-	CRect rect;
-	screen.top = 0;
-	screen.left = 0;
-	screen.bottom = ::GetSystemMetrics(SM_CYSCREEN);
-	screen.right = ::GetSystemMetrics(SM_CXSCREEN);		// 화면 크기
-
-	htimer = SetTimer(1, 1000, NULL);
-
-	GetWindowRect(rect);
-	vsize = rect.Width();		// 프로그램의 가로 크기
-	hsize = rect.Height();		// 프로그램의 세로 크기
-
-	// IDM_ABOUTBOX must be in the system command range.
-	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
-	ASSERT(IDM_ABOUTBOX < 0xF000);
-```
-
-<br/>
-
-이제는 날짜와 시간을 출력하기 위해 'WM_TIMER' 메시지를 추가한다.
-
-[Ctrl+Shift+X] 키 혹은 [Menu]-[Project]-[Class Wizard] 를 클릭해서 클래스 마법사를 실행시켜 다음과 같이 WM_TIMER 메시지를 더블클릭해 'OnTimer' 함수를 추가하고, OnTimer()에 다음과 같이 코드를 추가한다.
-
-
-```c++
-void CMClock2Dlg::OnTimer(UINT_PTR nIDEvent)
-{
-	// TODO: Add your message handler code here and/or call default
-	CTime gct = CTime::GetCurrentTime();
-
-	CString strYear;
-	CString strMonth;
-	CString strDay;
-	CString strTime;
-	CString strYoil;
-
-	UINT DayOfWeek[] =
+	if (IsIconic())
 	{
-	   LOCALE_SDAYNAME7,   // Sunday
-	   LOCALE_SDAYNAME1,
-	   LOCALE_SDAYNAME2,
-	   LOCALE_SDAYNAME3,
-	   LOCALE_SDAYNAME4,
-	   LOCALE_SDAYNAME5,
-	   LOCALE_SDAYNAME6   // Saturday
-	};
+		CPaintDC dc(this); // device context for painting
 
-	strYear.Format(_T("%d 년 "), gct.GetYear());
-	GetDlgItem(IDC_STATIC_YEAR)->SetWindowText((LPCTSTR)strYear);
+		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-	strMonth.Format(_T("%d 월 "), gct.GetMonth());
-	GetDlgItem(IDC_STATIC_MONTH)->SetWindowText((LPCTSTR)strMonth);
+		// Center icon in client rectangle
+		int cxIcon = GetSystemMetrics(SM_CXICON);
+		int cyIcon = GetSystemMetrics(SM_CYICON);
+		CRect rect;
+		GetClientRect(&rect);
+		int x = (rect.Width() - cxIcon + 1) / 2;
+		int y = (rect.Height() - cyIcon + 1) / 2;
 
-	strDay.Format(_T("%d 일 "), gct.GetDay());
-	GetDlgItem(IDC_STATIC_DAY)->SetWindowText((LPCTSTR)strDay);
-
-	if (gct.GetHour() > 12) 
-	{
-		strTime.Format(_T("오후"));
-		GetDlgItem(IDC_STATIC_AMPM)->SetWindowTextW((LPCTSTR)strTime);
-
-		strTime.Format(_T("%d 시 %d 분 %d 초 "), gct.GetHour()-12, gct.GetMinute(), gct.GetSecond());
-		GetDlgItem(IDC_STATIC_TIME)->SetWindowText((LPCTSTR)strTime);
+		// Draw the icon
+		dc.DrawIcon(x, y, m_hIcon);
 	}
 	else
 	{
-		strTime.Format(_T("오전"));
-		GetDlgItem(IDC_STATIC_AMPM)->SetWindowTextW((LPCTSTR)strTime);
-
-		strTime.Format(_T("%d 시 %d 분 %d 초 "), gct.GetHour(), gct.GetMinute(), gct.GetSecond());
-		GetDlgItem(IDC_STATIC_TIME)->SetWindowText((LPCTSTR)strTime);
+		CDialogEx::OnPaint();
+		
+		// 추가할 코드
+		CRect rect;
+		CClientDC rgbdc(GetDlgItem(IDC_STATIC_RGB));
+		CStatic* pSRGB = (CStatic*)GetDlgItem(IDC_STATIC_RGB);
+		pSRGB->GetClientRect(rect);
+		rgbdc.FillSolidRect(rect, m_cRGB);
+		pSRGB->ValidateRect(rect);
 	}
-
-	TCHAR strWeekday[256];
-
-	::GetLocaleInfo(LOCALE_USER_DEFAULT, DayOfWeek[gct.GetDayOfWeek() - 1], strWeekday, sizeof(strWeekday));
-
-	strYoil.Format(_T("%s "), strWeekday);
-	GetDlgItem(IDC_STATIC_YOIL)->SetWindowText((LPCTSTR)strYoil);
-
-	Invalidate();
-
-	CDialogEx::OnTimer(nIDEvent);
 }
-
 ```
+
 <br/>
+
+그럼 이제, 슬라이더에서 마우스가 움직일 때 그 값을 알아내기 위해 'WM_HSCROLL' 메시지를 이용해 OnHScroll(~) 함수를 추가하자.
+
+클래스 마법사를 키고, 클래스 이름에서 'CRGBSlideDlg'를 선택하고 [Message] 탭에서 'WM_HSCROLL' 메시지를 더블클릭하고 확인 버튼을 누르면, OnHScroll 함수가 자동으로 생성된다.
+
+그럼, 아래와 같이 코드를 작성하자.
+
+```c++
+void CRGBSlideDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CRect rect;
+	GetDlgItem(IDC_STATIC_RGB)->GetWindowRect(&rect);
+	ScreenToClient(&rect);
+	int nR = m_sldR.GetPos();
+	int nG = m_sldG.GetPos();
+	int nB = m_sldB.GetPos();
+
+	if ((pScrollBar == (CScrollBar*)&m_sldR) || 
+		(pScrollBar == (CScrollBar*)&m_sldG) || 
+		(pScrollBar == (CScrollBar*)&m_sldB))
+	{
+		// 슬라이더 위치를 검사
+		int nPosR = m_sldR.GetPos();
+		int nPosG = m_sldG.GetPos();
+		int nPosB = m_sldB.GetPos();
+
+		m_nR = nPosR;
+		m_nG = nPosG;
+		m_nB = nPosB;
+
+		m_cRGB = RGB(m_nR, m_nG, m_nB);
+		UpdateData(FALSE);
+		InvalidateRect(&rect);
+	}
+	else
+	{
+		CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
+	}
+}
+```
+
+<br/>
+
+그럼, 진짜 마지막으로 'Clear' 버튼과 '나가기' 버튼의 기능을 추가해주자.
+
+똑같이, 클래스 마법사를 열어 다음과 같이 멤버 함수를 추가해주자. 'Clear'와 'Exit' 둘다 해준다.
+
+![image](https://user-images.githubusercontent.com/68185569/153110474-6b2cd0fd-e323-4389-91c2-d83da44f4082.png)
+
+![image](https://user-images.githubusercontent.com/68185569/153110602-74c3156b-cfe0-49ff-8371-6f652778ca69.png)
+
+<br/>
+
+그렇게 함수가 추가되면, 코드를 다음과 같이 삽입해준다.
+
+![image](https://user-images.githubusercontent.com/68185569/153111285-53ea5748-3a02-487a-a006-0ac3dff3a230.png)
+
+<br/>
+
+근데, OnOK() 함수는 그냥 되는데, Clear() 함수는 에러가 뜨는 걸 볼 수 있다. 이유는, OnOk() 함수는 내장함수이기 때문에 따로 정의해주지 않아도 그대로 사용할 수 있지만, Clear() 함수는 따로 정의해주어야 한다.
+
+그러므로, [Class View]-[RGBSlide]-[CRGBSlideDlg]에서 마우스 오른쪽 버튼을 누른 후, [추가]-[함수 추가]를 클릭하여, 다음과 같이 Clear 함수를 생성하고, 아래와 같이 정의해주자. 
+
+초기화 상태로 되돌리는 것이 목적이기 때문에, 모든 값들을 0으로 초기화해주면 된다.
+
+![image](https://user-images.githubusercontent.com/68185569/153111263-c405b5b4-9983-4f8b-840d-4c796d6cc977.png)
+
+```c++
+void CRGBSlideDlg::Clear()
+{
+	// TODO: Add your implementation code here.
+	UpdateData(TRUE);
+
+	CRect rect;
+	GetDlgItem(IDC_STATIC_RGB)->GetWindowRect(&rect);
+	ScreenToClient(&rect);
+	InvalidateRect(&rect);
+
+	m_cRGB = RGB(0, 0, 0);
+
+	m_nR = 0;
+	m_nG = 0;
+	m_nB = 0;
+
+	m_cRGB = RGB(0, 0, 0);
+	UpdateData(FALSE);
+}
+```
+
+<br/>
+
+### 실행 결과 1
+
+<iframe id="video" width="750" height="500" src="/assets/video/2022-02-08-mfcSlider.mp4" frameborder="0"> </iframe>
+
