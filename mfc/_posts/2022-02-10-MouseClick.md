@@ -322,6 +322,7 @@ typedef struct tagWNDCLASS
   LPCSTR    lpszClassName // 윈도우 클래스의 이름을 문자열로 정의
 }
 ```
+<br/>
 
 #### windows.h
 
@@ -337,7 +338,7 @@ WndProc 는 Window Procedure로서 메시지가 발생할 때 처리하는 메�
 
 WM_CREATE, WM_LBUTTONDOWN, WM_RBUTTONDOWN, WM_PAINT, WM_DESTROY는 메시지 처리 함수이다.
 
-```C++
+```c++
 LRESULT CALLBACK WndProc(
   _In_  HWND    hwnd,   // 메시지를 받을 윈도우 핸들
   _In_  UINT    uMsg,   // 메시지 종류
