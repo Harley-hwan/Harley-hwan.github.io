@@ -281,7 +281,6 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 |비트맵|HBITMAP|비트맵 이미지|
 |팔레트|hpalette|팔레트|
 |영역|HRGN|영역|
-|
 
 <br/>
 
