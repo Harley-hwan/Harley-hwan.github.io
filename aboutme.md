@@ -32,3 +32,5 @@ UK, Porland, France, Italy, Germany, Austria, Iceland, Philippine, China and mor
 <br/>
 
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=harley-hwan&show_icons=true&theme=dracula)](https://github.com/harley-hwan)
+
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=harley-hwan&layout=compact)](https://github.com/harley-hwan)
