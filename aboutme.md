@@ -28,3 +28,6 @@ I studied English in the UK and the Philippines for a total of a year.
 
 ### Countries I've visited / traveled
 UK, Porland, France, Italy, Germany, Austria, Iceland, Philippine, China and more in the future ...
+
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=harley-hwan)](https://github.com/anuraghazra/github-readme-stats)
