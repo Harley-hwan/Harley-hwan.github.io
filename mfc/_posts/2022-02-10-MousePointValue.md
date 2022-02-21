@@ -38,6 +38,8 @@ comments: true
 
 프로젝트명은 'MouseMFC'로 하였다.
 
+<br/>
+
 ### 코드 작성
 
 [View]-[Solution Explorer] 를 눌러 솔루션 탐색기를 띄우고, 거기서 [MouseMFC]-[Header Files]-[MouseMFCView.h] 파일을 더블클릭한다.
