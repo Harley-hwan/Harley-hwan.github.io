@@ -8,7 +8,7 @@ tags: [c++, mfc, win32, windowprogramming]
 comments: true
 ---
 
-# [Win32] 마우스 좌표값 구하기 프로그램
+# [MFC] 마우스 좌표값 구하기 프로그램
 
 - 최초 작성일: 2022년 2월 10일 (목)
 
