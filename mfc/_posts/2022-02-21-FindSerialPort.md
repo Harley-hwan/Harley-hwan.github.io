@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (MFC) 자
+title: (MFC) 레지스트리 값으로 시리얼 번호 스캔
 subtitle: 
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
