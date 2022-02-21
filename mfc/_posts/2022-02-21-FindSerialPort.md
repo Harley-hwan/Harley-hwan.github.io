@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (MFC) 자동으로 시리얼포트 찾기
-subtitle: 자동으로 시리얼포트 번호 찾기
+title: (MFC) 자
+subtitle: 
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c++, mfc, serialport, registry]
