@@ -24,8 +24,9 @@ comments: true
 
 ![image](https://user-images.githubusercontent.com/68185569/154872501-83b591f9-97b0-448c-965f-cb270c728332.png)
 
-
 <br/>
+
+## 
 
 시리얼 포트를 스캔하기 위해서는 레지스트리의
 
