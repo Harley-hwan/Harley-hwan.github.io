@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (MFC) 시리얼포트 찾기 (레지스트리값)
+title: (MFC) 시리얼포트 찾기 (레지스트리 값)
 subtitle: 자동으로 시리얼포트 번호 찾기
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
