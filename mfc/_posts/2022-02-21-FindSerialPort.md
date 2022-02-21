@@ -27,9 +27,6 @@ comments: true
 
 <br/>
 
-## 실습
-
-
 시리얼 포트를 스캔하기 위해서는 레지스트리의
 
 HKEY_LOCALMACHINE\HARDWARE\DEVICEMAP\SERIALCOMM 항목을 찾아보면 된다.
@@ -184,5 +181,3 @@ void close_comport()
 	}
 }
 ```
-
-### 실행 결과
