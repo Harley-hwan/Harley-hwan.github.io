@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (MFC) 레지스트리 값으로 시리얼 번호 스캔
-subtitle: 
+title: (MFC) 자동으로 시리얼 번호 스캔
+subtitle: 레지스트리 값으로 시리얼 번호 스캔
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c++, mfc, serialport, registry]
