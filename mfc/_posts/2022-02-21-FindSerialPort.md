@@ -18,89 +18,171 @@ comments: true
 
 ## 목적
 
-컴퓨터에 USB를 통해 하드웨어 연결시 'COMXX' 식의 시리얼 번호를 
+컴퓨터에 USB를 통해 하드웨어 연결시 'COMXX' 식의 시리얼 번호를 확인할 수 있는데,
 
+프로그램 실행시 이 포트 번호를 자동으로 찾아 설정해주는 기능을 구현하고자 한다.
+
+![image](https://user-images.githubusercontent.com/68185569/154872501-83b591f9-97b0-448c-965f-cb270c728332.png)
 
 
 <br/>
 
 ## 실습
 
-### 프로젝트 생성
 
-다음과 같이 프로젝트를 새로 생성해주자. (MFC app)
-
-![image](https://user-images.githubusercontent.com/68185569/153352859-cf3894e7-b5aa-4645-a52e-8b97fa20a43f.png)
-
-![image](https://user-images.githubusercontent.com/68185569/153352957-b9f2525a-797c-447c-a755-9c724b53de96.png)
-
-프로젝트명은 'MouseMFC'로 하였다.
-
-### 코드 작성
-
-[View]-[Solution Explorer] 를 눌러 솔루션 탐색기를 띄우고, 거기서 [MouseMFC]-[Header Files]-[MouseMFCView.h] 파일을 더블클릭한다.
-
-그러면, 해당 헤더 파일의 코드를 확인할 수 있는데, 다음과 같이 코드(변수)를 추가한다.
-
-![image](https://user-images.githubusercontent.com/68185569/153353557-91bf57ae-f11c-434a-9ac0-625b078a01a2.png)
+시리얼 포트를 스캔하기 위해서는 레지스트리의
+	
+	HKEY_LOCALMACHINE\HARDWARE\DEVICEMAP\SERIALCOMM 항목을 찾아보면 된다.
 
 <br/>
-
-위의 변수 코드를 추가했으면, 클래스 뷰에서 [MouseMFC]-[CMouseMFCView] 를 보면 OnDraw(CDC * pDC) 함수를 볼 수 있다.
-
-![image](https://user-images.githubusercontent.com/68185569/153354358-a37c5829-2cb4-4a94-be61-9384dc137e9d.png)
-
-<br/>
-
-그걸 더블클릭하면 코드로 이동할 수 있는데, 다음과 같이 코드를 삽입해준다.
 
 ```c++
-void CMouseMFCView::OnDraw(CDC* /*pDC*/)
+int findComPortList(int *list)
 {
-	CMouseMFCDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
+	HKEY  hSerialCom;
+	TCHAR buffer[_MAX_PATH];
+	char data[_MAX_PATH];
+	DWORD len, type, dataSize;
+	long  i;
+	char idata[3];
 
-	// TODO: add draw code for native data here
-	CClientDC dc(this);
-	CString strPoint;
-	strPoint.Format(_T("마우스 좌표 (%4d, %4d)"), m_Pos.x, m_Pos.y);
-	dc.TextOutW(0, 0, strPoint);
+	int port_list_count = 0;
+
+	if (::RegOpenKeyEx(HKEY_LOCAL_MACHINE, _T("HARDWARE\\DEVICEMAP\\SERIALCOMM"), 0, KEY_ALL_ACCESS, &hSerialCom) == ERROR_SUCCESS)
+	{
+		for (i = 0, len = dataSize = _MAX_PATH;
+			::RegEnumValue(hSerialCom, i, buffer, &len, NULL, &type, (BYTE *)data, &dataSize) == ERROR_SUCCESS;
+			i++, len = dataSize = _MAX_PATH)
+		{
+			RegQueryValueEx(hSerialCom, buffer, &len, NULL, (BYTE *)data, &dataSize);
+			int tmp = _tcslen(buffer);
+			if (tmp > 17)
+			{
+				buffer[17] = '\0';
+				tmp++;
+			}
+
+			if (_tcscmp(buffer, _T("\\Device\\USBSER000")) == 0)
+			{
+				//int l_size = dataSize - 4;
+				//int i;
+				//for (i = 0; i < l_size; i++)
+				//{					
+				//	idata[i] = data[i + 3];
+				//}
+				//idata[i] = '\0';
+				int cnt = 0;
+				for (i = 0; i < dataSize; i++)
+				{
+					if (data[i] >= 0x30 && data[i] <= 0x39)
+					{
+						idata[cnt] = data[i];
+						cnt++;
+					}
+				}
+				if(cnt == 2)
+					idata[cnt] = '\0';
+				else if (cnt == 1)
+				{
+					idata[cnt] = '\0';
+					idata[cnt+1] = '\0';
+				}
+
+				list[port_list_count] = atoi(idata);
+
+				port_list_count++;
+			}
+		}::RegCloseKey(hSerialCom);
+	}
+	return port_list_count;
+}
+
+char * byIndexComPort(int xPort)
+{
+	static char PortName[30] = { 0, };
+	TCHAR PortName2[30];
+
+//	sprintf_s(PortName, 30, "\\\\.\\COM%d", xPort);
+	wsprintf(PortName2, TEXT("\\\\.\\COM%d"), xPort);
+	
+//	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, PortName, strlen(PortName), PortName2, 60);
+
+	return PortName;
+}
+
+BOOL open_comport()
+{
+	int portList[10];
+	int candidateSize = 0;
+
+	candidateSize = findComPortList(portList);
+
+	if (candidateSize == 0)
+	{
+		m_portfound = FALSE;
+		m_Comportnum = 10;
+	}
+	else if (candidateSize == 1)
+	{
+		m_portfound = TRUE;
+		m_Comportnum = portList[0];
+	}
+	else
+	{
+		m_portfound = TRUE;
+		m_Comportnum = 10;
+	}
+	//serial.iBaudRate = 1; //9600
+	//serial.iDataBit = 3; //8
+	//serial.iStopBit = 1;//ONE5STOPBITS
+	//serial.iParity = 0; //NOPARITY
+
+	if (m_pCom1)
+	{
+		m_Connected = FALSE;
+
+		delete m_pCom1;
+		m_pCom1 = NULL;
+	}
+
+	TCHAR PortName2[30];
+	wsprintf(PortName2, _T("\\\\.\\COM%d"), m_Comportnum);
+	m_pCom1 = new CSerialPort(PortName2);
+	if (m_pCom1 == NULL)
+		return FALSE;
+	else
+	{
+		m_pCom1->SetBaudRate(CBR_9600);//테스트용
+		m_pCom1->SetBufferSizes(4096, 4096);
+		m_pCom1->SetParityDataStop(NOPARITY, EIGHTDATABITS, ONE5STOPBITS);
+		m_pCom1->SetFlowControl(PCF_XONXOFF);
+		m_pCom1->SetBufferSizes(SP_INBUFSIZE, SP_OUTBUFSIZE);
+		m_pCom1->SetReadTimeouts(MAXDWORD, 0, 0);
+		m_pCom1->SetWriteTimeouts(0, SP_WRITETIMEOUT);
+		m_pCom1->StartCommThread(Com1Reader, 0);
+
+		m_Connected = TRUE;
+		m_realtimestart = FALSE;
+		return m_pCom1->IsValid();
+	}		
+}
+
+void close_comport()
+{
+	Sleep(100);
+	if (m_pCom1)
+	{
+		if (m_pCom1->IsValid())
+		{
+			m_pCom1->PurgeComm(PURGE_RXCLEAR);
+			m_pCom1->StopCommThread();
+		}
+		delete m_pCom1;
+		m_pCom1 = NULL;
+
+		m_Connected = FALSE;
+	}
 }
 ```
-
-<br/>
-
-위의 코드 작성을 모두 완료했다면, 이번에는 마우스 이동 함수인 'WM_MOUSEMOVE'를 클래스 마법사에서 추가해야 한다.
-
-[Menu]-[Project]-[Class Wizard] 를 누르거나 [Ctrl + Shift + X] 를 눌러 클래스 클래스 마법사를 실행하자.
-
-그러면, 아래의 창을 볼 수 있는데, 'CMouseMFCView' 클래스를 선택하고, [Message] 탭에서  'WM_MOUSEMOVE' 메시지를 더블클릭하자.
-
-그러면, 우측에 'OnMouseMove' 함수가 추가되는 것을 확인할 수 있다.
-
-![image](https://user-images.githubusercontent.com/68185569/153355054-96a95fc0-36e3-4af6-81aa-02b247e49fdb.png)
-
-<br/>
-
-그리고, 함수에 다음의 코드를 추가해주자.
-
-```c++
-// CMouseMFCView message handlers
-
-void CMouseMFCView::OnMouseMove(UINT nFlags, CPoint point)
-{
-	// TODO: Add your message handler code here and/or call default
-	m_Pos = point;
-	Invalidate();
-
-	CView::OnMouseMove(nFlags, point);
-}
-```
-
-<br/>
 
 ### 실행 결과
-
-<iframe id="video" width="750" height="500" src="/assets/video/2022-02-10-MouseMove.mp4" frameborder="0"> </iframe>
