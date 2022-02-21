@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (Win32) 마우스 좌표값 구하기 프로그램
+title: (MFC) 마우스 좌표값 구하기 프로그램
 subtitle: 마우스 좌표값 구하기 프로그램 작성 (윈도우 프로그램)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
