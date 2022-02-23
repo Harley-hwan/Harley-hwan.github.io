@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (MFC) 메시지 박스 프로그램 -2
+title: (MFC) 메시지 박스 프로그램 -3
 subtitle: MessageBox 프로그램 작성
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
