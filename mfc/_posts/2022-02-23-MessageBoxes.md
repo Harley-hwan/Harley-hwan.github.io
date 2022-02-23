@@ -259,7 +259,7 @@ void CMessageBoxesDlg::OnClickedButtonAri()
 
 <br/>
 
-### 실행 결과 1
+### 실행 결과
 
 ![image](https://user-images.githubusercontent.com/68185569/155276020-059d377d-b542-43ce-bd31-bc5a52916fbf.png)
 
