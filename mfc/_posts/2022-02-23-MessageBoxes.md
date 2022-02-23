@@ -38,6 +38,8 @@ comments: true
 
 #### 결과 3.  6가지의 버튼을 클릭했을 때 표시되는 메시지 박스는 다음과 같다.
 
+![image](https://user-images.githubusercontent.com/68185569/155276901-186988ec-3e4a-4c54-ac99-9c9b18494657.png)
+
 <br/>
 
 ## 구현
