@@ -1,14 +1,14 @@
 ---
 layout: post
-title: (MFC) 계산기 프로그램 작성
-subtitle: Calculator Program
+title: (MFC) 계산기 프로그램 작성 I
+subtitle: Calculator Program 1
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c++, mfc, calculator]
 comments: true
 ---
 
-# [MFC] 계산기 프로그램 작성
+# [MFC] 계산기 프로그램 작성 1
 
 - 최초 작성일: 2022년 2월 25일 (금)
 
