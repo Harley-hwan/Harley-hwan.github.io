@@ -16,39 +16,142 @@ comments: true
 
 [TOC]
 
-## 설명
+## 목적
 
-CString 클래스는 문자열을 관리하는 클래스이다.
-
-<br/>
-
-## CString 멤버 함수
-
-
-|멤버 함수|설명|
-|---|---|
-|GetLength| CString 객체 안에 있는 수를 반환|
-|IsEmpty|객체가 비어있는지 결정|
-|Empty|객체를 비우고 메모리를 비움|
-|GetAt|문자열의 특정 위치의 문자값을 반환|
-|SetAt|문자열의 특정 위치에 새로운 문자 삽입|
-|Compare|다른 문자열과 비교|
-|Mid|지정한 중간 부분부터 문자열 추출|
-|Right|오른쪽을 기준으로 문자열 추출|
-|Left|왼쪽을 기준으로 문자열 추출|
-|MakeUpper|문자열을 모두 대문자로 변환|
-|MakeLower|문자열을 모두 소문자로 변환|
-|MakeReverse|앞과 뒤를 역순으로 변환|
-|TrimLeft|문자열의 왼쪽에서 공백이나 탭 또는 지정한 문자열을 제거|
-|TrimRight|문자열의 오른쪽에서 공백이나 탭 또는 지정한 문자열을 제거|
-|Format|지정된 format 형식에 따라 문자열을 지정해 주는 함수|
-|Find|부분 문자열의 match되는 문자열을 찾음|
+사칙 연산과 CString 함수의 형 변환을 이용하여 계산기 프로그램을 작성한다.
 
 <br/>
 
-## CString 변환 함수
+### 프로젝트 생성
 
-(1) atoi() : char형을 int(부호있는 2byte 정수) 로 변환
-(2) atol() : char형을 long(4byte 정수) 로 변환
-(3) atof() : char형을 double(4byte 실수) 로 변환
-(4) itoa() : int형을 char 등으로 변환
+- 프로젝트명: 'Calc'
+- 응용 프로그램 종류: '대화 상자 기반'
+
+<br/>
+
+### 다이얼로그 설정
+
+![image](https://user-images.githubusercontent.com/68185569/155664654-42f13675-ba60-43c9-85fb-e1b83736c382.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155662132-e66c92ef-b872-40d1-b331-f030b3adf08f.png)
+
+
+
+<br/>
+
+### 멤버 변수 설정
+
+아래와 같이, [클래스 뷰]-[Calc]-[CCalcDlg]에서 [추가]-[변수 추가]를 클릭하고 멤버 변수를 추가한다.
+
+![image](https://user-images.githubusercontent.com/68185569/155664966-14d69c18-c8d6-4585-8bcf-6b460bfb7c4c.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155661411-b0448ed6-4362-4ef8-970e-88725296171f.png)
+
+<br/>
+
+그리고 클래스 마법사를 실행시키고, [멤버 변수] 탭에서 아래와 같이 멤버 변수들을 추가한다.
+
+![image](https://user-images.githubusercontent.com/68185569/155665510-b5e2f007-5740-40c7-8cb0-09071c0ea4da.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155665778-d5f6aecb-7570-4e30-8364-d2b8f917500d.png)
+
+<br/>
+
+또한, 클래스 마법사에서 다음과 같이 버튼 클릭시에 대한 멤버 함수를 추가하고, 코드를 작성하자.
+
+![image](https://user-images.githubusercontent.com/68185569/155672210-78256d1b-ae21-42ff-be38-c2364cc41119.png)
+
+
+### 코드 작성
+
+```c++
+void CCalcDlg::OnClickedButtonAdd()
+{
+	// TODO: Add your control notification handler code here
+	m_nOption = 1;
+}
+
+void CCalcDlg::OnClickedButtonSub()
+{
+	// TODO: Add your control notification handler code here
+	m_nOption = 2;
+}
+
+void CCalcDlg::OnClickedButtonMul()
+{
+	// TODO: Add your control notification handler code here
+	m_nOption = 3;
+}
+
+void CCalcDlg::OnClickedButtonDiv()
+{
+	// TODO: Add your control notification handler code here
+	m_nOption = 4;
+}
+
+void CCalcDlg::OnClickedButtonEqu()
+{
+	// TODO: Add your control notification handler code here
+	char temp[10];
+	double tmpResult;
+
+	UpdateData(TRUE);
+
+	switch (m_nOption)
+	{
+		case 1:
+			tmpResult = atof(m_nNum1) + atof(m_nNum2);	// [프로젝트 속성]-[구성 속성]-[고급]-[문자 집합]-[멀티바이트 문자 집합 사용] 안하면 에러뜸.
+			break;
+		case 2:
+			tmpResult = atof(m_nNum1) - atof(m_nNum2);
+			break;
+		case 3:
+			tmpResult = atof(m_nNum1) * atof(m_nNum2);
+			break;
+		case 4:
+			tmpResult = atof(m_nNum1) / atof(m_nNum2);
+			break;
+		default:
+			tmpResult = 0.00;
+			break;
+	}
+
+	sprintf_s(temp, "%2.f", tmpResult);
+	m_nResult = temp;
+	UpdateData(FALSE);
+}
+
+void CCalcDlg::OnClickedButtonClear()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	m_nNum1 = L"";
+	m_nNum2 = _T("");
+	m_nResult = _T("");
+	UpdateData(FALSE);
+}
+
+void CCalcDlg::OnClickedButtonExit()
+{
+	// TODO: Add your control notification handler code here
+	PostQuitMessage(0);
+}
+```
+
+<br/>
+
+### 결과
+
+![image](https://user-images.githubusercontent.com/68185569/155672509-8ce8846c-ae0f-4521-b013-d7484b451a61.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155672643-a0175b9d-d417-4310-94e0-7377f42b3c9a.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155672597-34f8314c-ad8f-4bd1-a03f-7481b61f39b4.png)
+
+![image](https://user-images.githubusercontent.com/68185569/155672740-f8732fec-68c4-46d1-88bb-3a9bb31ac747.png)
+
+
+
+
+
+
