@@ -1,7 +1,7 @@
 ---
 layout: post
-title: (MFC) 콘솔창 띄우기 (디버깅)
-subtitle: Console screen for mfc
+title: (MFC) 콘솔창 띄우기
+subtitle: Console Screen for mfc
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c++, mfc, debug]
@@ -21,3 +21,5 @@ comments: true
 ```c++
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 ```
+
+<br/>
