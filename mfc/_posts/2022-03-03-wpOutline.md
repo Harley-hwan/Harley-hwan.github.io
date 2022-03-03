@@ -1,7 +1,7 @@
 ---
 layout: post
 title: (MFC) 윈도우 프로그래밍 개요
-subtitle: 윈도우 프로그래밍이란?
+subtitle: 윈도우 프로그래밍이란
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c++, mfc, windowprogramming]
@@ -93,6 +93,3 @@ MFC는 사용자 인터페이스 구성 요소를 쉽게 다룰 수 있도록 C+
 윈도우 운영체제는 CPU 시간을 분할하여 각 스레드에 할당하는 방법으로 멀티스레딩을 구현한다.
 
 <br>
-
-
-
