@@ -31,15 +31,9 @@ comments: true
 
 ![슬라이드8](https://user-images.githubusercontent.com/68185569/156992025-65c8675f-2e7b-475d-85ac-2e1f3671cb71.PNG)
 
-![슬라이드9](https://user-images.githubusercontent.com/68185569/156992034-2ac9990e-fa2f-4704-aa4e-9cf0e344542b.PNG)
-
 <iframe id="video" width="750" height="500" src="/assets/video/slide9_video.mp4" frameborder="0"> </iframe>
 
-![슬라이드10](https://user-images.githubusercontent.com/68185569/156992047-ee03ec5e-71cc-4d2a-9189-dc5dedbd9767.PNG)
-
 <iframe id="video" width="750" height="500" src="/assets/video/slide10_video.mp4" frameborder="0"> </iframe>
-
-![슬라이드11](https://user-images.githubusercontent.com/68185569/156992053-8ea7dbff-e908-44ac-8c60-36bf44fe887c.PNG)
 
 <iframe id="video" width="750" height="500" src="/assets/video/slide11_video.mp4" frameborder="0"> </iframe>
 
