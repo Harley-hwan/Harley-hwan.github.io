@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 레이더 센서 신호 처리 및 검증 툴 (MFC)
+title: 레이더 센서 신호 처리 및 검증 툴
 subtitle: MFC 프로그래밍을 통한 raw 데이터 시각화 툴 개발
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
