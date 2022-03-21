@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 16. 객체지향의 시작 (OOP)
+title: (C#) 17. 객체지향의 시작 (OOP)
 subtitle: Object-Oriented Programming
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
