@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 데이터 다루기 (
+title: (C#) 데이터 다루기
 subtitle: Data Control with C#
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
