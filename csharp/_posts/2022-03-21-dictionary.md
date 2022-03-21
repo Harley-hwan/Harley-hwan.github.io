@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 딕셔너리 (Dictionary)
+title: (C#) 29. 딕셔너리 (Dictionary)
 subtitle: Data Structure
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
