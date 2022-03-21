@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) Reflection (리플렉션)
+title: (C#) 37. Reflection (리플렉션)
 subtitle: Syntax (문법)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
