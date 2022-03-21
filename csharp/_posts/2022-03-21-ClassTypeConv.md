@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 20. 클래스 형식 변환
+title: (C#) 22. 클래스 형식 변환
 subtitle: class type conversion
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
