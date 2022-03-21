@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 생성자 
+title: (C#) 17. 생성자 
 subtitle: constructor
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
