@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 데이터 연산
+title: (C#) 2. 데이터 연산
 subtitle: Data Operation with C#
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
