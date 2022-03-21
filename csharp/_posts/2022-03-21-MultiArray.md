@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 다차원 배열 (multi-array)
+title: (C#) 27. 다차원 배열 (multi-array)
 subtitle: Data Structure
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
