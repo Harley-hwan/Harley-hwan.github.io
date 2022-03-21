@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) Exception (예외 처리)
+title: (C#) 36. Exception (예외 처리)
 subtitle: Syntax (문법)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
