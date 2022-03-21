@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 가위바위보 게임
+title: (C#) 6. 가위바위보 게임
 subtitle: Rock-Scissors-Paper Game
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
