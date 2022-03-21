@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) Interface (인터페이스)
+title: (C#) 31. Interface (인터페이스)
 subtitle: Syntax (문법)
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
