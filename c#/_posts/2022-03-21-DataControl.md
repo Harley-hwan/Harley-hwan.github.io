@@ -1,16 +1,16 @@
 ---
 layout: post
 title: (C#) 데이터 다루기 (
-subtitle: Console Screen for mfc
+subtitle: Data Control with C#
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c++, mfc, debug]
+tags: [c#, unity, datacontrol]
 comments: true
 ---
 
 # 데이터 갖고 놀기 (정수 형식, 형식 변환)
 
-- 최초 작성일: 2021년 3월 3일(목)
+- 최초 작성일: 2021년 3월 21일(월)
 
 ## 목차
 
