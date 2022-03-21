@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 은닉성 (Encapsulation)
+title: (C#) 19. 은닉성 (Encapsulation)
 subtitle: OOP 은닉성
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
