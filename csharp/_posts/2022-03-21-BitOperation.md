@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 비트 연산
+title: (C#) 3. 비트 연산
 subtitle: Bit Operation with C#
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
