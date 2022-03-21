@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 상속성 (Inheritance)
+title: (C#) 19. 상속성 (Inheritance)
 subtitle: inheritance
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
