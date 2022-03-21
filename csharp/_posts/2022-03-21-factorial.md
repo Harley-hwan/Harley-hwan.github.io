@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 코드의 흐름 제어 (factorial)
+title: (C#) 15. 코드의 흐름 제어 (factorial)
 subtitle: factorial
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
