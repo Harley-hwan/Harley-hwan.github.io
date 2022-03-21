@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 구구단
+title: (C#) 13. 구구단
 subtitle: multiplication table with C#
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
