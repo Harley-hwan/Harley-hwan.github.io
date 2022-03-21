@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 다형성 (Polymorphism)
+title: (C#) 21. 다형성 (Polymorphism)
 subtitle: polymorphism
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
