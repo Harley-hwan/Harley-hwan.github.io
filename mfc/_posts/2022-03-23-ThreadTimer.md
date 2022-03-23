@@ -109,6 +109,12 @@ UINT CThreadEXDlg::TimeThread(LPVOID _mothod)
 }
 ```
 
-## Result
+## Result1
 
 <iframe id="video" width="750" height="500" src="/assets/video/ThreadTimer1.mp4" frameborder="0"> </iframe>
+
+<br/>
+
+그러면 이번에는, 다른 방법으로 구현해보자.
+
+
