@@ -137,11 +137,6 @@ UINT CThreadEXDlg::TimeThread(LPVOID _mothod)
 	print_time(&now, tail);
 
 	while (1) {
-
-		/*fir->m_staticDisp.Format(_T("%2d시 %2d분 %2d초 %2d\n", now->tm_hour, now->tm_min, now->tm_sec, tail));
-		fir->SetDlgItemTextW(IDC_STATIC_DISP, fir->m_staticDisp);
-		Sleep(100);*/
-
 		if (_kbhit())	// 키보드 입력을 확인함. 키가 눌러지면 1 반환.
 		{
 			break;
