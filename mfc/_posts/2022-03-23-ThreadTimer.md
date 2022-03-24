@@ -178,7 +178,7 @@ void print_time(struct tm* now, int tail)
 
 ### Result3
 
-아래의 코드에서 커서 위치를 지정하는 부분을 지워보자.
+아래의 코드 커서 위치를 지정하는 부분을 지워보자.
 
 ```c++
 void print_time(struct tm* now, int tail)
