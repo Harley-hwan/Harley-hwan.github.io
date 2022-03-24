@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Timer with thread
+title: (MFC) Timer with thread
 subtitle: 쓰레드를 활용한 타이머 구현
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
