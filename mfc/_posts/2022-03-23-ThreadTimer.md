@@ -176,7 +176,7 @@ void print_time(struct tm* now, int tail)
 
 <br/>
 
-### Result3
+## 구현3
 
 아래의 코드 커서 위치를 지정하는 부분을 지워보자.
 
@@ -191,5 +191,7 @@ void print_time(struct tm* now, int tail)
 ```
 
 <br/>
+
+### Result3
 
 <iframe id="video" width="750" height="500" src="/assets/video/ThreadTimer3.mp4" frameborder="0"> </iframe>
