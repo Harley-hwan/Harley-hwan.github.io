@@ -109,7 +109,7 @@ UINT CThreadEXDlg::TimeThread(LPVOID _mothod)
 }
 ```
 
-## Result1
+### Result1
 
 <iframe id="video" width="750" height="500" src="/assets/video/ThreadTimer1.mp4" frameborder="0"> </iframe>
 
@@ -117,4 +117,84 @@ UINT CThreadEXDlg::TimeThread(LPVOID _mothod)
 
 그러면 이번에는, 다른 방법으로 구현해보자.
 
+<br/>
 
+## 구현2
+
+```c++
+UINT CThreadEXDlg::TimeThread(LPVOID _mothod)
+{
+	CThreadEXDlg* fir = (CThreadEXDlg*)_mothod;
+	
+	clock_t sclock, nclock;
+	time_t seconds;
+	struct tm now;
+	int tail = 0;
+
+	sclock = clock();
+	time(&seconds);
+	localtime_s(&now, &seconds);
+	print_time(&now, tail);
+
+	while (1) {
+
+		/*fir->m_staticDisp.Format(_T("%2d시 %2d분 %2d초 %2d\n", now->tm_hour, now->tm_min, now->tm_sec, tail));
+		fir->SetDlgItemTextW(IDC_STATIC_DISP, fir->m_staticDisp);
+		Sleep(100);*/
+
+		if (_kbhit())	// 키보드 입력을 확인함. 키가 눌러지면 1 반환.
+		{
+			break;
+		}
+		nclock = clock();
+
+		if (nclock - sclock >= (CLOCKS_PER_SEC / 1000))
+		{
+			tail++;
+			if (tail == 1000)//1초가 지나면
+			{
+				tail = 0;
+				sclock = clock();
+				time(&seconds);
+				localtime_s(&now, &seconds);
+			}
+			print_time(&now, tail);
+		}
+	}
+	return 0;
+}
+
+void print_time(struct tm* now, int tail)
+{
+	COORD CursorPostion = { 0,1 };
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), CursorPostion);
+
+	printf("%2d시 %2d분 %2d초 %2d\n", now->tm_hour, now->tm_min, now->tm_sec, tail);
+}
+```
+
+<br/>
+
+### Result2
+
+<iframe id="video" width="750" height="500" src="/assets/video/ThreadTimer2.mp4" frameborder="0"> </iframe>
+
+<br/>
+
+### Result3
+
+아래의 코드에서 커서 위치를 지정하는 부분을 지워보자.
+
+```c++
+void print_time(struct tm* now, int tail)
+{
+	//COORD CursorPostion = { 0,1 };
+	//SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), CursorPostion);
+
+	printf("%2d시 %2d분 %2d초 %2d\n", now->tm_hour, now->tm_min, now->tm_sec, tail);
+}
+```
+
+<br/>
+
+<iframe id="video" width="750" height="500" src="/assets/video/ThreadTimer3.mp4" frameborder="0"> </iframe>
