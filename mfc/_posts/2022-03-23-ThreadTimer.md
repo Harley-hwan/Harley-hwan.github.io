@@ -8,7 +8,7 @@ tags: [c++, mfc, thread, timer]
 comments: true
 ---
 
-# Timer with Thread
+# Timer with Thread (MFC)
 
 - 최초 작성일: 2022년 3월 23일(수)
 
