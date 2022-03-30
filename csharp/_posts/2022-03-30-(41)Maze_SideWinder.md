@@ -26,6 +26,10 @@ comments: true
 
 <br/>
 
+---
+
+<br/>
+
 그러면, Board.cs 코드에서 SideWinder를 위한 함수를 구현해주고, Initialize에서 함수를 호출해주자. (앞서 했던 BinaryTree 방식 대신에 넣는다.)
 
 그리고 마찬가지로 외벽은 막혀있어야한다는 것이 조건이므로 추가해준다.
