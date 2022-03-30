@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 41. 미로 알고리즘 (PlayerMoving)
+title: (C#) 42. 미로 알고리즘 (PlayerMoving)
 subtitle: 플레이어 이동
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
