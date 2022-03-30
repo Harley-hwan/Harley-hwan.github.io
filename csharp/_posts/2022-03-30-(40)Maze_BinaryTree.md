@@ -1,14 +1,14 @@
 ---
 layout: post
-title: (C#) 40. 미로 알고리즘 (Maze Algorithm)
-subtitle: Binary Tree, SideWinder, 오른손 법칙
+title: (C#) 40. 미로 알고리즘 (Binary Tree)
+subtitle: Binary Tree 미로 생성 알고리즘
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c#, unity, maze, algorithm, binary tree, side winder, right hand rule]
+tags: [c#, unity, maze, algorithm, binary tree]
 comments: true
 ---
 
-# 
+# Binary Tree 미로 생성 알고리즘 (Maza Algorithm)
 
 - 최초 작성일: 2021년 3월 30일(수)
 
@@ -158,6 +158,8 @@ Board.cs의 Initialize 함수만 살짝 바꿔본다.
 
 그러면, 맵의 모든 공간이 벽인 상태에서 듬성듬성 공간을 비워주는 형태를 확인할 수 있다.
 
+#### Board.cs
+
 ```c#
 public void Initialize(int size)
 {
@@ -192,6 +194,8 @@ public void Initialize(int size)
 그 다음은 띄엄띄엄 비워준 부분을 기준으로 오른쪽 혹은 아래로 갈지를 랜덤으로 결정하여 경로를 만들어보자.
 
 <br/>
+
+#### Board.cs
 
 ``` c#
 public void Initialize(int size)
@@ -253,6 +257,123 @@ public void Initialize(int size)
 아래쪽 벽을 만났을 때는 무조건 오른쪽으로 이동이라는 조건을 추가해준다.
 
 <br/>
+
+#### Board.cs
+
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Maze
+{
+    class Board
+    {
+        const char CIRCLE = '\u25cf';
+        public TileType[,] Tile;    //배열
+        public int Size;
+
+        public enum TileType
+        {
+            Empty,
+            Wall,
+        }
+        public void Initialize(int size)
+        {
+            if (size % 2 == 0)
+                return;
+
+            Tile = new TileType[size, size];
+            Size = size;
+
+            // Mazes for Programmers
+            GenerateByBinaryTree();
+        }
+
+        void GenerateByBinaryTree()
+        {
+            // 일단 길을 다 막아버리는 작업
+            for (int y = 0; y < Size; y++)
+            {
+                for (int x = 0; x < Size; x++)
+                {
+                    if (x % 2 == 0 || y % 2 == 0)
+                        Tile[y, x] = TileType.Wall;
+                    else
+                        Tile[y, x] = TileType.Empty;
+                }
+            }
+
+            // 랜덤으로 우측 혹은 아래로 길을 뚫는 작업
+            Random rand = new Random();
+            for (int y = 0; y < Size; y++)
+            {
+                for (int x = 0; x < Size; x++)
+                {
+                    if (x % 2 == 0 || y % 2 == 0)
+                        continue;
+
+                    if (y == Size - 2 && x == Size - 2)     // 가장 오른쪽 아래 지점에 도착했을 때
+                        continue;                           // 무조건 오른쪽으로 가게하던 것을 없앰.
+
+                    if (y == Size - 2)  // 아래쪽 벽을 만났을 때
+                    {
+                        Tile[y, x + 1] = TileType.Empty;    // 무조건 오른쪽으로 가게함.
+                        continue;
+                    }
+
+                    if (x == Size - 2)  // 오른쪽 벽을 만났을 때
+                    {
+                        Tile[y + 1, x] = TileType.Empty;    // 무조건 아래로 가게함.
+                        continue;
+                    }
+
+                    if (rand.Next(0, 2) == 0)
+                    {
+                        Tile[y, x + 1] = TileType.Empty;
+                    }
+                    else
+                    {
+                        Tile[y + 1, x] = TileType.Empty;
+                    }
+
+                }
+            }
+        }
+
+        public void Render()        // 렌더링
+        {
+            ConsoleColor prevColor = Console.ForegroundColor;
+
+            for (int y = 0; y < Size; y++)
+            {
+                for (int x = 0; x < Size; x++)
+                {
+                    Console.ForegroundColor = GetTileColor(Tile[y, x]);
+                    Console.Write(CIRCLE);
+                }
+                Console.WriteLine();
+            }
+            Console.ForegroundColor = prevColor;
+        }
+
+        ConsoleColor GetTileColor(TileType type)
+        {
+            switch (type)
+            {
+                case TileType.Empty:
+                    return ConsoleColor.Green;
+                case TileType.Wall:
+                    return ConsoleColor.Red;
+                default:
+                    return ConsoleColor.Green;
+            }
+        }
+    }
+}
+```
 
 #### Result 2-3
 
