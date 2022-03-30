@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (C#) 40. 미로 알고리즘 (SideWinder)
+title: (C#) 41. 미로 알고리즘 (SideWinder)
 subtitle: SideWinder 미로 생성 알고리즘
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
