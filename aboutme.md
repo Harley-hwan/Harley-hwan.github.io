@@ -6,7 +6,7 @@ subtitle: Why you'd want to go on a date with me
 
 My name is Janghwan Kim. (My English name is Harley)
 
-- R&D of GOLFZON (Sensor development)
+- R&D in GOLFZON (Sensor development)
 - Computer Science
 - Busan National University (Graduated)
 - SSAFY (Samsung Software Academy For Youth) 7th
