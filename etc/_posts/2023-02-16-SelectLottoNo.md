@@ -1,3 +1,31 @@
+---
+layout: post
+title: 로또 번호 랜덤 추출 (c++)
+subtitle: c++, lotto, srand. algorithm, ctime
+gh-repo: harley-hwan/harley-hwan.github.io
+gh-badge: [star, fork, follow]
+tags: [c++, lotto, srand. algorithm, ctime]
+comments: true
+---
+
+# 로또 번호 랜덤 추출 (c++)
+- 최초 작성일: 2023년 2월 16일 (목)
+
+## 목차
+
+[TOC]
+
+<br/>
+
+## 내용
+
+재미로 만든거니 안됐다고 탓하지 마세요^^
+
+<br/>
+
+### 코드
+
+```c++
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
@@ -26,3 +54,5 @@ int main() {
 
     return 0;
 }
+
+```
