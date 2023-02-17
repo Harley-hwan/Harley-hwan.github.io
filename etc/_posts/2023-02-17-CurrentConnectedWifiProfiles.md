@@ -458,5 +458,30 @@ int main() {
 
 ![image](https://user-images.githubusercontent.com/68185569/219582653-68ab9172-7ad5-47b6-b541-11ce38c1959d.png)
 
+<br/>
 
+<br/>
+
+## 실습3
+
+그렇게 뽑은 프로필 리스트 중 원하는 것만 뽑아내보자.
+
+```c++
+for (DWORD j = 0; j < pProfileList->dwNumberOfItems; j++) {
+    PWLAN_PROFILE_INFO pProfileInfo = &pProfileList->ProfileInfo[j];
+    std::wstring profileName = ConvertWCharToString(pProfileInfo->strProfileName);
+    if (profileName == connectedProfileName) {
+        std::wcout << "Matched connected WiFi profile: " << profileName << std::endl;
+        // Select profiles that start with "WAVE"
+        if (profileName.compare(0, 6, L"VISION") == 0) {
+            std::wcout << "Selected profile: " << profileName << std::endl;
+        }
+    }    
+}
+
+```
+
+### 결과3
+
+![image](https://user-images.githubusercontent.com/68185569/219586052-a188aa65-f17a-44b0-bef6-bf65ea401082.png)
 
