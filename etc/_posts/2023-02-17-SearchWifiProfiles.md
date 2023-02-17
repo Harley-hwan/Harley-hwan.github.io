@@ -19,6 +19,10 @@ comments: true
 
 ## 내용
 
+시스템 커맨드 "netsh wlan show profiles" 결과와 동일
+
+<br/>
+
 ```c++
 #include <iostream>
 #include <Windows.h>
