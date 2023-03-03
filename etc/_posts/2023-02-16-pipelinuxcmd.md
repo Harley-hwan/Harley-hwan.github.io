@@ -144,6 +144,27 @@ std::vector<std::string> getE6ServerIPpipe()
 
 <br/>
 
+위 소스를 컴파일해보면, 아래와 같은 'warning'을 확인할 수 있다. 무시해도 되지만, 찝찝하다면 다음과 같은 방법으로 해결하면 된다.
+
+```c++
+warning: ISO C++ forbids converting a string constant to ‘char*’ [-Wwrite-strings]
+     char* arguments[] = {"arp",NULL}; 
+```
+
+<br/>
+
+해당 경고는 문자열 상수(string constant)를 char 포인터로 변환하는 것이 C++ 표준에 의해 금지된 것이라는 의미이다.
+
+char* 타입의 포인터는 일반적으로 가리키는 메모리 공간을 수정할 수 있는 포인터로 간주되므로, 이러한 문자열 상수는 const char* 타입으로 선언하고 포인터에 대해 const 캐스팅을 수행해야 한다.
+
+따라서 해당 경고를 해결하기 위해서는 다음과 같이 코드를 수정할 수 있다.
+
+```c++
+const char* arguments[] = {"arp", NULL};
+```
+
+<br/>
+
 <br/>
 
 ### 소스코드 3
