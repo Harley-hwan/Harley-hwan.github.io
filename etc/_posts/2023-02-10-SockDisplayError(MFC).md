@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Socket error display
+title: Socket error display (MFC)
 subtitle: socket, error, display, c++, c, mfc
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
