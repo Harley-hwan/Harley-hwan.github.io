@@ -22,26 +22,26 @@ comments: true
 ### 소스코드 1
 
 ```c++
-  #include <iostream>
-  #include <cstdio>
-  #include <string>
+#include <iostream>
+#include <cstdio>
+#include <string>
 
-  int main() {
-      FILE* pipe = popen("arp -a", "r");
-      if (!pipe) return 1;
+int main() {
+    FILE* pipe = popen("arp -a", "r");
+    if (!pipe) return 1;
 
-      char buffer[128];
-      std::string result = "";
-      while (!feof(pipe)) {
-          if (fgets(buffer, 128, pipe) != nullptr)
-              result += buffer;
-      }
+    char buffer[128];
+    std::string result = "";
+    while (!feof(pipe)) {
+        if (fgets(buffer, 128, pipe) != nullptr)
+            result += buffer;
+    }
 
-      pclose(pipe);
+    pclose(pipe);
 
-      std::cout << result << std::endl;
-      return 0;
-  }
+    std::cout << result << std::endl;
+    return 0;
+}
 ```
 
 </br>
@@ -60,69 +60,83 @@ comments: true
 ### 소스코드 2
 
 ```c++
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <sys/types.h>
-  #include <unistd.h>
-  #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <string.h>
 
-  std::vector<std::string> ip_list;
+std::vector<std::string> getE6ServerIPpipe()
+{
+    std::vector<std::string> ip_list;
+    //static bool initflag=false;
+    //if(initflag)
+    //	return ip_list;
+    //initflag=true;
+    int my_pipe[2];
+    char* arguments[] = {"arp",NULL}; 
 
-  int my_pipe[2];
-  char* arguments[] = {"arp",NULL}; 
+    if(pipe(my_pipe) == -1)
+    {
+        fprintf(stderr, "Error creating pipe\n");
+    }
 
-  if(pipe(my_pipe) == -1)
-  {
-      fprintf(stderr, "Error creating pipe\n");
-  }
-
-  pid_t child_id;
-  child_id = fork();
-  if(child_id == -1)
-  {
-      fprintf(stderr, "Fork error\n");
-  }
-  if(child_id == 0) // child process
-  {
-      close(my_pipe[0]); // child doesn't read
-      dup2(my_pipe[1], 1); // redirect stdout
-
-      execvp(arguments[0], arguments);
-
-      fprintf(stderr, "Exec failed\n");
-  }
-  else
-  {
-      close(my_pipe[1]); // parent doesn't write
-
-      char reading_buf[1024];
-      char *ptr=reading_buf;
-      while(read(my_pipe[0], ptr, 1) > 0)
-      {
-          //write(1, reading_buf, 1); // 1 -> stdout
-          ptr++;
-      }
-
-      (*ptr)='\0';
-      char *line=strtok(reading_buf,"\n"); // skip
-      line=strtok(NULL,"\n");
-
-      while(line)
-      {
-          int i;
-          for(i=0;!isspace(line[i]);i++);
-
-          line[i]='\0';
-          ip_list.push_back(line);
-
-          //printf("%s--------------------\n",line);
-          line=strtok(NULL,"\n");
-      }
-      close(my_pipe[0]);
+	//std::string ip;
+	//system("arp -a > /home/pi/test/e6/ip.txt");
 
 
-      wait();
-  }
+    pid_t child_id;
+    child_id = fork();
+    if(child_id == -1)
+    {
+        fprintf(stderr, "Fork error\n");
+    }
+    if(child_id == 0) // child process
+    {
+        close(my_pipe[0]); // child doesn't read
+        dup2(my_pipe[1], 1); // redirect stdout
+
+        execvp(arguments[0], arguments);
+
+        fprintf(stderr, "Exec failed\n");
+    }
+    else
+    {
+        close(my_pipe[1]); // parent doesn't write
+
+        char reading_buf[1024];
+        char *ptr=reading_buf;
+        while(read(my_pipe[0], ptr, 1) > 0)
+        {
+            //write(1, reading_buf, 1); // 1 -> stdout
+            ptr++;
+        }
+
+        (*ptr)='\0';
+        char *line=strtok(reading_buf,"\n"); // skip
+        line=strtok(NULL,"\n");
+
+        while(line)
+        {
+            int i;
+            for(i=0;!isspace(line[i]);i++);
+
+            line[i]='\0';
+            ip_list.push_back(line);
+
+            //printf("%s--------------------\n",line);
+            line=strtok(NULL,"\n");
+        }
+        close(my_pipe[0]);
+
+        
+        wait();
+    }
+
+ 
+	return ip_list;
+    
+}
 ```
 
 <br/>
