@@ -19,6 +19,8 @@ comments: true
 
 ## 내용
 
+### 소스코드 1
+
 ```c++
   #include <iostream>
   #include <cstdio>
@@ -42,9 +44,20 @@ comments: true
   }
 ```
 
-<br/>
+</br>
 
-<br/>
+### 결과 1
+
+```c++
+? (192.168.8.152) at 88:36:6c:fc:2c:4f [ether] on wlan0
+? (192.168.8.114) at 5a:ff:ec:d1:cb:a4 [ether] on wlan0
+```
+
+</br>
+
+</br>
+
+### 소스코드 2
 
 ```c++
   #include <stdio.h>
@@ -110,5 +123,60 @@ comments: true
 
       wait();
   }
+```
+
+<br/>
+
+### 결과 2
+
+```c++
+192.168.8.152
+192.168.8.114
+```
+
+<br/>
+
+<br/>
+
+### 소스코드 3
+
+```c++
+std::vector<std::string> getIPList() {
+    FILE* pipe = popen("arp -a", "r");
+    if (!pipe) {
+        std::cerr << "popen() failed!" << std::endl;
+        exit(1);
+    }
+
+    std::vector<std::string> ip_list;
+    char buffer[128];
+    std::string arpOutput = "";
+    while (!feof(pipe)) {
+        if (fgets(buffer, 128, pipe) != nullptr) {
+            arpOutput += buffer;
+        }
+    }
+    pclose(pipe);
+
+    size_t pos_left, pos_right;
+    while ((pos_left = arpOutput.find("(")) != std::string::npos) {
+        pos_right = arpOutput.find(")", pos_left);
+        if (pos_right != std::string::npos) {
+            std::string token = arpOutput.substr(pos_left + 1, pos_right - pos_left - 1);
+            ip_list.push_back(token);
+        }
+        arpOutput.erase(0, pos_right + 1);
+    }
+    return ip_list;
+}
+```
+
+<br/>
+
+### 결과 3
+
+```c++
+192.168.8.152
+192.168.8.114
 ```
 
