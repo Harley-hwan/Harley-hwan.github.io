@@ -84,7 +84,6 @@ std::vector<std::string> getE6ServerIPpipe()
 	//std::string ip;
 	//system("arp -a > /home/pi/test/e6/ip.txt");
 
-
     pid_t child_id;
     child_id = fork();
     if(child_id == -1)
@@ -128,14 +127,9 @@ std::vector<std::string> getE6ServerIPpipe()
             line=strtok(NULL,"\n");
         }
         close(my_pipe[0]);
-
-        
         wait();
     }
-
- 
 	return ip_list;
-    
 }
 ```
 
