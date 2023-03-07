@@ -311,3 +311,179 @@ int main() {
     return 0;
 }
 ```
+
+<br/>
+
+위의 소스를 이용해 뽑은 ip가 없을 때, "wasipEmpty"가 출력되도록 조치해두고,
+
+while 문으로 반복해서 실행하다 보니 아래와 같은 에러가 반복적으로 발생했다.
+
+
+
+```c++
+/proc/net/arp: Too many open files
+wasipEmpty
+```
+
+<br/>
+
+에러 메시지 "/proc/net/arp: Too many open files"는 파일 디스크립터(fd)를 더 이상 열 수 없다는 의미이다.
+
+이 오류는 리눅스 시스템에서 열 수 있는 파일 디스크립터의 개수를 초과하였을 때 발생하는 경우가 많다.
+
+해결 방법으로는 다음과 같은 것들이 있습니다.
+
+<br/>
+
+#### 1. 파일 디스크립터 제한 해제
+
+리눅스 시스템은 각 프로세스가 열 수 있는 파일 디스크립터 수를 제한한다.
+
+이 한계를 초과하면 파일 디스크립터를 더 이상 열 수 없게 되어서 해당 오류가 발생한다.
+
+이 경우에는 파일 디스크립터 제한을 해제해 주어야 합니다.
+
+파일 디스크립터 제한을 해제하려면, 다음과 같이 ulimit 명령을 사용하여 제한을 늘리거나, /etc/security/limits.conf 파일에 해당 유저 또는 그룹에 대한 설정을 추가하여 제한을 해제할 수 있다.
+
+```c++
+ulimit -n 10000 # 파일 디스크립터 개수를 10000으로 늘림
+```
+
+<br/>
+
+#### 2. 파일 디스크립터를 닫아주기
+
+프로그램이 실행되는 동안 열린 파일 디스크립터를 모두 닫아주지 않으면 이러한 에러가 발생할 수 있다.
+이 경우에는 파일 디스크립터를 닫아주는 코드를 추가하여 해결할 수 있다.
+
+close() 함수를 사용하여 열린 파일 디스크립터를 닫아줄 수 있다.
+
+만약 소켓이나 파일 등을 열었을 때 해당 파일 디스크립터를 변수에 저장해 두었다면, 프로그램이 더 이상 해당 파일 디스크립터를 사용하지 않게 될 때 close() 함수를 호출하여 닫아주어야 한다.
+
+<br/>
+
+그래서 아래와 같이 수정해보았다.
+
+<br/>
+
+<br/>
+
+### 풀소스 2
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+
+using namespace std;
+
+vector<string> getARPList() {
+    vector<string> ip_list;
+
+    int my_pipe[2];
+    const char* arguments[] = {"arp", "-a", NULL}; 
+
+    if(pipe(my_pipe) == -1)
+    {
+        fprintf(stderr, "Error creating pipe\n");
+        return ip_list;
+    }
+
+    pid_t child_id;
+    child_id = fork();
+    if(child_id == -1)
+    {
+        fprintf(stderr, "Fork error\n");
+        return ip_list;
+    }
+    if(child_id == 0) // child process
+    {
+        close(my_pipe[0]); // child doesn't read
+        dup2(my_pipe[1], 1); // redirect stdout
+
+        execvp(arguments[0], const_cast<char**>(arguments));
+
+        fprintf(stderr, "Exec failed\n");
+        exit(1);
+    }
+    else
+    {
+        close(my_pipe[1]); // parent doesn't write
+
+        char* reading_buf = new char[1024];
+        char *ptr=reading_buf;
+        while(read(my_pipe[0], ptr, 1) > 0)
+        {
+            ptr++;
+        }
+
+        (*ptr)='\0';
+        char *line=strtok(reading_buf,"\n"); // skip
+
+        while(line)
+        {
+            // search for MAC address in parentheses
+            char* mac_start = strstr(line, "(");
+            if(mac_start) {
+                char* mac_end = strstr(mac_start, ")");
+                if(mac_end) {
+                    string mac_address(mac_start + 1, mac_end - mac_start - 1);
+                    ip_list.push_back(mac_address);
+                }
+            }
+
+            line=strtok(NULL,"\n");
+        }
+
+        delete[] reading_buf;
+        close(my_pipe[0]);
+        waitpid(child_id, NULL, 0); // wait for child process to terminate
+    }
+
+    return ip_list;
+}
+
+int main() {
+    while (1)
+    {
+        vector<string> arp_list = getARPList();
+        for (int i = 0; i < arp_list.size(); i++) {
+            cout << arp_list[i] << endl;
+        }
+        sleep(1);
+    }
+    return 0;
+}
+```
+
+<br/>
+
+해당 코드는 C++에서 ARP 테이블에서 MAC 주소를 뽑아 IP 주소와 함께 출력하는 코드이다.
+
+우선 getE6ServerIPpipe 함수는 ARP 테이블 정보를 받아오기 위해 arp 명령어를 실행시키고, 명령어 실행 결과를 파이프로부터 읽어와서 처리한다. 
+
+이를 위해 pipe, fork, dup2, execvp, waitpid 함수를 사용한다.
+
+<br/>
+
+pipe 함수는 파이프를 생성하고, fork 함수는 새로운 프로세스를 만든다.
+
+자식 프로세스는 execvp 함수를 이용해 arp 명령어를 실행하고, 결과를 파이프에 출력한다. 
+
+부모 프로세스는 파이프로부터 읽어온 결과를 처리하고, 자식 프로세스가 종료될 때까지 대기한다.
+
+<br/>
+
+읽어온 결과를 처리할 때는 먼저 문자열 버퍼를 만들고, strtok 함수를 이용해 한 줄씩 읽어와서 IP 주소와 MAC 주소를 분리해 출력한다. 
+
+이 때, MAC 주소는 괄호로 둘러싸여 있으므로 괄호 안의 문자열만 추출하여 출력한다. 
+
+IP 주소와 MAC 주소는 std::pair 객체에 저장하고, 이들을 std::vector에 추가한다.
+
+마지막으로 자식 프로세스에서 열린 파일 디스크립터를 닫아준다.
