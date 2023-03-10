@@ -487,3 +487,55 @@ pipe 함수는 파이프를 생성하고, fork 함수는 새로운 프로세스�
 IP 주소와 MAC 주소는 std::pair 객체에 저장하고, 이들을 std::vector에 추가한다.
 
 마지막으로 자식 프로세스에서 열린 파일 디스크립터를 닫아준다.
+
+
+<br/>
+
+<br/>
+
+#### 위의 코드를 이용했을 때도 아래의 에러가 발생하였다.
+
+```c++
+/proc/net/arp: Too many open files
+/proc/net/arp: Too many open files
+/proc/net/arp: Too many open files
+/proc/net/arp: Too many open files
+/proc/net/arp: Too many open files
+```
+
+<br/>
+
+이유를 모르겠다... 다른 방법을 또 찾아보자.
+
+그래서 다른 버전으로 새로 하나 짜봤다.. 테스트 해보자.
+
+```c++
+std::vector<std::string> E6Client::getIPListFromARP()
+{
+    std::vector<std::string> ip_list;
+
+    // 시스템 명령어로 arp -a 실행
+    std::string command = "arp -a";
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+
+    // 결과에서 IP 주소 추출
+    std::smatch match;
+    std::regex re("\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b");
+    std::string::const_iterator searchStart(result.cbegin());
+    while (std::regex_search(searchStart, result.cend(), match, re)) {
+        ip_list.push_back(match.str());
+        searchStart = match.suffix().first;
+    }
+
+    return ip_list;
+}
+```
+
