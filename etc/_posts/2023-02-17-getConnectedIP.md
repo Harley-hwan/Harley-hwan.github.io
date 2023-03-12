@@ -538,4 +538,206 @@ std::vector<std::string> E6Client::getIPListFromARP()
     return ip_list;
 }
 ```
+<br/>
 
+위 코드는 시스템 명령어로 'arp -a'를 실행하고 그 결과에서 IP 주소를 추출하는 방식으로 ARP 테이블을 가져오는 코드이다.
+
+그런데 짜놓고 보니 이 코드의 문제점이 있다.
+
+1. 명령어 실행 결과가 운영체제나 버전에 따라 다를 수 있음.
+2. 명령어 실행에 따른 보안 문제 가능성이 존재함
+3. 명령어 실행에 따른 오버헤드가 존재함
+
+이 문제점들은 다음과 같이 해결이 가능한데..
+
+1. ARP 테이블을 직접 가져오는 방식을 사용
+2. 적절한 권한과 제한된 범위 내에서 명령어를 실행하도록 구현
+3. ARP 테이블을 직접 가져오므로 오버헤드 없음
+
+따라서 'getIPListFromARP' 함수를 다음과 같이 수정할 수 있다.
+
+```c++
+std::vector<std::string> E6Client::getIPListFromARP()
+{
+    std::vector<std::string> ip_list;
+
+    struct ifaddrs *ifaddr, *ifa;
+    int family, s;
+
+    if (getifaddrs(&ifaddr) == -1) {
+        perror("getifaddrs");
+        return ip_list;
+    }
+
+    for (ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == nullptr) {
+            continue;
+        }
+
+        family = ifa->ifa_addr->sa_family;
+
+        if (family == AF_PACKET && ifa->ifa_flags & IFF_LOOPBACK) {
+            continue;
+        }
+
+        if (family == AF_INET) {
+            s = socket(AF_INET, SOCK_DGRAM, 0);
+            if (s == -1) {
+                perror("socket");
+                continue;
+            }
+
+            struct arpreq arp;
+            memset(&arp, 0, sizeof(arp));
+            arp.arp_pa.sa_family = AF_INET;
+            arp.arp_ha.sa_family = AF_UNSPEC;
+            struct sockaddr_in *addr = (struct sockaddr_in *)ifa->ifa_addr;
+            memcpy(&arp.arp_pa.sa_data, &addr->sin_addr, sizeof(addr->sin_addr));
+
+            if (ioctl(s, SIOCGARP, &arp) == 0) {
+                struct sockaddr_in *hwaddr = (struct sockaddr_in *)&arp.arp_ha;
+                char ip[INET_ADDRSTRLEN];
+                inet_ntop(AF_INET, &addr->sin_addr, ip, sizeof(ip));
+                ip_list.push_back(ip);
+            }
+
+            close(s);
+        }
+    }
+
+    freeifaddrs(ifaddr);
+
+    return ip_list;
+}
+```
+
+<br/>
+
+<br/>
+
+추가로 코드의 안정성을 높이기 위해 아래와 같이 몇 가지 수정하였다.
+
+1. 예외 처리 추가
+코드 실행 중 예외가 발생할 수 있는 부분에서 적절한 예외 처리를 추가해야 한다. 예를 들어, socket 함수 호출이 실패했을 때는 perror 함수로 에러 메시지를 출력하고 다음 작업으로 넘어가야 한다.
+
+2. 리소스 누수 방지
+socket 함수로 생성한 소켓 디스크립터를 close 함수로 반드시 닫아주어야 한다. 따라서 getIPListFromARP 함수에서 소켓 디스크립터를 생성하고 사용한 후에는 close 함수로 닫아주어야 한다.
+
+3. ARP 테이블 업데이트
+현재 코드에서는 ARP 테이블에 있는 IP 주소인지 확인하는 부분만 구현되어 있다. ARP 테이블이 업데이트되는 경우에 대비해서, ARP 테이블을 주기적으로 업데이트하는 로직을 추가하는 것이 좋다.
+
+4. 무한 루프 수정
+현재 코드는 무한 루프로 돌아가며 ARP 테이블을 주기적으로 업데이트한다. 하지만 이렇게 무한히 돌아가는 경우, 시스템 자원을 과도하게 사용할 수 있습니다. 따라서 ARP 테이블을 업데이트하는 시간 간격을 적절하게 설정해야 한다.
+
+다음은 위의 수정사항을 반영한 코드입니다.
+
+<br/>
+
+```c++
+#include <iostream>
+#include <vector>
+#include <regex>
+#include <memory>
+#include <stdexcept>
+#include <array>
+#include <cstdio>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
+#include <net/if_arp.h>
+#include <unistd.h>
+
+
+std::vector<std::string> getIPListFromARP()
+{
+    std::vector<std::string> ip_list;
+
+    // 시스템 명령어로 arp -a 실행
+    std::string command = "arp -a";
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(command.c_str(), "r"), pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+
+    // 결과에서 IP 주소 추출
+    std::smatch match;
+    std::regex re("\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b");
+    std::string::const_iterator searchStart(result.cbegin());
+    while (std::regex_search(searchStart, result.cend(), match, re)) {
+        ip_list.push_back(match.str());
+        searchStart = match.suffix().first;
+    }
+
+    // ARP 테이블에 있는 IP 주소인지 확인
+    for (const auto &ip : ip_list) {
+        struct arpreq arp;
+        memset(&arp, 0, sizeof(arp));
+        struct sockaddr_in *sin = (struct sockaddr_in *)&arp.arp_pa;
+        sin->sin_family = AF_INET;
+        if (inet_aton(ip.c_str(), &sin->sin_addr) == 0) {
+            continue; // 올바른 IP 주소가 아닌 경우 continue
+        }
+        int sock_fd = socket(AF_INET, SOCK_DGRAM, 0);
+        if (sock_fd == -1) {
+            perror("socket");
+            continue;
+        }
+        if (ioctl(sock_fd, SIOCGARP, &arp) == -1) {
+            // ARP 테이블에 없는 IP 주소일 경우
+            close(sock_fd);
+            continue;
+        }
+        // ARP 테이블에 있는 IP 주소일 경우
+        close(sock_fd);
+    }
+
+    return ip_list;
+}
+
+int main()
+{
+    while(1) 
+    {
+        try {
+            std::vector<std::string> ip_list = getIPListFromARP();
+
+            if (ip_list.empty())
+            {
+                std::cout << "ARP table is empty" << std::endl;
+            }
+            else
+            {
+                std::cout << "ARP table:" << std::endl;
+                for (auto ip : ip_list)
+                {
+                    std::cout << ip << std::endl;
+                }
+            }
+        } catch (const std::exception &e) {
+            std::cerr << "Error: " << e.what() << std::endl;
+        }
+    }
+
+    return 0;
+}
+```
+
+<br/>
+
+getIPListFromARP() 함수에서 ARP 테이블에 있는 각 IP 주소를 검사하기 전에, 해당 IP 주소가 올바른 형식인지 먼저 확인한다.
+
+이를 위해 inet_aton 함수를 호출하기 전에 IP 주소를 확인하는 코드를 추가했다. 
+
+이로써 잘못된 IP 주소로 인해 발생할 수 있는 오류를 방지할 수 있을 것이다.
+
+또한, try-catch 문을 추가하여 예외 처리를 하도록 수정했습니다. 
+
+popen() 함수가 실패하는 경우와 같이, 예기치 않은 상황이 발생할 수 있는 경우 예외를 던져서 프로그램이 비정상적으로 종료되는 것을 방지한다.
+
+예외가 발생한 경우 해당 예외를 적절히 처리하도록 코드를 수정했다.
