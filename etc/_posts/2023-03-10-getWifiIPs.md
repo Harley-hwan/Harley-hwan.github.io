@@ -97,7 +97,7 @@ int main() {
 
 <br/>
 
-## 결과
+## 결과 1
 
 ![image](https://user-images.githubusercontent.com/68185569/224203955-c5e35379-41da-422c-8081-da33da12b77b.png)
 
@@ -206,3 +206,9 @@ int main(int argc, char *argv[]) {
 
 - 주의할 점으로는, 코드 중간에 Wi-Fi 인터페이스의 이름이 "wlan0"으로 하드코딩되어 있다. 만약 시스템에서 사용하는 Wi-Fi 인터페이스의 이름이 다르다면, 이를 수정해주어야 한다. 
 - 또한, IPv4 주소 출력 부분도 Wi-Fi 인터페이스에 대해서만 적용되도록 되어 있다. 이를 다른 인터페이스에 대해서도 적용하고 싶다면, 코드를 수정해주어야 한다.
+
+<br/>
+
+## 결과 2
+
+![image](https://user-images.githubusercontent.com/68185569/224610333-a240b558-e48c-475b-b006-f9438ef9a43f.png)
