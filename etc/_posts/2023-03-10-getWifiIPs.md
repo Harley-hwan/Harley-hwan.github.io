@@ -195,6 +195,8 @@ int main(int argc, char *argv[]) {
 
 이 코드는 getifaddrs() 함수를 이용하여 현재 시스템의 네트워크 인터페이스 정보를 조회하고, 이를 이용하여 Wi-Fi 인터페이스의 IPv4 주소를 출력하는 예제 코드이다.
 
+<br/>
+
 <코드의 구성>
 
 - ifaddrs 구조체를 선언하고, getifaddrs() 함수를 이용하여 네트워크 인터페이스 정보를 조회한다.
@@ -209,6 +211,122 @@ int main(int argc, char *argv[]) {
 
 <br/>
 
-## 결과 2
+### 결과 2
 
 ![image](https://user-images.githubusercontent.com/68185569/224610333-a240b558-e48c-475b-b006-f9438ef9a43f.png)
+
+<br/>
+
+<br/>
+
+## 소스 3
+
+아래 소스는 윈도우/리눅스 환경에서 모두 작동하도록 작성한 코드이다.
+
+<br/>
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <thread>
+#include <chrono>
+#ifdef _WIN32
+    #include <winsock2.h>
+    #include <iphlpapi.h>
+    #pragma comment(lib, "iphlpapi.lib")
+    #pragma comment(lib, "ws2_32.lib")
+#else
+    #include <arpa/inet.h>
+    #include <ifaddrs.h>
+    #include <netinet/in.h>
+    #include <sys/socket.h>
+    #include <unistd.h>
+#endif
+
+
+std::vector<std::string> getWiFiIPAddresses() {
+    std::vector<std::string> ipAddresses;
+#ifdef _WIN32
+    ULONG family = AF_INET;
+    ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
+    ULONG bufferSize = 15000;
+    PIP_ADAPTER_ADDRESSES pAddresses = (IP_ADAPTER_ADDRESSES *)malloc(bufferSize);
+    if (pAddresses == NULL) {
+        std::cerr << "Memory allocation failed for IP_ADAPTER_ADDRESSES struct." << std::endl;
+        return ipAddresses;
+    }
+    
+    ULONG ret = GetAdaptersAddresses(family, flags, NULL, pAddresses, &bufferSize);
+    if (ret != NO_ERROR) {
+        std::cerr << "GetAdaptersAddresses failed with error: " << ret << std::endl;
+        free(pAddresses);
+        return ipAddresses;
+    }
+    
+    PIP_ADAPTER_ADDRESSES pCurrAddresses = pAddresses;
+    while (pCurrAddresses) {
+        PIP_ADAPTER_UNICAST_ADDRESS pUnicast = pCurrAddresses->FirstUnicastAddress;
+        while (pUnicast) {
+            if (pUnicast->Address.lpSockaddr->sa_family == AF_INET) {
+                sockaddr_in *sa_in = (sockaddr_in *)pUnicast->Address.lpSockaddr;
+                char strBuffer[INET_ADDRSTRLEN];
+                inet_ntop(AF_INET, &(sa_in->sin_addr), strBuffer, INET_ADDRSTRLEN);
+                ipAddresses.push_back(std::string(strBuffer));
+            }
+            pUnicast = pUnicast->Next;
+        }
+        
+        pCurrAddresses = pCurrAddresses->Next;
+    }
+    
+    free(pAddresses);
+#else
+    struct ifaddrs *ifAddrStruct = NULL;
+    struct ifaddrs *ifa = NULL;
+    void *tmpAddrPtr = NULL;
+    
+    getifaddrs(&ifAddrStruct);
+    
+    for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
+        if (!ifa->ifa_addr) {
+            continue;
+        }
+        
+        if (ifa->ifa_addr->sa_family == AF_INET) {
+            tmpAddrPtr = &((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+            char addressBuffer[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+            ipAddresses.push_back(std::string(addressBuffer));
+        }
+    }
+    
+    if (ifAddrStruct != NULL) {
+        freeifaddrs(ifAddrStruct);
+    }
+#endif
+    return ipAddresses;
+}
+
+int main() {
+    while(1) 
+    {
+
+        std::vector<std::string> ipList = getWiFiIPAddresses();
+        for (const auto& ip : ipList) {
+            std::cout << ip << std::endl;
+        }
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+
+    return 0;
+}
+
+```
+
+<br/>
+
+### 결과 3
+
+![image](https://user-images.githubusercontent.com/68185569/225180578-1ea61ce9-d0f2-483a-9371-59172d8b1a29.png)
