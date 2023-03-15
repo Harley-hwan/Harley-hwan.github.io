@@ -175,8 +175,7 @@ int main() {
         "^PW203\n"
         "^LL203\n"
         "^LS0\n"
-        "^FO10,10^A0N,28,28^FDHello,^FS\n"
-        "^FO10,40^A0N,28,28^FDWorld!^FS\n"
+        "^FO10,10^A0N,28,28^FDHello,World!^FS\n"
         "^PQ1,0,1,Y^XZ\n";
 
     // 프린터 핸들을 초기화합니다.
