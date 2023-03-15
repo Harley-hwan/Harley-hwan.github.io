@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 현재 연결된 USB들의 VID/PID 검출
-subtitle: c++, libusb, usb, libusb_device, libusb_context, device, vid, pid
+subtitle: c++, libusb, usb, libusb_device, libusb_context, device, vid, pid, vendorid, productid
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c, c c++, libusb, usb, libusb_device, libusb_context, device, vid, pid]
@@ -25,7 +25,7 @@ libusb 라이브러리를 사용하여 컴퓨터에 연결된 USB 장치의 정�
 - 다음으로, libusb_get_device_list() 함수를 호출하여 연결된 USB 장치의 리스트를 받아온다. 이 함수는 리스트의 개수를 반환하고, 만약 에러가 발생하면 음수 값을 반환한다.
 - for 루프를 사용하여 리스트에 있는 장치들을 하나씩 확인한다. 
 - libusb_get_device_descriptor() 함수를 호출하여 해당 장치의 디스크립터 정보를 가져오며, 이 정보는 libusb_device_descriptor 구조체에 저장된다.
-- 다음으로, 가져온 디스크립터 정보를 출력하여 VID(제조사 ID)와 PID(제품 ID)를 확인한다.
+- 다음으로, 가져온 디스크립터 정보를 출력하여 VID(Vender ID)와 PID(Product ID)를 확인한다.
 - 마지막으로, libusb_free_device_list() 함수를 호출하여 디바이스 리스트를 해제하고, libusb_exit() 함수를 호출하여 libusb를 종료합니다.
 
 <br/>
