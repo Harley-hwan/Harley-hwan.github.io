@@ -741,3 +741,99 @@ getIPListFromARP() 함수에서 ARP 테이블에 있는 각 IP 주소를 검사�
 popen() 함수가 실패하는 경우와 같이, 예기치 않은 상황이 발생할 수 있는 경우 예외를 던져서 프로그램이 비정상적으로 종료되는 것을 방지한다.
 
 예외가 발생한 경우 해당 예외를 적절히 처리하도록 코드를 수정했다.
+
+<br/>
+
+<br/>
+
+### 윈도우 / 리눅스 환경에서 모두 사용할 수 있는 코드로 수정
+
+```c++
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstdio>
+#include <memory>
+#include <stdexcept>
+#include <array>
+#include <regex>
+#include <thread>
+#include <chrono>
+
+std::string pipe_exec(const char* cmd) {
+    std::array<char, 128> buffer;
+    std::string result;
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen(cmd, "r"), pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen() failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
+}
+
+std::vector<std::string> getArpAddresses() {
+    std::vector<std::string> ipAddresses;
+    std::string output;
+
+#ifdef _WIN32
+    output = pipe_exec("arp -a");
+    std::regex ip_regex(R"((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))");
+#else
+    output = pipe_exec("arp -n");
+    std::regex ip_regex(R"((\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))");
+#endif
+
+    std::sregex_iterator it(output.begin(), output.end(), ip_regex);
+    std::sregex_iterator reg_end;
+
+    for (; it != reg_end; ++it) {
+        ipAddresses.push_back(it->str());
+    }
+
+    return ipAddresses;
+}
+
+int main() {
+    while(1)
+    {
+        std::vector<std::string> ipList = getArpAddresses();
+        for (const auto& ip : ipList) {
+            std::cout << "IP Address: " << ip << std::endl;
+        }
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    return 0;
+}
+
+```
+
+<br/>
+
+이 코드는 하기와 같이 기능을 수행한다.
+
+- 외부 명령어를 실행하고 출력을 반환하는 exec 함수를 정의
+- arp -a(Windows) 또는 arp -n(Linux) 명령어를 실행하여, ARP 테이블의 IP 주소를 가져오는 getArpAddresses 함수를 정의
+- main 함수에서 무한 루프를 실행하여 매 초마다 getArpAddresses 함수를 호출하고 결과를 출력
+- 코드의 각 부분에 대해 좀 더 자세히 설명하겠습니다.
+
+<br/>
+
+##### exec 함수
+
+- exec 함수는 C++에서 외부 명령어를 실행하고 출력을 반환하는 데 사용된다.
+- popen 함수를 사용하여 프로세스를 생성하고, fgets 함수를 사용하여 출력을 읽는다. 
+- 출력은 result 문자열에 추가되고, 완료되면 반환된다.
+
+##### getArpAddresses 함수
+- getArpAddresses 함수는 arp -a(Windows) 또는 arp -n(Linux) 명령어를 실행하여 ARP 테이블에서 IP 주소를 가져온다.
+- 먼저, exec 함수를 호출하여 명령어의 출력을 가져옵니다. 
+- 그런 다음 정규 표현식을 사용하여 출력에서 IP 주소를 추출하고, ipAddresses 벡터에 추가한다. 
+- 함수가 완료되면 이 벡터를 반환한다.
+
+##### main 함수
+- main 함수는 무한 루프를 실행하여 매 초마다 getArpAddresses 함수를 호출하고 결과를 출력한다. 
+- std::this_thread::sleep_for(std::chrono::seconds(1))를 사용하여 루프의 각 반복 사이에 1초 동안 대기하도록 설정하였다.
+- 이 코드는 arp -a(Windows) 또는 arp -n(Linux) 명령어와 유사한 결과를 출력하며, ARP 테이블의 IP 주소를 가져온다. 
+- 무한 루프를 실행하므로 프로그램이 계속 실행되지만, 대부분의 경우 시스템에 큰 부담을 주지 않으며, 필요에 따라 루프 횟수를 제한하거나 간격을 조절할 수 있다.
