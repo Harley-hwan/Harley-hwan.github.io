@@ -11,7 +11,8 @@ comments: true
 #  Windows 프린터 스풀러로 라벨 프린터에 인쇄 명령 보내기
 
 - 최초 작성일: 2023년 3월 15일 (수)
-
+- 참고: https://www.zebra.com/content/dam/zebra_new_ia/en-us/manuals/printers/common/programming/zpl-zbi2-pm-en.pdf
+- 
 ## 목차
 
 [TOC]
@@ -71,6 +72,8 @@ Windows 프린터 스풀러를 사용하여 TSC P200 라벨 프린터에 라벨�
 <br/>
 
 <br/>
+
+### 버전 1
 
 ```c++
 #include <iostream>
@@ -146,6 +149,93 @@ int main() {
     }
 
     // 프린터와의 연결 종료.
+    ClosePrinter(hPrinter);
+    return 0;
+}
+```
+
+<br/>
+
+<br/>
+
+### 버전 2 (ZPL)
+
+```c++
+#include <iostream>
+#include <string>
+#include <Windows.h>
+
+int main() {
+    // 프린터 이름을 설정합니다. 실제 사용하는 프린터 이름으로 변경하세요.
+    std::wstring printerName = L"TSC P200";
+
+    // 인쇄할 라벨의 정보와 명령을 설정합니다.
+    std::string command = "^XA\n"
+        "^MMT\n"
+        "^PW203\n"
+        "^LL203\n"
+        "^LS0\n"
+        "^FO10,10^A0N,28,28^FDHello,^FS\n"
+        "^FO10,40^A0N,28,28^FDWorld!^FS\n"
+        "^PQ1,0,1,Y^XZ\n";
+
+    // 프린터 핸들을 초기화합니다.
+    HANDLE hPrinter;
+
+    // 프린터와 연결을 시도합니다. 실패하면 에러 메시지를 출력하고 종료합니다.
+    if (!OpenPrinterW(const_cast<LPWSTR>(printerName.c_str()), &hPrinter, nullptr)) {
+        std::cerr << "Error opening printer: " << GetLastError() << std::endl;
+        return 1;
+    }
+
+    // 인쇄 작업에 대한 정보를 설정합니다.
+    DOC_INFO_1A docInfo;
+    docInfo.pDocName = const_cast<char*>("TSC P200 Printing");
+    docInfo.pOutputFile = nullptr;
+    docInfo.pDatatype = const_cast<char*>("RAW");
+
+    // 인쇄 작업을 시작합니다. 실패하면 에러 메시지를 출력하고 종료합니다.
+    DWORD jobId = StartDocPrinterA(hPrinter, 1, reinterpret_cast<LPBYTE>(&docInfo));
+    if (jobId == 0) {
+        std::cerr << "Error starting print job: " << GetLastError() << std::endl;
+        ClosePrinter(hPrinter);
+        return 1;
+    }
+
+    // 페이지 인쇄를 시작합니다. 실패하면 에러 메시지를 출력하고 종료합니다.
+    if (!StartPagePrinter(hPrinter)) {
+        std::cerr << "Error starting page: " << GetLastError() << std::endl;
+        EndDocPrinter(hPrinter);
+        ClosePrinter(hPrinter);
+        return 1;
+    }
+
+    // 설정한 라벨 정보와 명령을 프린터로 전송합니다.
+    DWORD bytesWritten;
+    if (!WritePrinter(hPrinter, const_cast<char*>(command.data()), command.size(), &bytesWritten)) {
+        std::cerr << "Error writing to printer: " << GetLastError() << std::endl;
+        EndPagePrinter(hPrinter);
+        EndDocPrinter(hPrinter);
+        ClosePrinter(hPrinter);
+        return 1;
+    }
+
+    // 페이지 인쇄를 종료합니다. 실패하면 에러 메시지를 출력하고 종료합니다.
+    if (!EndPagePrinter(hPrinter)) {
+        std::cerr << "Error ending page: " << GetLastError() << std::endl;
+        EndDocPrinter(hPrinter);
+        ClosePrinter(hPrinter);
+        return 1;
+    }
+
+    // 인쇄 작업을 종료합니다. 실패하면 에러 메시지를 출력하고 종료합니다.
+    if (!EndDocPrinter(hPrinter)) {
+        std::cerr << "Error ending print job: " << GetLastError() << std::endl;
+        ClosePrinter(hPrinter);
+        return 1;
+    }
+
+    // 프린터와의 연결을 종료합니다.
     ClosePrinter(hPrinter);
     return 0;
 }
