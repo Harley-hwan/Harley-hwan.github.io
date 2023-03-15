@@ -1,14 +1,15 @@
 ---
 layout: post
 title: (c++) 프린터 스풀러로 라벨 프린터에 인쇄 명령 보내기
-subtitle: c++, zebra, labelprinter, windows, , printer, spooler, OpenPrinterW, StartDocPrinterA, StartPagePrinter, WritePrinter, EndPagePrinter, EndDocPrinter
+subtitle: c++, zebra, labelprinter, windows, printer, spooler, OpenPrinterW, StartDocPrinterA, StartPagePrinter, WritePrinter, EndPagePrinter, EndDocPrinter
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c, c++, zebra, labelprinter, windows, , printer, spooler, OpenPrinterW, StartDocPrinterA, StartPagePrinter, WritePrinter, EndPagePrinter, EndDocPrinter]
+tags: [c, c++, zebra, labelprinter, windows, printer, spooler, OpenPrinterW, StartDocPrinterA, StartPagePrinter, WritePrinter, EndPagePrinter, EndDocPrinter]
 comments: true
 ---
 
 #  Windows 프린터 스풀러로 라벨 프린터에 인쇄 명령 보내기
+
 - 최초 작성일: 2023년 3월 15일 (수)
 
 ## 목차
@@ -149,6 +150,3 @@ int main() {
     return 0;
 }
 ```
-
-<br/>
-
