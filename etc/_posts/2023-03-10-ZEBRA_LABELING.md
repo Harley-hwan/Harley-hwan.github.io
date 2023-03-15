@@ -12,7 +12,7 @@ comments: true
 
 - 최초 작성일: 2023년 3월 15일 (수)
 - 참고: https://www.zebra.com/content/dam/zebra_new_ia/en-us/manuals/printers/common/programming/zpl-zbi2-pm-en.pdf
-- 
+
 ## 목차
 
 [TOC]
