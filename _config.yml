@@ -17,11 +17,12 @@ navbar-links:
   About Me: "aboutme"
   Baekjoon: "baekjoon"
   Programmers: "programmers"
+  C++: "cdbplus"
   C#: "csharp"
   MFC: "mfc"
   Opencv: "opencv"
   Project: "project"
-  C++: "cdbplus"
+  ETC: "etc"
   Github: "https://github.com/harley-hwan"
   
 
