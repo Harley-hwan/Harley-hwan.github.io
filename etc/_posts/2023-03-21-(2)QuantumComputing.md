@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 약자 컴퓨팅이란?
+title: 양자 컴퓨팅이란?
 subtitle: About quantum computing
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
@@ -8,7 +8,7 @@ tags: [quantumcomputing, quantum, computing, science]
 comments: true
 ---
 
-# 양자 역학이란?
+# 양자 컴퓨팅이란?
 
 - 최초 작성일: 2023년 3월 21일(화)
 
