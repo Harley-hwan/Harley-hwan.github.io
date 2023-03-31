@@ -138,10 +138,10 @@ END_MESSAGE_MAP()
 ```c++
 LRESULT CMainDlg::OnUpdateBLEList(WPARAM wParam, LPARAM lParam)
 {
-  // 타임아웃을 정의합니다 (예: 3초).
+  // 타임아웃 (예: 3초).
   const auto timeout = std::chrono::seconds(3);
 
-  // 만료된 기기를 제거합니다.
+  // 만료된 기기 제거
   for (auto it = m_bleDevicesLastSeen.begin(); it != m_bleDevicesLastSeen.end();)
   {
     if (std::chrono::steady_clock::now() - it->second > timeout)
@@ -155,10 +155,10 @@ LRESULT CMainDlg::OnUpdateBLEList(WPARAM wParam, LPARAM lParam)
     }
   }
 
-  // 리스트 박스를 비웁니다.
+  // 리스트 박스 리셋.
   m_list_ble.ResetContent();
 
-  // 맵에 저장된 블루투스 기기를 리스트 박스에 추가합니다.
+  // 맵에 저장된 블루투스 기기를 리스트 박스에 추가
   for (const auto& device : m_bleDevices)
   {
     CString deviceInfo;
@@ -259,17 +259,17 @@ void CMainDlg::OnBnClickedBtnBlescanstop()
 // 블루투스 기기 목록을 리스트 박스에 출력하는 메시지 핸들러
 LRESULT CMainDlg::OnUpdateBLEList(WPARAM wParam, LPARAM lParam)
 {
-	// 리스트 박스를 가져옵니다 (IDC_LIST_BLE_DEVICES는 리스트 박스의 리소스 ID입니다).
+	// 리스트 박스 (IDC_LIST_BLE_DEVICES: 리스트 박스의 리소스 ID).
 	//CListBox* pListBox = (CListBox*)GetDlgItem(IDC_LIST_BLE);
 	//if (pListBox == nullptr)
 	//{
 	//	return 0;
 	//}
 
-	// 리스트 박스를 비웁니다.
+	// 리스트 박스 리셋.
 	m_list_ble.ResetContent();
 
-	// 맵에 저장된 블루투스 기기를 리스트 박스에 추가합니다.
+	// 맵에 저장된 블루투스 기기를 리스트 박스에 추가
 	for (const auto& device : m_bleDevices)
 	{
 		CString deviceInfo;
@@ -326,7 +326,7 @@ void CMainDlg::ScanForBluetoothLEDevices()
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 
-		// 메인 스레드에서 리스트 박스를 업데이트하도록 메시지를 보
+		// 메인 스레드에서 리스트 박스를 업데이트하도록 메시지를 보냄
 		PostMessage(WM_UPDATE_BLE_LIST, 0, 0);
 	}
 	catch (const winrt::hresult_error& ex)
@@ -343,5 +343,3 @@ void CMainDlg::OnBnClickedBtnBlescan()
 }
 
 ```
-
-
