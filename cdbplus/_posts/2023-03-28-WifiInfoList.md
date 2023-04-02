@@ -63,7 +63,7 @@ comments: true
 ### 소스 1
 
 ```c++
-void CRadarCalibrationDlg::OnBnClickedBtnWifiscan()
+void CMainDlg::OnBnClickedBtnWifiscan()
 {
 	std::vector<std::tuple<CString, LONG, CString>> v_Wifilist;
 
@@ -99,7 +99,7 @@ void CRadarCalibrationDlg::OnBnClickedBtnWifiscan()
 <br/>
 
 ```c++
-std::vector<std::tuple<CString, LONG, CString>> CRadarCalibrationDlg::ListAvailableWifiNetworks()
+std::vector<std::tuple<CString, LONG, CString>> CMainDlg::ListAvailableWifiNetworks()
 {
 	std::vector<std::tuple<CString, LONG, CString>> availableNetworks;
 
@@ -177,7 +177,7 @@ std::vector<std::tuple<CString, LONG, CString>> CRadarCalibrationDlg::ListAvaila
 <br/>
 
 ```c++
-std::wstring CRadarCalibrationDlg::ConvertSSID(const UCHAR* ssid, ULONG ssidLength) {
+std::wstring CMainDlg::ConvertSSID(const UCHAR* ssid, ULONG ssidLength) {
 	int len = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, reinterpret_cast<const char*>(ssid), ssidLength, NULL, 0);
 
 	// If the string is not a valid UTF-8, try the system's default code page
@@ -248,7 +248,7 @@ CStringW는 유니코드 문자를 처리하는 데 사용되는 CString의 유�
 ## 최종 소스
 
 ```c++
-void CRadarCalibrationDlg::OnBnClickedBtnWifiscan()
+void CMainDlg::OnBnClickedBtnWifiscan()
 {
 	std::vector<std::tuple<CString, LONG, CString>> v_Wifilist;
 
@@ -279,7 +279,7 @@ void CRadarCalibrationDlg::OnBnClickedBtnWifiscan()
 	UpdateData(FALSE);
 }
 
-std::vector<std::tuple<CString, LONG, CString>> CRadarCalibrationDlg::ListAvailableWifiNetworks()
+std::vector<std::tuple<CString, LONG, CString>> CMainDlg::ListAvailableWifiNetworks()
 {
 	std::vector<std::tuple<CString, LONG, CString>> availableNetworks;
 
@@ -348,7 +348,7 @@ std::vector<std::tuple<CString, LONG, CString>> CRadarCalibrationDlg::ListAvaila
 	return availableNetworks;
 }
 
-std::wstring CRadarCalibrationDlg::ConvertSSID(const UCHAR* ssid, ULONG ssidLength) {
+std::wstring CMainDlg::ConvertSSID(const UCHAR* ssid, ULONG ssidLength) {
 	int len = MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, reinterpret_cast<const char*>(ssid), ssidLength, NULL, 0);
 
 	// If the string is not a valid UTF-8, try the system's default code page
