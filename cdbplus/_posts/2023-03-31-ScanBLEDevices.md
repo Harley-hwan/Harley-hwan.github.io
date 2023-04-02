@@ -105,7 +105,7 @@ private:
 
 <br/>
 
-## 소스
+## 소스 (MFC)
 
 #### MainDlg.h
 
@@ -340,6 +340,100 @@ void CMainDlg::ScanForBluetoothLEDevices()
 void CMainDlg::OnBnClickedBtnBlescan()
 {
 	ScanForBluetoothLEDevices();
+}
+
+```
+
+<br/>
+
+---
+
+<br/>
+
+## 소스(C++)
+
+```c++
+#include <winrt/Windows.Devices.Bluetooth.Advertisement.h>
+#include <winrt/Windows.Foundation.h>
+#include <iostream>
+#include <string>
+#include <map>
+#include <thread>
+#include <chrono>
+
+class BluetoothLEScanner
+{
+public:
+    void ScanForBluetoothLEDevices()
+    {
+        using namespace winrt::Windows::Devices::Bluetooth::Advertisement;
+        try
+        {
+            BluetoothLEAdvertisementWatcher watcher;
+            m_completed = false;
+
+            // Device found event
+            watcher.Received([&](BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementReceivedEventArgs args)
+                {
+                    std::wstring localName = args.Advertisement().LocalName().c_str();
+                    if (localName.find(L"BLE") == 0)
+                    {
+                        // Save the Bluetooth device in the map and update the RSSI value
+                        m_bleDevices[localName] = args.RawSignalStrengthInDBm();
+                        m_bleDevicesLastSeen[localName] = std::chrono::steady_clock::now();
+                    }
+                });
+
+            // Stopped event
+            watcher.Stopped([&](BluetoothLEAdvertisementWatcher sender, BluetoothLEAdvertisementWatcherStoppedEventArgs args)
+                {
+                    m_completed = true;
+                });
+
+            // Start the watcher
+            watcher.Start();
+
+            // Wait for a short period of time (e.g., 2 seconds) to allow the watcher to scan devices
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+
+            // Stop the watcher
+            watcher.Stop();
+
+            // Wait until the watcher stops
+            while (!m_completed)
+            {
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+
+            // Update the list of devices
+            UpdateDeviceList();
+        }
+        catch (const winrt::hresult_error& ex)
+        {
+            std::wcerr << L"Exception thrown: " << ex.message().c_str() << std::endl;
+        }
+    }
+
+private:
+    void UpdateDeviceList()
+    {
+        for (const auto& device : m_bleDevices)
+        {
+            std::wcout << L"Device: " << device.first << L" RSSI: " << device.second << std::endl;
+        }
+    }
+
+    bool m_completed;
+    std::map<std::wstring, int16_t> m_bleDevices;
+    std::map<std::wstring, std::chrono::steady_clock::time_point> m_bleDevicesLastSeen;
+};
+
+int main()
+{
+    winrt::init_apartment();
+    BluetoothLEScanner scanner;
+    scanner.ScanForBluetoothLEDevices();
+    return 0;
 }
 
 ```
