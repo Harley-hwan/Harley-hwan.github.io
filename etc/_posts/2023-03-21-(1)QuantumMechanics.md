@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 자 역학이란?
+title: 양자 역학이란?
 subtitle: About quantum mechanics
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
