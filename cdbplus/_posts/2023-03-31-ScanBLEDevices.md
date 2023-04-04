@@ -51,7 +51,19 @@ Acrylic Suite 의 "Acrylic BLE Analyzer" 앱을 사용했을 때의 결과와 �
 
 ## 참고
 
-이 코드를 정상적으로 실행하려면 다음 헤더 파일들을 include 해야한다.
+만약, 빌드 시 아래와 같은 에러가 발생한다면, Windows SDK Version을 업데이트해주어야 한다.
+
+필자는 10.0.22621.0 버전으로 업데이트해주니 문제없이 빌드되었다.
+
+```c++
+Severity	Code	Description	Project	File	Line	Suppression State
+Error	C2039	'wait_for': is not a member of 'winrt::impl'	ConsoleApplication2	C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\cppwinrt\winrt\impl\Windows.Foundation.0.h	983	
+Message		see declaration of 'winrt::impl'	ConsoleApplication2	C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\cppwinrt\winrt\impl\Windows.Foundation.0.h	103	
+Message		see reference to class template instantiation 'winrt::impl::consume_Windows_Foundation_IAsyncAction<D>' being compiled	ConsoleApplication2	C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\cppwinrt\winrt\impl\Windows.Foundation.0.h	985	
+```
+<br/>
+
+또한, 다음 헤더 파일들을 include 해야한다.
 
 <br/>
 
