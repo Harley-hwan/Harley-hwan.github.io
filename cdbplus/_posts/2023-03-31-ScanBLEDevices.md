@@ -362,7 +362,7 @@ void CMainDlg::OnBnClickedBtnBlescan()
 
 <br/>
 
-## 소스(C++)
+## 소스 (C++)
 
 ```c++
 #include <winrt/Windows.Devices.Bluetooth.Advertisement.h>
