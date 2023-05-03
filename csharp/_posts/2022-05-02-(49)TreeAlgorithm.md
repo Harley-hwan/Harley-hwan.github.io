@@ -4,13 +4,13 @@ title: (C#) 49. 트리(Tree) 알고리즘
 subtitle: Tree
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c#, datastructure, graph, dijkstra, shortestpath, algorithm, maze]
+tags: [c#, datastructure, tree, algorihtm, list, add]
 comments: true
 ---
 
 # 트리 (Tree)
 
-- 최초 작성일: 2023년 4월 28일(금)
+- 최초 작성일: 2023년 5월 2일(화)
 
 ## 목차
 
