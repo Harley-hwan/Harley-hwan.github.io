@@ -20,6 +20,7 @@ navbar-links:
   C++: "cdbplus"
   C#: "csharp"
   MFC: "mfc"
+  WPF: "wpf"
   Opencv: "opencv"
   Project: "project"
   ETC: "etc"
