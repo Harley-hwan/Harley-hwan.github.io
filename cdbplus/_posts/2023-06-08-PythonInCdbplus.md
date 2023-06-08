@@ -33,7 +33,7 @@ comments: true
 ## 코드 1
 
 ```c++
-#include "../Python39_64/include/Python.h"
+#include <Python.h>
 
 int main(int argc, char* argv[])
 {
