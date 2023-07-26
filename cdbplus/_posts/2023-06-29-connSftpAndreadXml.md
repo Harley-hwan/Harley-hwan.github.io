@@ -19,7 +19,10 @@ comments: true
 
 ## 코드
 
-sftp 접속은 CksFtp 라이브러리를 사용하였다.
+### 사용한 라이브러리
+
+sftp 접속: CksFtp
+xml 접속: pugixml
 
 <br/>
 
