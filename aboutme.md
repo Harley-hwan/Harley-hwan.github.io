@@ -27,7 +27,7 @@ I was a Taekwondo Athlete, but I can't do it anymore because of a big injury cal
 I studied English in the UK and the Philippines for a total of a year.
 
 ### Countries I've visited / traveled
-UK, Porland, France, Italy, Germany, Austria, Iceland, Philippine, China and more in the future ...
+UK, Porland, France, Italy, Germany, Austria, Iceland, Philippine, China, Japan and more in the future ...
 
 <br/>
 
