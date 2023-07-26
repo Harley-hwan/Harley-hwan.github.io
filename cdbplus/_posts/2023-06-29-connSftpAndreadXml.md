@@ -1,10 +1,10 @@
 ---
 layout: post
 title: (c++) sftp Connect & read xml
-subtitle: c, c++, vs, sftp, ftp, xml, pugi, pugixml
+subtitle: c, c++, vs, sftp, ftp, CkSFtp, xml, pugi, pugixml
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c, c++, vs, sftp, ftp, xml, pugi, pugixml]
+tags: [c, c++, vs, sftp, ftp, CkSFtp, xml, pugi, pugixml]
 comments: true
 ---
 
@@ -18,6 +18,10 @@ comments: true
 <br/>
 
 ## 코드
+
+sftp 접속은 CksFtp 라이브러리를 사용하였다.
+
+<br/>
 
 ```c++
 std::pair<std::string, std::string> connectSftp() {
