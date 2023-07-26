@@ -28,7 +28,7 @@ comments: true
 <br/>
 
 ```c
-  char filename[255];
+  	char filename[255];
 	sprintf_s(filename, "Result_%s.txt", Serialno);
 	fout.open(filename);
 
