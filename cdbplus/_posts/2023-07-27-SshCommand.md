@@ -109,6 +109,7 @@ void CRadarCalibrationDlg::OnBnClickedBtnTest()
 
 	std::cout << "Command output: " << output << std::endl;
 
+	// cleanup
 	libssh2_channel_free(channel);
 	libssh2_session_disconnect(session, "Finished session");
 	libssh2_session_free(session);
@@ -127,12 +128,11 @@ void CRadarCalibrationDlg::OnBnClickedBtnTest()
 <br/>
 
 ```c++
-void CRadarCalibrationDlg::OnBnClickedBtnTest()
+std::string CRadarCalibrationDlg::executeRemoteSshCommand(const char* command) 
 {
 	const char* ip = "";
 	const char* username = "";
 	const char* password = "";
-	const char* command = "cd /path && ./task -v";
 	int port = 22;
 
 	// socket 
@@ -146,38 +146,38 @@ void CRadarCalibrationDlg::OnBnClickedBtnTest()
 
 	if (connect(sock, (struct sockaddr*)(&sin), sizeof(struct sockaddr_in)) != 0) {
 		std::cerr << "Failed to connect to server!" << std::endl;
-		return;
+		return "";
 	}
 
 	// init libssh2
 	if (libssh2_init(0) != 0) {
 		std::cerr << "Failed to initialize libssh2!" << std::endl;
-		return;
+		return "";
 	}
 
 	// create session
 	LIBSSH2_SESSION* session = libssh2_session_init();
 	if (libssh2_session_handshake(session, (int)sock) != 0) {
 		std::cerr << "Failed to establish SSH session!" << std::endl;
-		return;
+		return "";
 	}
 
 	// authenticate
 	if (libssh2_userauth_password(session, username, password) != 0) {
 		std::cerr << "Failed to authenticate user!" << std::endl;
-		return;
+		return "";
 	}
 
 	// open channel and execute command
 	LIBSSH2_CHANNEL* channel = libssh2_channel_open_session(session);
 	if (channel == NULL) {
 		std::cerr << "Failed to open channel!" << std::endl;
-		return;
+		return "";
 	}
 
 	if (libssh2_channel_exec(channel, command) != 0) {
 		std::cerr << "Failed to execute command!" << std::endl;
-		return;
+		return "";
 	}
 
 	// read output
@@ -197,21 +197,33 @@ void CRadarCalibrationDlg::OnBnClickedBtnTest()
 		}
 	}
 
-	std::string prefix = "Version: ";
-	std::size_t pos = output.find(prefix);
-	if (pos != std::string::npos) {
-		std::string version = output.substr(pos + prefix.size());
-		std::cout << "Version is: " << version << std::endl;
-	}
-	else {
-		std::cout << "Version not found in output." << std::endl;
-	}
-
+	// cleanup
 	libssh2_channel_free(channel);
 	libssh2_session_disconnect(session, "Finished session");
 	libssh2_session_free(session);
 	libssh2_exit();
 
 	closesocket(sock);
+
+	// Extract version
+	std::string prefix = "Version: ";
+	std::size_t pos = output.find(prefix);
+	if (pos != std::string::npos) {
+		std::string version = output.substr(pos + prefix.size());
+		JIGVer = version;
+		m_stStatus1.SetWindowText(("Jig Ver: " + version).c_str());
+		return "Version is: " + version;
+	}
+	else {
+		return output;
+	}
 }
+
+void CRadarCalibrationDlg::OnBnClickedBtnTest()
+{
+	const char* command = "cd /home/pi/test && ./launch_jig -v";
+	std::string result = executeRemoteSshCommand(command);
+	std::cout << result << std::endl;
+}
+
 ```
