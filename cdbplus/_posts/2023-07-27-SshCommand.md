@@ -1,10 +1,10 @@
 ---
 layout: post
 title: (c++) SSH를 이용한 원격 명령 실행 (windows)
-subtitle: c, c++, vs, linux, inotify, inotify_init, IN_CREATE, IN_ISDIR, inotify_rm_watch
+subtitle: c, c++, vs, windows, C++, libssh2, SSH, Remote Command Execution, Networking
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [c, c++, vs, linux, C++, libssh2, SSH, Remote Command Execution, Networking]
+tags: [c, c++, vs, windows, C++, libssh2, SSH, Remote Command Execution, Networking]
 comments: true
 ---
 
