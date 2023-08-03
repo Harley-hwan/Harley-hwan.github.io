@@ -1,6 +1,6 @@
 ---
 layout: post
-title: (c++) csv 파일에 입출력
+title: (c++) csv 파일 입출력
 subtitle: c, c++, vs, csv, excel, ifstream, ofstream, std::ifstream, std::ofstream, tellp, map, lambda function
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
