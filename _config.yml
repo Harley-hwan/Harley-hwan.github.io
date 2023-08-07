@@ -19,6 +19,7 @@ navbar-links:
   Programmers: "programmers"
   C++: "cdbplus"
   C#: "csharp"
+  cuda: "cuda"
   MFC: "mfc"
   WPF: "wpf"
   Opencv: "opencv"
