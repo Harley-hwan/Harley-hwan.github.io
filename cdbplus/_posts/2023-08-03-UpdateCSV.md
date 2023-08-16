@@ -112,3 +112,79 @@ void UpdateCSV() {
 }
 
 ```
+
+<br/>
+
+<br/>
+
+## 처음 구현했던 코드
+
+```c++
+void CRadarCalibrationDlg::UpdateCSV() {
+	CString fileName;
+	fileName.Format(_T(".\\result\\All_results.csv"));
+
+	std::vector<std::string> lines;
+	bool addHeader = false;
+
+	// Check if the file exists
+	std::ifstream testFile(fileName);
+	if (!testFile) {
+		// File does not exist, add header
+		addHeader = true;
+	}
+	testFile.close();
+
+	std::ifstream inFile(fileName);
+	std::string strCsv;
+
+	if (addHeader) {
+		lines.push_back("ID,Field1,Field2,Field3,Field4,Field5,Field6,Field7,Field8,Field9,Field10,Field11,Field12,Field13,Field14\n");
+	}
+
+	while (std::getline(inFile, strCsv)) {
+		if (!strCsv.empty()) {
+			lines.push_back(strCsv + '\n');
+		}
+	}
+	inFile.close();
+
+	std::string idStr = CT2CA(IdField.GetString());
+
+	std::string newLine = idStr + ","
+		+ Field1 + ","
+		+ Field2 + " (" + ResField2 + ")" + ","
+		+ Field3 + " (" + ResField3 + ")" + ","
+		+ Field4 + " (" + ResField4 + ")" + ","
+		+ Field5 + " (" + ResField5 + ")" + ","
+		+ Field6 + " (" + ResField6 + ")" + ","
+		+ Field7 + " (" + ResField7 + ")" + ","
+		+ Field8 + " " + ResField8 + " (" + ResField9 + ")" + ","
+		+ Field9 + " (" + ResField10 + ")" + ","
+		+ ResField11 + "/" + ResField12 + "(" + ResField13 + " " + ResField14 + ")" + " (" + ResField15 + ")" + ","
+		+ "=\"" + Field10 + " " + Field11 + "\"" + ","
+		+ ResField16 + ","
+		+ ResField17 + "\n";
+
+	// Check each line to see if the ID is already present.
+	auto it = std::find_if(lines.begin(), lines.end(), [&](const std::string& line) {
+		return line.substr(0, idStr.length()) == idStr;
+		});
+
+	if (it != lines.end()) {
+		// If the ID is found, overwrite the line.
+		*it = newLine;
+	}
+	else {
+		// If the ID was not found, add a new line.
+		lines.push_back(newLine);
+	}
+
+	// Write the updated data to the file.
+	std::ofstream outFile(fileName);
+	for (const auto& line : lines) {
+		outFile << line;
+	}
+	outFile.close();
+}
+```
