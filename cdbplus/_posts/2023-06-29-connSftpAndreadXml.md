@@ -116,11 +116,11 @@ std::pair<std::string, std::string> CExampleDlg::connectSftp() {
 		return { "", "" };
 	}
 
-	if (!downloadRemoteFile(sftp, "/home/pi/test/GRadar_Info_wave.xml", "./xml/GRadar_Info_wave.xml")) {
+	if (!downloadRemoteFile(sftp, "/home/pi/test/test.xml", "./xml/test.xml")) {
 		return { "", "" };
 	}
 
-	pugi::xml_document doc = loadAndParseXml("./xml/GRadar_Info_wave.xml");
+	pugi::xml_document doc = loadAndParseXml("./xml/test.xml");
 	if (!doc) {
 		return { "", "" };
 	}
@@ -276,13 +276,13 @@ std::pair<std::string, std::string> CExampleDlg::connectSftp() {
 		return { "", "" };
 	}
 
-	if (!downloadRemoteFile(session, "/home/pi/test/GRadar_Info_wave.xml", "./xml/GRadar_Info_wave.xml")) {
+	if (!downloadRemoteFile(session, "/home/pi/test/test.xml", "./xml/test.xml")) {
 		libssh2_session_disconnect(session, "Finished session");
 		libssh2_session_free(session);
 		return { "", "" };
 	}
 
-	pugi::xml_document doc = loadAndParseXml("./xml/GRadar_Info_wave.xml");
+	pugi::xml_document doc = loadAndParseXml("./xml/test.xml");
 	if (!doc) {
 		libssh2_session_disconnect(session, "Finished session");
 		libssh2_session_free(session);
