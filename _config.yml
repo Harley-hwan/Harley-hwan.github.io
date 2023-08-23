@@ -16,8 +16,8 @@ author: Janghwan Kim
 navbar-links:
   About Me: "aboutme"
   Algorithm:
-    Baekjoon: "baekjoon"
-    Programmers: "programmers"
+    - Baekjoon: "baekjoon"
+    - Programmers: "programmers"
   C++: "cdbplus"
   C#: "csharp"
   cuda: "cuda"
