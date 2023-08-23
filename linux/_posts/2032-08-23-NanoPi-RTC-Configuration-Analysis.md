@@ -8,14 +8,6 @@ tags: [linux, bash, shell, script, date, hwclock]
 comments: true
 ---
 
-네, 요청하신 내용을 모두 포함하여 수정한 문서를 제공하겠습니다:
-
----
-
-알겠다, 논문 스타일로 전체를 다시 작성할게.
-
----
-
 # NanoPi의 RTC 설정 스크립트
 
 - 최초 작성일: 2023년 8월 23일(수)
