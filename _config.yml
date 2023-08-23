@@ -14,7 +14,6 @@ author: Janghwan Kim
 # --- List of links in the navigation bar --- #
 
 navbar-links:
-  navbar-links:
   About Me: "aboutme"
   Algorithm:
     Baekjoon: "baekjoon"
