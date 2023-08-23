@@ -16,7 +16,7 @@ comments: true
 
 ---
 
-# NanoPi의 RTC 설정 스크립트 분석
+# NanoPi의 RTC 설정 스크립트
 
 - 최초 작성일: 2023년 8월 23일(수)
 
