@@ -14,9 +14,11 @@ author: Janghwan Kim
 # --- List of links in the navigation bar --- #
 
 navbar-links:
+  navbar-links:
   About Me: "aboutme"
-  Baekjoon: "baekjoon"
-  Programmers: "programmers"
+  Algorithm:
+    Baekjoon: "baekjoon"
+    Programmers: "programmers"
   C++: "cdbplus"
   C#: "csharp"
   cuda: "cuda"
@@ -26,6 +28,7 @@ navbar-links:
   Project: "project"
   ETC: "etc"
   Github: "https://github.com/harley-hwan"
+
   
 
 # --- Logo --- #
