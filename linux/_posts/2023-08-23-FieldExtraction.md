@@ -6,6 +6,7 @@ gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [linux, gawk, sudo, bash, shell, script, command line, awk]
 comments: true
+
 ---
 
 # 스크립트를 통한 명령어 출력의 특정 필드 추출
