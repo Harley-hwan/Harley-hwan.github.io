@@ -224,6 +224,8 @@ echo "ETH_IP" $ETH_IP
 
 <br/>
 
+---
+
 <br/>
 
 ### `ETH_INIT()`
