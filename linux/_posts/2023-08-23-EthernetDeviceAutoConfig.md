@@ -22,7 +22,6 @@ comments: true
 
 ```bash
 #!/bin/bash
-# golfzon pmk [2022.04.19]
 # auto detect ethernet device and get name
 
 ETH_IP="192.168.7.3"
