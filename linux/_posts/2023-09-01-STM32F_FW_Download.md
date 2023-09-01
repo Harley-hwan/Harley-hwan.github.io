@@ -1,17 +1,17 @@
 ---
 layout: post
-title: xml 파일에서 특정 문자열 포함하는 태그의 내용 출력
-subtitle: cat, grep, gawk, XML parsing
+title: STM32F Digital Board Firmware Download
+subtitle: Bash Script for STM32F Firmware Update
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [linux, cat, grep, gawk, XML, parsing]
+tags: [linux, STM32F, firmware, download, bash]
 comments: true
 ---
 
+# STM32F Digital Board Firmware Download via Bash
 
-# Ethernet Configuration Check via Script
 
-- 최초 작성일: 2023년 8월 23일(수)
+- 최초 작성일: 2023년 9월 1일(금)
 
 ## 목차
 
