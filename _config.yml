@@ -93,7 +93,7 @@ share-links-active:
 #url-pretty: "MyWebsite.com"
 
 # kjh added
-futrue: true
+future: true
 
 # Excerpt word length - Truncate the excerpt of each post on the feed page to the specified number of words
 excerpt_length: 50
