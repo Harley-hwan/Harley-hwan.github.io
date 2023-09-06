@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 2. hello CUDA 출력해보기
+title: (cuda) 2. hello CUDA 출력해보기
 subtitle: helloCUDA, CUDA, GPU, Parallel, NVIDIA, GPGPU, C++, Optimization, Threads, Memory, Architecture
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
