@@ -15,17 +15,17 @@ author: Janghwan Kim
 
 navbar-links:
   About Me: "aboutme"
-  Algorithm:
-    - Baekjoon: "baekjoon"
-    - Programmers: "programmers"
-  Dev:  
-    - C++: "cdbplus"
-    - C#: "csharp"
-    - cuda: "cuda"
-    - Linux: "linux"
-    - MFC: "mfc"
-    - WPF: "wpf"
-    - Opencv: "opencv"
+  #Algorithm:
+  Baekjoon: "baekjoon"
+  Programmers: "programmers"
+  #Dev:  
+  C++: "cdbplus"
+  C#: "csharp"
+  cuda: "cuda"
+  Linux: "linux"
+  MFC: "mfc"
+  WPF: "wpf"
+  Opencv: "opencv"
   Project: "project"
   ETC: "etc"
   Github: "https://github.com/harley-hwan"
