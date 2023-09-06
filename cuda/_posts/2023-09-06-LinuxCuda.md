@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 3. Linux 환경에서 cuda 시작하기
+title: (cuda) 3. Linux 환경에서 cuda 시작하기
 subtitle: CUDA, GPU, Parallel, NVIDIA, GPGPU, C++, Optimization, Threads, Memory, Architecture
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
