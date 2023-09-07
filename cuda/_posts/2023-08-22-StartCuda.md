@@ -4,7 +4,7 @@ title: cuda 시작하기
 subtitle: CUDA, GPU, Parallel, NVIDIA, GPGPU, C++, Optimization, Threads, Memory, Architecture
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [CUDA, GPU, Parallel, NVIDIA, GPGPU, C++, Optimization, Threads, Memory, Architecture]
+tags: [CUDA, GPU, Parallel, NVIDIA, GPGPU, C++, Optimization, Threads, Memory]
 comments: true
 ---
 
