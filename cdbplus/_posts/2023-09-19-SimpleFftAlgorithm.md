@@ -28,7 +28,7 @@ Cooley-Tukey 알고리즘은 크기 N의 DFT를 크기 N/2의 두 개의 작은 
 
 DFT는 다음 공식으로 정의된다:
 
-\[ X(k) = \sum_{n=0}^{N-1} x(n) \cdot e^{-j\frac{2\pi}{N}kn} \]
+![image](https://github.com/harley-hwan/harley-hwan.github.io/assets/68185569/0fb4aeb2-fdff-4b37-8656-2e4e9ffe4a0f)
 
 여기서:
 - \( X(k) \)는 k번째 복소 DFT 계수.
