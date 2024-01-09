@@ -27,28 +27,28 @@ comments: true
 
 1. __OnBnClickedBtnWifiscan()__ 함수:
 
-	이 함수는 사용자가 "Wifiscan" 버튼을 클릭하면 호출됩니다. 주요 작업은 다음과 같습니다.
-	- WiFi 네트워크 목록을 가져옵니다.
-	- RSSI(Received Signal Strength Indicator) 값에 따라 목록을 정렬합니다.
-	- 각 네트워크의 SSID, RSSI 값, 첫 연결 시간을 표시하는 문자열을 만들고 리스트 박스에 추가합니다.
-	- __'UpdateData(FALSE)'__ 를 호출하여 UI를 업데이트합니다.
+	이 함수는 사용자가 "Wifiscan" 버튼을 클릭하면 호출됩니다. 주요 작업은 다음과 같다.
+	- WiFi 네트워크 목록을 가져온다.
+	- RSSI(Received Signal Strength Indicator) 값에 따라 목록을 정렬한다.
+	- 각 네트워크의 SSID, RSSI 값, 첫 연결 시간을 표시하는 문자열을 만들고 리스트 박스에 추가한다.
+	- __'UpdateData(FALSE)'__ 를 호출하여 UI를 업데이트한다.
 
 2. __ListAvailableWifiNetworks()__ 함수:
 
-	이 함수는 사용 가능한 WiFi 네트워크 목록을 반환합니다. 주요 작업은 다음과 같습니다.
-	- WLAN 클라이언트 핸들을 초기화합니다.
-	- 사용 가능한 인터페이스 목록을 검색합니다.
-	- 각 인터페이스에 대해 BSS(Basic Service Set) 목록을 가져옵니다.
-	- BSS 목록의 각 항목에 대해 SSID를 변환하고, RSSI 값을 가져오며, 첫 연결 시간을 계산합니다.
-	- 변환된 SSID, RSSI 값, 첫 연결 시간을 튜플에 넣고 벡터에 추가합니다.
-	- 사용이 끝난 메모리를 해제하고 WLAN 클라이언트 핸들을 닫습니다.
+	이 함수는 사용 가능한 WiFi 네트워크 목록을 반환합니다. 주요 작업은 다음과 같다.
+	- WLAN 클라이언트 핸들을 초기화한다.
+	- 사용 가능한 인터페이스 목록을 검색한다.
+	- 각 인터페이스에 대해 BSS(Basic Service Set) 목록을 가져온다.
+	- BSS 목록의 각 항목에 대해 SSID를 변환하고, RSSI 값을 가져오며, 첫 연결 시간을 계산한다.
+	- 변환된 SSID, RSSI 값, 첫 연결 시간을 튜플에 넣고 벡터에 추가한다.
+	- 사용이 끝난 메모리를 해제하고 WLAN 클라이언트 핸들을 닫는다.
 
 3. __ConvertSSID()__ 함수:
 
-	이 함수는 주어진 SSID 데이터를 __'std::wstring'__ 유형으로 변환합니다. 주요 작업은 다음과 같습니다.
-	- SSID 데이터를 UTF-8 인코딩으로 해석하려고 시도합니다.
-	- 유효한 UTF-8 문자열이 아닌 경우, 시스템 기본 코드 페이지를 사용하여 문자열을 해석합니다.
-	- 변환된 __'std::wstring'__ 을 반환합니다.
+	이 함수는 주어진 SSID 데이터를 __'std::wstring'__ 유형으로 변환합니다. 주요 작업은 다음과 같다.
+	- SSID 데이터를 UTF-8 인코딩으로 해석하려고 시도한다.
+	- 유효한 UTF-8 문자열이 아닌 경우, 시스템 기본 코드 페이지를 사용하여 문자열을 해석한다.
+	- 변환된 __'std::wstring'__ 을 반환한다.
 
 
 	최근 수정한 부분은 __ConvertSSID()__ 함수에서 문자열을 변환하는 부분이다.
@@ -361,3 +361,166 @@ std::wstring CMainDlg::ConvertSSID(const UCHAR* ssid, ULONG ssidLength) {
 	return networkName;
 }
 ```
+
+
+<br/>
+
+<br/>
+
+## 추가 수정 버전
+
+노트북에서 와이파이 동글 장착 시, 동시에 와이파이를 2개 연결하는 것이 가능하다. 이러한 환경에서 위의 코드를 사용하면 와이파이 사용자 프로필이 중복되어 나오며, 해당 와이파이를 선택하여 연결을 시도해도 연결에 실패한다.
+
+해당 환경에서도 정상 작동하도록 아래와 같이 코드를 수정하였다.
+
+```c++
+std::vector<std::tuple<CString, LONG, CString>> CRadarCalibrationDlg::ListAvailableWifiNetworks()
+{
+	std::vector<std::tuple<CString, LONG, CString>> availableNetworks;
+
+	DWORD negotiatedVersion;
+	HANDLE clientHandle = NULL;
+
+	// Initialize the handle to the WLAN client.
+	DWORD ret = WlanOpenHandle(2, NULL, &negotiatedVersion, &clientHandle);
+	if (ret != ERROR_SUCCESS) {
+		std::cerr << "WlanOpenHandle failed with error: " << ret << std::endl;
+		return availableNetworks;
+	}
+
+	PWLAN_INTERFACE_INFO_LIST ifList = NULL;
+	ret = WlanEnumInterfaces(clientHandle, NULL, &ifList);
+	if (ret != ERROR_SUCCESS) {
+		std::cerr << "WlanEnumInterfaces failed with error: " << ret << std::endl;
+		return availableNetworks;
+	}
+
+	std::set<CString> ssidSet; // 중복된 SSID를 추적하는 데 사용될 set
+
+	for (DWORD i = 0; i < ifList->dwNumberOfItems; i++) {
+		PWLAN_INTERFACE_INFO pIfInfo = &ifList->InterfaceInfo[i];
+
+		PWLAN_BSS_LIST pBssList = NULL;
+		ret = WlanGetNetworkBssList(clientHandle, &pIfInfo->InterfaceGuid, NULL, dot11_BSS_type_any, FALSE, NULL, &pBssList);
+		if (ret != ERROR_SUCCESS) {
+			std::cerr << "WlanGetNetworkBssList failed with error: " << ret << std::endl;
+			continue;
+		}
+
+		for (DWORD j = 0; j < pBssList->dwNumberOfItems; j++) {
+			PWLAN_BSS_ENTRY pBssEntry = &pBssList->wlanBssEntries[j];
+			DOT11_SSID ssid = pBssEntry->dot11Ssid;
+
+			std::wstring networkName = ConvertSSID(ssid.ucSSID, ssid.uSSIDLength);
+			CStringW networkNameW = CStringW(networkName.c_str());
+			CString networkNameT = CString(networkNameW);
+
+			// 중복된 네트워크 확인
+			if (ssidSet.find(networkNameT) == ssidSet.end()) {
+				ssidSet.insert(networkNameT);
+
+				LONG rssi = pBssEntry->lRssi; // RSSI 정보
+
+				ULARGE_INTEGER ftSystemTime1970;
+				ftSystemTime1970.QuadPart = 116444736000000000ULL; // 1970년 1월 1일 00:00:00 UTC와의 차이
+
+				ULARGE_INTEGER ftTimestamp;
+				ftTimestamp.QuadPart = ftSystemTime1970.QuadPart + (pBssEntry->ullHostTimestamp * 10); // 100ns 단위로 변환
+
+				FILETIME ftFirstAvailableTime;
+				ftFirstAvailableTime.dwHighDateTime = ftTimestamp.HighPart;
+				ftFirstAvailableTime.dwLowDateTime = ftTimestamp.LowPart;
+
+				SYSTEMTIME stFirstAvailableTime;
+				FileTimeToSystemTime(&ftFirstAvailableTime, &stFirstAvailableTime);
+
+				CString firstAvailableTime;
+				firstAvailableTime.Format(_T("%02u:%02u:%02u"), stFirstAvailableTime.wHour, stFirstAvailableTime.wMinute, stFirstAvailableTime.wSecond);
+
+				availableNetworks.push_back(std::make_tuple(networkNameT, rssi, firstAvailableTime));
+			}
+		}
+		WlanFreeMemory(pBssList);
+	}
+
+	WlanFreeMemory(ifList);
+	WlanCloseHandle(clientHandle, NULL);
+
+	return availableNetworks;
+}
+```
+
+<br/>
+
+```c++
+bool CRadarCalibrationDlg::ConnectToSelectedWifi(const std::wstring& networkName, const std::wstring& password) {
+	// SSID와 비밀번호를 std::string으로 변환
+	std::string name(networkName.begin(), networkName.end());
+	std::string pass(password.begin(), password.end());
+
+	// XML 파일 생성
+	std::string fileName = "myWlan.xml";
+	std::ofstream xmlFile;
+	xmlFile.open(fileName.c_str());
+
+	if (!xmlFile.is_open()) {
+		std::cerr << "Failed to create XML file." << std::endl;
+		return false;
+	}
+
+	// XML 파일 작성
+	xmlFile << "<?xml version=\"1.0\"?>\n";
+	xmlFile << "<WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\">\n";
+	xmlFile << "<name>" << name << "</name>\n";
+	xmlFile << "<SSIDConfig>\n<SSID>\n<hex>";
+	for (int i = 0; i < name.length(); i++)
+		xmlFile << std::hex << (int)name.at(i);
+	xmlFile << "</hex>\n<name>" << name << "</name>\n</SSID>\n</SSIDConfig>\n";
+	xmlFile << "<connectionType>ESS</connectionType>\n";
+	xmlFile << "<connectionMode>auto</connectionMode>\n<MSM>\n<security>\n";
+	xmlFile << "<authEncryption>\n<authentication>WPA2PSK</authentication>\n";
+	xmlFile << "<encryption>AES</encryption>\n<useOneX>false</useOneX>\n";
+	xmlFile << "</authEncryption>\n<sharedKey>\n<keyType>passPhrase</keyType>\n";
+	xmlFile << "<protected>false</protected>\n<keyMaterial>" << pass << "</keyMaterial>\n";
+	xmlFile << "</sharedKey>\n</security>\n</MSM>\n";
+	xmlFile << "<MacRandomization xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v3\">\n";
+	xmlFile << "<enableRandomization>false</enableRandomization>\n</MacRandomization>\n";
+	xmlFile << "</WLANProfile>";
+
+	xmlFile.close();
+
+	std::string interfaceName = "Wi-Fi"; // 기본값 "Wi-Fi"
+
+	// Add the XML file to the system profile
+	std::string command = "netsh wlan add profile filename=\"" + fileName + "\" interface=\"" + interfaceName + "\"";
+	int result = system(command.c_str());
+	if (result != 0) {
+		std::cerr << "Failed to add WLAN profile, command returned: " << result << std::endl;
+		return false;
+	}
+
+	// Connect to the network
+	command = "netsh wlan connect name=\"" + name + "\" interface=\"" + interfaceName + "\"";
+	result = system(command.c_str());
+	if (result == 0) {
+		return true;
+	}
+	else {
+		std::cerr << "Failed to connect to the Wi-Fi network, command returned: " << result << std::endl;
+		return false;
+	}
+}
+```
+
+<br/>
+
+1. __ConnectToSelectedWifi()__ 함수
+
+- 선택한 Wi-Fi 네트워크에 연결한다.
+- 네트워크 이름과 비밀번호를 사용하여 Wi-Fi 프로필을 생성하고, 이 프로필을 사용해서 실제로 Wi-Fi에 연결을 시도한다.
+
+2. __ListAvailableWifiNetworks()__ 함수
+
+- 사용 가능한 Wi-Fi 네트워크 목록을 찾는다.
+- 시스템에서 감지한 모든 Wi-Fi 네트워크를 리스트업하며, 중복된 네트워크는 제외한다.
+- 각 네트워크의 이름, 신호 강도(RSSI), 첫 연결 시간 등의 정보를 제공한다.
