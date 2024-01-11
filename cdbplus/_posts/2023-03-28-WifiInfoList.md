@@ -524,3 +524,134 @@ bool CRadarCalibrationDlg::ConnectToSelectedWifi(const std::wstring& networkName
 - 사용 가능한 Wi-Fi 네트워크 목록을 찾는다.
 - 시스템에서 감지한 모든 Wi-Fi 네트워크를 리스트업하며, 중복된 네트워크는 제외한다.
 - 각 네트워크의 이름, 신호 강도(RSSI), 첫 연결 시간 등의 정보를 제공한다.
+
+
+<br/>
+
+<br/>
+
+## 추가 수정 2
+
+std::string interfaceName = "Wi-Fi";
+
+위와 같이 interfaceName 변수를 기본값인 "Wi-Fi"로 설정하여 메인 와이파이 어댑터로 설정을 했었다.
+
+그것을 서브 와이파이 어댑터에 연결하도록 변경하고 싶다.
+
+<br/>
+
+예를 들어, 노트북의 메인 와이파이 어댑터 이름이 "Wi-Fi" 이고, 와이파이 동글을 장착했을 때 새로 생기는 이름이 "Wi-Fi 2" 혹은 "Wi-Fi 3" 과 같다면 해당 어댑터에 연결하고자 함이다.
+
+<br/>
+
+```c++
+std::vector<std::wstring> GetWifiInterfaceNames() 
+{
+	system("netsh wlan show interfaces > interfaces.txt");
+
+	std::vector<std::wstring> wifiNames;
+	std::ifstream file("interfaces.txt");
+	if (!file.is_open()) {
+		std::wcerr << L"Error opening file" << std::endl;
+		return wifiNames;
+	}
+
+	std::string line;
+	bool isNewInterface = true;
+	while (std::getline(file, line)) {
+		if (isNewInterface && !line.empty()) {
+			std::size_t pos = line.find(':');
+			if (pos != std::string::npos) {
+				std::string name = Trim(line.substr(pos + 1));
+				wifiNames.push_back(std::wstring(name.begin(), name.end()));
+			}
+			isNewInterface = false;
+		}
+		if (line.empty()) {
+			isNewInterface = true;
+		}
+	}
+	file.close();
+	return wifiNames;
+}
+```
+
+<br/>
+
+```c++
+bool ConnectToSelectedWifi(const std::wstring& networkName, const std::wstring& password)
+{
+	std::string name(networkName.begin(), networkName.end());
+	std::string pass(password.begin(), password.end());
+
+	std::string fileName = "myWlan.xml";
+	std::ofstream xmlFile;
+	xmlFile.open(fileName.c_str());
+
+	if (!xmlFile.is_open()) {
+		std::cerr << "Failed to create XML file." << std::endl;
+		return false;
+	}
+
+	// XML 파일 작성
+	xmlFile << "<?xml version=\"1.0\"?>\n";
+	xmlFile << "<WLANProfile xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v1\">\n";
+	xmlFile << "<name>" << name << "</name>\n";
+	xmlFile << "<SSIDConfig>\n<SSID>\n<hex>";
+	for (int i = 0; i < name.length(); i++)
+		xmlFile << std::hex << (int)name.at(i);
+	xmlFile << "</hex>\n<name>" << name << "</name>\n</SSID>\n</SSIDConfig>\n";
+	xmlFile << "<connectionType>ESS</connectionType>\n";
+	xmlFile << "<connectionMode>auto</connectionMode>\n<MSM>\n<security>\n";
+	xmlFile << "<authEncryption>\n<authentication>WPA2PSK</authentication>\n";
+	xmlFile << "<encryption>AES</encryption>\n<useOneX>false</useOneX>\n";
+	xmlFile << "</authEncryption>\n<sharedKey>\n<keyType>passPhrase</keyType>\n";
+	xmlFile << "<protected>false</protected>\n<keyMaterial>" << pass << "</keyMaterial>\n";
+	xmlFile << "</sharedKey>\n</security>\n</MSM>\n";
+	xmlFile << "<MacRandomization xmlns=\"http://www.microsoft.com/networking/WLAN/profile/v3\">\n";
+	xmlFile << "<enableRandomization>false</enableRandomization>\n</MacRandomization>\n";
+	xmlFile << "</WLANProfile>";
+
+	xmlFile.close();
+
+	std::vector<std::wstring> availableInterfaces = GetWifiInterfaceNames();
+
+	//std::wcout.clear(); // 스트림의 에러 플래그를 초기화
+	//std::wcout.sync_with_stdio(true);
+
+	//// 사용 가능한 Wi-Fi 인터페이스 목록 출력
+	//std::wcout << "Available Wi-Fi Interfaces:" << std::endl;
+	//for (const auto& iface : availableInterfaces) {
+	//	std::wcout << iface << std::endl;
+	//}
+
+	std::string interfaceName = "Wi-Fi";
+
+	// "Wi-Fi" 외에 다른 인터페이스가 있는지 확인
+	for (const auto& iface : availableInterfaces) {
+		std::wstring ifaceName = iface;
+		if (ifaceName != L"Wi-Fi" && ifaceName.find(L"Wi-Fi") != std::wstring::npos) {
+			interfaceName = std::string(ifaceName.begin(), ifaceName.end());
+			std::cout << "Selected interfaceName: " << interfaceName << std::endl;
+		}
+	}
+
+	std::string command = "netsh wlan add profile filename=\"" + fileName + "\" interface=\"" + interfaceName + "\"";
+	int result = system(command.c_str());
+	if (result != 0) {
+		std::cerr << "Failed to add WLAN profile, command returned: " << result << std::endl;
+		return false;
+	}
+
+	// Connect to the network
+	command = "netsh wlan connect name=\"" + name + "\" interface=\"" + interfaceName + "\"";
+	result = system(command.c_str());
+	if (result == 0) {
+		return true;
+	}
+	else {
+		std::cerr << "Failed to connect to the Wi-Fi network, command returned: " << result << std::endl;
+		return false;
+	}
+}
+```
