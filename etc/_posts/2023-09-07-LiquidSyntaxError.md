@@ -43,13 +43,16 @@ Liquid 태그의 문제점 파악: 2023-08-22-(1)StartCuda.md 파일에서 {% �
 
 <br/>
 
+{% raw %}
 ```c++
 int main()
 {
     const int arraySize = 5;
     const int a[arraySize] = { 1, 2, 3, 4, 5 };
     const int b[arraySize] = { 10, 20, 30, 40, 50 };
+}
 ```
+{% endraw %}
 
 위의 코드는 실제로 105번째 line인 __const int b[arraySize] = { 10, 20, 30, 40, 50 };__ 부분인데,
 
