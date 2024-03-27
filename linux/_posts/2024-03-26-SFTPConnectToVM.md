@@ -46,7 +46,14 @@ comments: true
               link/ether 00:0c:29:ff:ee:dd brd ff:ff:ff:ff:ff:ff
       ```
 
-2. **IP 주소 확인:**
+2. **네트워크 인터페이스 확인 및 활성화:**
+
+   - DHCP를 사용하여 자동으로 IP 주소를 받기 위해 다음 명령어를 입력하자.
+      ```bash
+          sudo dhclient ens33
+      ```
+
+3. **IP 주소 확인:**
    - 네트워크 인터페이스가 'UP' 상태일 때, `ip addr` 명령어를 통해 할당받은 IP 주소를 확인한다. 이 IP 주소는 FileZilla를 통한 SFTP 연결에 사용된다.
    - 아래의 출력 예시를 보면 **192.168.74.128** 라는 ip를 할당받은 것을 볼 수 있다.
    - **ifconfig** 명령어로도 확인이 가능.
@@ -60,7 +67,7 @@ comments: true
                  valid_lft forever preferred_lft forever
       ```
       
-3. **FileZilla 설정:**
+4. **FileZilla 설정:**
    - FileZilla 클라이언트를 열고 '파일' > '사이트 관리자'로 이동한다.
    - '새 사이트'를 클릭하고, 적절한 이름을 지정한다.
    - 다음 설정을 입력한다:
