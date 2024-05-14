@@ -4,7 +4,7 @@ title: Excel 조건부 서식 매크로 적용하기
 subtitle: 조건부 서식을 다른 셀에 적용하는 매크로 작성법
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
-tags: [Excel, 매크로, 조건부 서식]
+tags: [Excel, 매크로, 조건부 서식, vba, macro]
 comments: true
 ---
 
@@ -32,9 +32,9 @@ Sub CopyColorsAndBorders()
     Dim i As Integer, j As Integer
     Dim sourceCell As Range, destCell1 As Range, destCell2 As Range
     
-    Set sourceRange = Sheets("64ms_rawData analy").Range("B1:AQ2048") ' 1번 매트릭스 범위 설정
-    Set destRange1 = Sheets("64ms_rawData analy").Range("AU1:CJ2048") ' 2번 매트릭스 첫 번째 대상 범위 설정
-    Set destRange2 = Sheets("64ms_rawData analy").Range("CN1:EC2048") ' 2번 매트릭스 두 번째 대상 범위 설정
+    Set sourceRange = Sheets("Sheet1").Range("B1:AQ2048") ' 1번 매트릭스 범위 설정
+    Set destRange1 = Sheets("Sheet1").Range("AU1:CJ2048") ' 2번 매트릭스 첫 번째 대상 범위 설정
+    Set destRange2 = Sheets("Sheet1").Range("CN1:EC2048") ' 2번 매트릭스 두 번째 대상 범위 설정
     
     For i = 1 To sourceRange.Rows.Count
         For j = 1 To sourceRange.Columns.Count
