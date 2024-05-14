@@ -39,8 +39,8 @@ Liquid 태그의 문제점 파악: `2023-08-22-(1)StartCuda.md` 파일에서 `{%
 
 <br/>
 
-{% raw %}
-```c++
+
+```cuda
 int main()
 {
     const int arraySize = 5;
@@ -48,7 +48,6 @@ int main()
     const int b[arraySize] = { 10, 20, 30, 40, 50 };
 }
 ```
-{% endraw %}
 
 위의 코드는 실제로 105번째 라인인 `const int b[arraySize] = { 10, 20, 30, 40, 50 };` 부분인데, '{'과 '}'를 잘못 해석하고 파싱해서 그런 것 같았다.
 
