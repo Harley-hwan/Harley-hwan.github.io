@@ -26,6 +26,7 @@ navbar-links:
     - MFC: "mfc"
     - WPF: "wpf"
     - Opencv: "opencv"
+    - ETC: "dev_etc"
   Project: "project"
   ETC: "etc"
   Github: "https://github.com/harley-hwan"
