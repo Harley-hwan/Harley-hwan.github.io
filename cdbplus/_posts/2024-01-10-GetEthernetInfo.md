@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "이더넷 어댑터 정보 찾기"
+title: "(c++) 이더넷 어댑터 정보 찾기"
 subtitle: "c++, window, ethernet, internet, LAN, interface"
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
