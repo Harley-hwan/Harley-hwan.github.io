@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "C++에서 클래스의 Static 멤버 변수와 Static 멤버 함수 이해하기"
+title: "(c++) 클래스의 Static 멤버 변수와 Static 멤버 함수 이해하기"
 subtitle: "공유되는 멤버의 선언, 정의, 사용 방법 알아보기"
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
