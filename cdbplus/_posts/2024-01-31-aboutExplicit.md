@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Understanding 'explicit' in C++"
+title: "(c++) Understanding 'explicit'"
 subtitle: "Preventing Implicit Conversions"
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
