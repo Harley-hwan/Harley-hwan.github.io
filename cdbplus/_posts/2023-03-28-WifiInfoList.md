@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Wi-Fi 정보(SSID, RSSI, First Connect) 뽑기
+title: (c++) Wi-Fi 정보(SSID, RSSI, First Connect) 뽑기
 subtitle: c++, window, wifi, wi-fi, wifilist, interface, 
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
