@@ -1,6 +1,6 @@
 ---
 layout: post
-title: C++에서 파이썬 스크립트 불러오기
+title: (c++) C++에서 파이썬 스크립트 불러오기
 subtitle: c, c++, python, Py_SetProgramName, Py_Initialize, PyRun_SimpleString, Py_Finalize, PyMem_RawFree
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
