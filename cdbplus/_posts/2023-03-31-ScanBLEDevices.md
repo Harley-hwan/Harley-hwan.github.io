@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 주변의 블루투스 기기 스캔 및 리스트뷰 출력 (MFC)
+title: (c++) 주변의 블루투스 기기 스캔 및 리스트뷰 출력 (MFC)
 subtitle: c++, mfc, bluetooth, devices, ble, listview, blescan, bluetoothscan, acrylicbleanalyzer, arcrylic, analyzer
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
