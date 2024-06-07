@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 현재 연결된 USB들의 VID/PID 검출
+title: (c++) 현재 연결된 USB들의 VID/PID 검출
 subtitle: c++, libusb, usb, libusb_device, libusb_context, device, vid, pid, vendorid, productid
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
