@@ -1,6 +1,6 @@
 ---
 layout: post
-title: HTTP 클라이언트 프로그램 - 블루투스 장치 목록 (Boost.Asio)
+title: (c++) HTTP 클라이언트 프로그램 - 블루투스 장치 목록 (Boost.Asio)
 subtitle: c++, boost, asio, boost.asio, bluetooth, ble, bluetoothscanner
 gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
