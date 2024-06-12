@@ -92,7 +92,7 @@ comments: true
 
 ```cpp
 double calculateSpinAxisAngle(double phaseV, double phaseH) {
-    // Assume lambda (wavelength) and d (antenna distance) are known constants
+    // lambda (wavelength), d (antenna distance)
     const double lambda = 0.03; // Example value in meters
     const double d = 0.1; // Example value in meters
     double theta_v = std::asin((phaseV * lambda) / (2 * M_PI * d));
