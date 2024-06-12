@@ -62,7 +62,7 @@ comments: true
 1. **위상차와 각도 간의 관계**:
    - 수직 위상차 $$\phi_v$$와 수평 위상차 $$\phi_h$$를 측정한 후, 이를 각도로 변환한다.
    - 위상차를 각도로 변환하는 식은 다음과 같다:
-   - 
+     
      $$\theta_v = \arcsin\left( \frac{\phi_v \cdot \lambda}{2 \pi d} \right)$$
      
      $$\theta_h = \arcsin\left( \frac{\phi_h \cdot \lambda}{2 \pi d} \right)$$
@@ -81,7 +81,7 @@ comments: true
      
 3. **스핀축 각도의 계산**:
    - 최종적으로 회전축의 각도 $$\theta_{\text{spin}}$$은 다음과 같이 계산된다:
-   - 
+     
      $$\theta_{\text{spin}} = \arctan2(V_y, V_x) \times \frac{180.0}{\pi} \quad (\text{degrees로 변환})$$
      
    - 이 각도는 공의 회전축이 XY 평면에 대해 얼마나 기울어져 있는지를 나타낸다.
