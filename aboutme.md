@@ -16,13 +16,11 @@ What else do you need? Ask me whatever...
 
 ### My story
 
-I am working as researcher & developer.
-
-I am responsible for software engineer.
+I am working as a software engineer, primarily focusing on embedded development.
 
 I majored in Computer Science at Pusan National University.
 
-I was a Taekwondo Athlete, but I can't do it anymore because of a big injury called a cruciate ligament rupture.
+I was a Taekwondo athlete, but I can't do it anymore because of a major injury called a cruciate ligament rupture.
 
 I studied English in the UK and the Philippines for a total of a year.
 
