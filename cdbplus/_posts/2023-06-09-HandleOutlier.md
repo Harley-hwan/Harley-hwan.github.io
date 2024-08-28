@@ -28,7 +28,7 @@ comments: true
 ### 선형 보간법 
 
 ```c++
-std::vector<float> CRbf::handleOutliers(const std::vector<float>& values, int windowSize, float threshold) {
+std::vector<float> handleOutliers(const std::vector<float>& values, int windowSize, float threshold) {
     int size = values.size();
     std::vector<float> smoothedValues = values;
 
@@ -60,7 +60,7 @@ std::vector<float> CRbf::handleOutliers(const std::vector<float>& values, int wi
 ###  이동 평균
 
 ```c++
-std::vector<float> CRbf::handleOutliers(const std::vector<float>& values, int windowSize, float threshold) {
+std::vector<float> handleOutliers(const std::vector<float>& values, int windowSize, float threshold) {
     int size = values.size();
     std::vector<float> smoothedValues = values;
     
