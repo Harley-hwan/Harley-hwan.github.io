@@ -10,6 +10,7 @@ comments: true
 
 # Docker: 컨테이너화의 기초와 실전 활용
 - 최초 작성일: 2024년 10월 25일 (금)
+
 <br/>
 
 ## 목차
@@ -21,10 +22,13 @@ comments: true
 6. [모범 사례와 팁](#모범-사례와-팁)
 7. [문제 해결과 디버깅](#문제-해결과-디버깅)
 8. [결론](#결론)
+
 </br>
 
 ## 소개
+
 Docker는 애플리케이션을 컨테이너화하여 개발, 배포, 실행하는 과정을 단순화하는 플랫폼이다. 이 글에서는 Docker의 기본 개념부터 실전 활용까지 상세히 다루어보고자 한다.
+
 </br>
 
 ## Docker의 기본 개념
@@ -41,9 +45,11 @@ Docker는 컨테이너 기술을 기반으로 하는 오픈소스 플랫폼이�
 3. **이식성**
    - 어떤 환경에서도 동일하게 실행 가능
    - "It works on my machine" 문제 해결
+
 </br>
 
 ## Docker 아키텍처
+
 Docker는 클라이언트-서버 아키텍처를 사용한다:
 
 ```plaintext
@@ -63,6 +69,7 @@ Docker 데몬 (dockerd)
 ## Docker의 주요 구성 요소
 
 ### 1. Dockerfile
+
 ```dockerfile
 FROM node:14
 WORKDIR /app
@@ -74,6 +81,7 @@ CMD ["npm", "start"]
 ```
 
 ### 2. Docker 이미지
+
 ```bash
 # 이미지 빌드
 docker build -t myapp:1.0 .
@@ -83,6 +91,7 @@ docker images
 ```
 
 ### 3. Docker 컨테이너
+
 ```bash
 # 컨테이너 실행
 docker run -d -p 3000:3000 myapp:1.0
@@ -91,17 +100,20 @@ docker run -d -p 3000:3000 myapp:1.0
 docker ps
 docker stop container_id
 ```
+
 </br>
 
 ## Docker 실전 활용
 
 ### 1. 개발 환경 설정
+
 ```bash
 # 개발 환경 컨테이너 실행
 docker run -v $(pwd):/app -p 3000:3000 myapp:dev
 ```
 
 ### 2. 멀티 컨테이너 애플리케이션
+
 ```yaml
 version: '3'
 services:
@@ -114,6 +126,7 @@ services:
     environment:
       POSTGRES_PASSWORD: example
 ```
+
 </br>
 
 ## 모범 사례와 팁
@@ -127,6 +140,7 @@ services:
    - 최소 권한 원칙 적용
    - 취약점 스캐닝 실행
    - 신뢰할 수 있는 베이스 이미지 사용
+
 </br>
 
 ## 문제 해결과 디버깅
@@ -141,6 +155,7 @@ docker exec -it container_id bash
 # 리소스 사용량 모니터링
 docker stats
 ```
+
 </br>
 
 ## 결론
