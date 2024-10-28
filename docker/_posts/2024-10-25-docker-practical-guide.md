@@ -52,6 +52,8 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
+<br>
+
 2. **WSL2 설치 및 설정**
 
    ```powershell
@@ -64,6 +66,8 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    # WSL 상태 확인
    wsl -l -v
    ```
+
+<br>
 
 3. **Docker Desktop 설치**
    - Docker Hub에서 최신 버전 다운로드
@@ -83,7 +87,7 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    docker info
    ```
 
-<br>
+<br><br>
 
 ### Linux(Ubuntu) 환경 설치
 Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여기서는 Ubuntu 22.04 LTS를 기준으로 설명한다.
@@ -105,6 +109,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
        lsb-release
    ```
 
+<br>
 
 2. **Docker 공식 저장소 설정**
    Docker의 공식 GPG 키를 추가하고 저장소를 설정한다. 이는 패키지의 신뢰성을 보장한다.
@@ -119,14 +124,18 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
    ```
 
-4. **Docker 엔진 설치**
+<br>
+
+3. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
    ```bash
    sudo apt update
    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
 
-5. **사용자 권한 설정**
+<br>
+
+4. **사용자 권한 설정**
    일반 사용자가 sudo 없이 Docker를 사용할 수 있도록 설정한다.
 
    ```bash
@@ -137,7 +146,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    newgrp docker
    ```
 
-<br>
+<br><br>
 
 ### Mac 환경 설치
 Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다.
@@ -147,6 +156,8 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    - Apple Silicon(M1/M2) 또는 Intel 프로세서
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
+
+<br>
 
 2. **설치 과정**
 
@@ -158,7 +169,9 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    # https://www.docker.com/products/docker-desktop
    ```
 
-4. **설치 확인 및 초기 설정**
+<br>
+
+3. **설치 확인 및 초기 설정**
    ```bash
    # Docker 버전 확인
    docker --version
@@ -198,7 +211,8 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
        "max-concurrent-uploads": 10
    }
    ```
-
+   
+<br>
 
 2. **서비스 활성화 및 시작**
    ```bash
@@ -212,7 +226,7 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
    sudo systemctl restart docker
    ```
 
-<br>
+<br><br>
 
 ### 네트워크 설정
 Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한다.
@@ -222,6 +236,8 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    - host: 호스트의 네트워크 직접 사용
    - overlay: 다중 호스트 간 컨테이너 통신
    - none: 네트워크 기능 비활성화
+
+<br>
 
 2. **사용자 정의 네트워크 생성**
    ```bash
@@ -264,6 +280,8 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        node:16
    ```
 
+<br>
+
 2. **컨테이너 상태 관리**
    ```bash
    # 실행 중인 컨테이너 목록
@@ -279,6 +297,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    docker logs -f webapp
    ```
 
+<br>
 
 3. **컨테이너 리소스 제어**
    ```bash
@@ -296,10 +315,12 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        nginx
    ```
 
-<br>
+<br><br>
 
 ### 이미지 관리
 Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
+
+<br>
 
 1. **이미지 기본 관리**
 
@@ -317,6 +338,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker rmi nginx:latest
    ```
 
+<br>
 
 2. **커스텀 이미지 생성**
 
@@ -341,9 +363,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker tag myapp:1.0 registry.example.com/myapp:1.0
    ```
 
-<br>
-
-<br>
+<br><br>
 
 ## 실전 컨테이너 구성
 
@@ -454,6 +474,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker inspect container_name
    ```
 
+<br>
 
 2. **성능 최적화**
 
@@ -470,7 +491,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    COPY --from=builder /app/build /usr/share/nginx/html
    ```
 
-<br>
+<br><br>
 
 ## 결론
 이 가이드는 Docker의 설치부터 운영까지 필요한 실전적인 내용을 다루었다. 기본적인 설치와 설정부터 시작하여 실전 환경 구성, 문제 해결까지 포괄적으로 다루어 실무에서 바로 활용할 수 있도록 구성하였다.
