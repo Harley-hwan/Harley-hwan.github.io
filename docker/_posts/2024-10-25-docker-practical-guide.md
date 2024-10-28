@@ -79,7 +79,6 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    &nbsp;
    
 설치 확인:
-
    ```powershell
    # Docker 버전 확인
    docker --version
@@ -168,7 +167,6 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    &nbsp;
 
 2. **설치 과정**
-
    ```bash
    # Homebrew를 통한 설치
    brew install --cask docker
@@ -275,6 +273,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
 컨테이너의 전체 라이프사이클을 관리하는 기본 명령어들이다.
 
 1. **컨테이너 실행과 관리**
+
    ```bash
    # 기본 컨테이너 실행
    docker run nginx
@@ -292,7 +291,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
 
    &nbsp;
 
-2. **컨테이너 상태 관리**
+3. **컨테이너 상태 관리**
    ```bash
    # 실행 중인 컨테이너 목록
    docker ps
@@ -309,7 +308,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
 
    &nbsp;
 
-3. **컨테이너 리소스 제어**
+4. **컨테이너 리소스 제어**
    ```bash
    # 메모리 제한
    docker run -d \
@@ -335,7 +334,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
 &nbsp;
 
 1. **이미지 기본 관리**
-
    ```bash
    # 이미지 검색
    docker search nginx
@@ -353,7 +351,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    &nbsp;
 
 2. **커스텀 이미지 생성**
-
    ```dockerfile
    # Dockerfile 예시
    FROM node:16-alpine
@@ -382,7 +379,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
 ## 실전 컨테이너 구성
 
 ### 웹 애플리케이션 스택 구성
-
    ```yaml
    # docker-compose.yml
    version: '3.8'
@@ -422,10 +418,9 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
      redis_data:
    ```
 
-<br>
+   &nbsp;
 
 ### CI/CD 파이프라인 구성
-
    ```yaml
    # .gitlab-ci.yml
    stages:
@@ -451,10 +446,9 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
        - docker stack deploy -c docker-compose.prod.yml myapp
    ```
 
-<br>
+   &nbsp;
 
 ### 백업 및 복구 시스템
-
    ```bash
    #!/bin/bash
    # backup.sh
@@ -470,14 +464,13 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
        tar czf /backups/volumes_$(date +%Y%m%d).tar.gz /var/lib/postgresql/data
    ```
 
-<br>
-
+   &nbsp;
+   
 <br>
 
 ## 문제 해결 가이드
 
 ### 일반적인 문제와 해결
-
 1. **컨테이너 시작 실패**
 
    ```bash
@@ -491,7 +484,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    &nbsp;
 
 2. **성능 최적화**
-
    ```dockerfile
    # 다단계 빌드 예시
    FROM node:16 AS builder
