@@ -53,6 +53,7 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - CPU 가상화 지원 (BIOS에서 활성화 필요)
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
+   
    &nbsp;
    
 3. **WSL2 설치 및 설정**
