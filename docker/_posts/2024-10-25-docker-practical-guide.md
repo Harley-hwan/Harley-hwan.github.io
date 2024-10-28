@@ -76,6 +76,8 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - 설치 중 'Use WSL 2 instead of Hyper-V' 옵션 선택
    - 설치 완료 후 시스템 재시작
 
+   &nbsp;
+   
 설치 확인:
 
    ```powershell
