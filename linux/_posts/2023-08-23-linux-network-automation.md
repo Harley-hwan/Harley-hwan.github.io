@@ -25,6 +25,7 @@ comments: true
 ## 스크립트 개요
 
 ### 기본 설정 및 변수
+
 ```bash
 #!/bin/bash
 
@@ -39,6 +40,7 @@ fi
 ```
 
 ### XML 파싱 및 IP 설정
+
 ```bash
 IP1=`cat /system_config.xml|grep -i "NET_CONFIG"|gawk -F"<" '{print $2}'|gawk -F">" '{print $2}'`
 ETH_IP="192.168.1."$IP1
@@ -48,6 +50,7 @@ ETH_IP="192.168.1."$IP1
 ## 구현 세부사항
 
 ### 1. 네트워크 설정 초기화 함수
+
 ```bash
 function ETH_INIT()
 {
@@ -88,6 +91,7 @@ function INTERFACES_INIT()
 ## 주요 함수 분석
 
 ### 1. 이더넷 인터페이스 검출
+
 ```bash
 # 이더넷 디바이스 이름 검출
 ETH_NAME=`ifconfig | grep -i "eth" | gawk -F" " '{print$1}'`
@@ -111,6 +115,7 @@ echo "GET_ADR: $GET_ADR"
 ## 실행 흐름과 동작 원리
 
 ### 1. 인터페이스 상태 확인 및 활성화
+
 ```bash
 # 이더넷 상태 확인
 ETH_STATUS=`ip link show|grep "eth"|gawk -F" " '{print $9}'`
@@ -126,6 +131,7 @@ fi
 ```
 
 ### 2. 네트워크 설정 검증 및 적용
+
 ```bash
 if [ -z $ETH_NAME ]; then
     echo "Error: No ethernet interface detected"
@@ -155,6 +161,7 @@ fi
 ## 고급 기능과 확장성
 
 ### 1. 오류 처리 및 로깅
+
 ```bash
 function log_message() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"
@@ -173,6 +180,7 @@ fi
 ```
 
 ### 2. 네트워크 설정 백업
+
 ```bash
 function backup_interfaces() {
     local backup_file="/etc/network/interfaces.backup.$(date '+%Y%m%d%H%M%S')"
