@@ -177,6 +177,7 @@ DWARF 구조
 ## Strip 사용법과 고급 기능
 
 ### 1. 기본 명령어와 옵션
+
 ```bash
 # 기본 사용법
 strip [옵션] <파일명>
@@ -233,6 +234,7 @@ strip -K main -K _init -K _fini binary
 ## 실전 최적화 전략
 
 ### 1. 단계별 최적화 프로세스
+
 ```bash
 # 1. 원본 백업
 cp binary binary.full
@@ -255,6 +257,7 @@ objcopy --add-gnu-debuglink=binary.debug binary
    - 바이너리 크기 감소로 인한 공격 표면 축소
 
 2. **권장 보안 설정**
+   
 ```bash
 # 모든 불필요 정보 제거
 strip --strip-all --remove-section=.note --remove-section=.comment binary
