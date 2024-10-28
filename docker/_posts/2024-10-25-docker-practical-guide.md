@@ -121,7 +121,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    echo \
      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
+   ```
 
 3. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
