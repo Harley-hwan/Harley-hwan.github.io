@@ -11,7 +11,7 @@ comments: true
 # 가상머신과 SFTP: VMware Ubuntu 환경에서의 네트워크 설정 가이드
 - 최초 작성일: 2024년 3월 26일 (화)
 
-</br>
+<br/>
 
 ## 목차
 1. [네트워크 인터페이스 개요](#네트워크-인터페이스-개요)
@@ -21,7 +21,7 @@ comments: true
 5. [문제 해결과 최적화](#문제-해결과-최적화)
 6. [보안 고려사항](#보안-고려사항)
 
-</br>
+<br/>
 
 ## 네트워크 인터페이스 개요
 
@@ -41,7 +41,7 @@ comments: true
     └── 라우팅 테이블
 ```
 
-</br>
+<br/>
 
 ## ens33의 구조와 역할
 
@@ -61,7 +61,7 @@ comments: true
    - 네트워크 버퍼링 처리
    - QoS(Quality of Service) 제어
 
-</br>
+<br/>
 
 ## 네트워크 설정 프로세스
 
@@ -95,7 +95,7 @@ ping -c 4 8.8.8.8
 ip route show
 ```
 
-</br>
+<br/>
 
 ## SFTP 연결 구성
 
@@ -125,7 +125,7 @@ sudo ufw allow ssh
    └── 전송 타입: Binary
    ```
 
-</br>
+<br/>
 
 ## 문제 해결과 최적화
 
@@ -159,7 +159,7 @@ sudo journalctl -u networking.service
    sudo sysctl -w net.ipv4.tcp_rmem="4096 87380 16777216"
    ```
 
-</br>
+<br/>
 
 ## 보안 고려사항
 
@@ -187,9 +187,8 @@ sudo ufw allow 22/tcp
 sudo ufw enable
 ```
 
-</br>
+<br/>
 
 ## 결론
 VMware Ubuntu 환경에서 ens33 네트워크 인터페이스를 통한 SFTP 연결은 적절한 설정과 최적화를 통해 안정적이고 보안성 높은 파일 전송 환경을 구축할 수 있다. 네트워크 인터페이스의 특성을 이해하고 적절한 설정을 적용하는 것이 중요하며, 보안 측면도 함께 고려해야 한다.
 
-파일명: `2024-10-25-vmware-ubuntu-sftp-guide.md`
