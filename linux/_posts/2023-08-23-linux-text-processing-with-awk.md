@@ -11,7 +11,7 @@ comments: true
 # 리눅스 텍스트 처리: AWK를 활용한 명령어 출력 파싱
 - 최초 작성일: 2023년 8월 23일(수)
 
-</br>
+<br/>
 
 ## 목차
 1. [명령어 구조 분석](#명령어-구조-분석)
@@ -19,7 +19,7 @@ comments: true
 3. [실제 사용 예제](#실제-사용-예제)
 4. [고급 활용 방법](#고급-활용-방법)
 
-</br>
+<br/>
 
 ## 명령어 구조 분석
 
@@ -33,7 +33,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 2. 프로그램 실행 (/usr/local/bin/app-version -v)
 3. 출력 파싱 (gawk를 통한 텍스트 처리)
 
-</br>
+<br/>
 
 ## 각 구성 요소 설명
 
@@ -60,7 +60,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 - `NR == 1`: 첫 번째 라인 선택
 - `print $2`: 두 번째 필드 출력
 
-</br>
+<br/>
 
 ## 실제 사용 예제
 
@@ -79,7 +79,7 @@ VERSION=$(sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}')
 echo "현재 버전: $VERSION"
 ```
 
-</br>
+<br/>
 
 ## 고급 활용 방법
 
@@ -105,7 +105,7 @@ fi
 echo "추출된 버전: $version"
 ```
 
-</br>
+<br/>
 
 ## 결론
 AWK를 활용한 텍스트 처리는 리눅스 시스템에서 명령어 출력을 파싱하고 필요한 정보를 추출하는데 매우 효과적인 방법이다. 특히 버전 정보, 로그 파일, 시스템 상태 정보 등을 처리할 때 유용하게 활용할 수 있다.
