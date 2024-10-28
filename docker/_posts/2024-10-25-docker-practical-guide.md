@@ -154,8 +154,6 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
-   &nbsp;
-
 2. **설치 과정**
    ```bash
    # Homebrew를 통한 설치
@@ -165,8 +163,6 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    # https://www.docker.com/products/docker-desktop
    ```
 
-   &nbsp;
-
 3. **설치 확인 및 초기 설정**
    ```bash
    # Docker 버전 확인
@@ -175,8 +171,6 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    # 테스트 컨테이너 실행
    docker run hello-world
    ```
-
-   &nbsp;
 
 <br>
 
@@ -207,8 +201,6 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
        "max-concurrent-uploads": 10
    }
    ```
-   
-   &nbsp;
 
 2. **서비스 활성화 및 시작**
    ```bash
@@ -222,8 +214,6 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
    sudo systemctl restart docker
    ```
 
-   &nbsp;
-
 <br>
 
 ### 네트워크 설정
@@ -234,8 +224,6 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    - host: 호스트의 네트워크 직접 사용
    - overlay: 다중 호스트 간 컨테이너 통신
    - none: 네트워크 기능 비활성화
-
-   &nbsp;
 
 2. **사용자 정의 네트워크 생성**
    ```bash
@@ -252,9 +240,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        --opt encrypted \
        secure_network
    ```
-
-   &nbsp;
-
+   
 <br>
 
 ## 기본 명령어 실습
@@ -279,9 +265,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        node:16
    ```
 
-   &nbsp;
-
-3. **컨테이너 상태 관리**
+2. **컨테이너 상태 관리**
    ```bash
    # 실행 중인 컨테이너 목록
    docker ps
@@ -296,9 +280,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    docker logs -f webapp
    ```
 
-   &nbsp;
-
-4. **컨테이너 리소스 제어**
+3. **컨테이너 리소스 제어**
    ```bash
    # 메모리 제한
    docker run -d \
@@ -313,8 +295,6 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        --cpus=".5" \
        nginx
    ```
-
-   &nbsp;
 
 <br>
 
@@ -337,8 +317,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    # 이미지 삭제
    docker rmi nginx:latest
    ```
-
-   &nbsp;
 
 2. **커스텀 이미지 생성**
    ```dockerfile
@@ -408,8 +386,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
      redis_data:
    ```
 
-   &nbsp;
-
 ### CI/CD 파이프라인 구성
    ```yaml
    # .gitlab-ci.yml
@@ -435,8 +411,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
      script:
        - docker stack deploy -c docker-compose.prod.yml myapp
    ```
-
-   &nbsp;
 
 ### 백업 및 복구 시스템
    ```bash
@@ -470,8 +444,6 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    # 컨테이너 상태 확인
    docker inspect container_name
    ```
-
-   &nbsp;
 
 2. **성능 최적화**
    ```dockerfile
