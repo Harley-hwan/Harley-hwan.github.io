@@ -65,6 +65,7 @@ wsl --set-default-version 2
 wsl -l -v
 ```
 
+
 3. **Docker Desktop 설치**
    - Docker Hub에서 최신 버전 다운로드
    - 설치 중 'Use WSL 2 instead of Hyper-V' 옵션 선택
