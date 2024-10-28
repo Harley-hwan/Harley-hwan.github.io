@@ -258,6 +258,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ### 일반적인 문제와 해결방법
 
 1. **컨테이너 접속이 안될 때**
+   
 ```bash
 # 네트워크 확인
 docker network ls
@@ -268,6 +269,7 @@ docker port container_id
 ```
 
 2. **컨테이너가 자동 종료될 때**
+
 ```bash
 # 로그 확인
 docker logs container_id
@@ -277,6 +279,7 @@ docker run -it image_name /bin/bash
 ```
 
 3. **디스크 공간 부족**
+
 ```bash
 # 미사용 리소스 정리
 docker system prune -a
@@ -286,6 +289,7 @@ docker volume prune
 ```
 
 4. **메모리 문제**
+
 ```bash
 # 메모리 제한 설정
 docker run -m 512m image_name
