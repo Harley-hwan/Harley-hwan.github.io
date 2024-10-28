@@ -54,8 +54,6 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
-   &nbsp;
-
 2. **WSL2 설치 및 설정**
 
    ```powershell
@@ -68,8 +66,6 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    # WSL 상태 확인
    wsl -l -v
    ```
-
-   &nbsp;
 
 3. **Docker Desktop 설치**
    - Docker Hub에서 최신 버전 다운로드
@@ -114,8 +110,6 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
        lsb-release
    ```
 
-   &nbsp;
-
 2. **Docker 공식 저장소 설정**
    Docker의 공식 GPG 키를 추가하고 저장소를 설정한다. 이는 패키지의 신뢰성을 보장한다.
    
@@ -127,9 +121,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    echo \
      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-   ```
-
-   &nbsp;
+```
 
 3. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
@@ -137,8 +129,6 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    sudo apt update
    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
-
-   &nbsp;
 
 4. **사용자 권한 설정**
    일반 사용자가 sudo 없이 Docker를 사용할 수 있도록 설정한다.
