@@ -53,8 +53,9 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - CPU 가상화 지원 (BIOS에서 활성화 필요)
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
-
-2. **WSL2 설치 및 설정**
+   &nbsp;
+   
+3. **WSL2 설치 및 설정**
 
    ```powershell
    # PowerShell 관리자 모드에서 실행
@@ -67,7 +68,9 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    wsl -l -v
    ```
 
-3. **Docker Desktop 설치**
+   &nbsp;
+   
+5. **Docker Desktop 설치**
    - Docker Hub에서 최신 버전 다운로드
    - 설치 중 'Use WSL 2 instead of Hyper-V' 옵션 선택
    - 설치 완료 후 시스템 재시작
@@ -110,7 +113,9 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
        lsb-release
    ```
 
-2. **Docker 공식 저장소 설정**
+   &nbsp;
+   
+3. **Docker 공식 저장소 설정**
    Docker의 공식 GPG 키를 추가하고 저장소를 설정한다. 이는 패키지의 신뢰성을 보장한다.
    
    ```bash
@@ -122,15 +127,19 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
    ```
+   
+   &nbsp;
 
-3. **Docker 엔진 설치**
+4. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
    ```bash
    sudo apt update
    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
 
-4. **사용자 권한 설정**
+   &nbsp;
+
+5. **사용자 권한 설정**
    일반 사용자가 sudo 없이 Docker를 사용할 수 있도록 설정한다.
 
    ```bash
@@ -154,6 +163,8 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
+   &nbsp;
+   
 2. **설치 과정**
    ```bash
    # Homebrew를 통한 설치
@@ -163,6 +174,8 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    # https://www.docker.com/products/docker-desktop
    ```
 
+   &nbsp;
+   
 3. **설치 확인 및 초기 설정**
    ```bash
    # Docker 버전 확인
@@ -202,7 +215,9 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
    }
    ```
 
-2. **서비스 활성화 및 시작**
+   &nbsp;
+   
+3. **서비스 활성화 및 시작**
    ```bash
    # 서비스 상태 확인
    sudo systemctl status docker
@@ -225,6 +240,8 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    - overlay: 다중 호스트 간 컨테이너 통신
    - none: 네트워크 기능 비활성화
 
+   &nbsp;
+   
 2. **사용자 정의 네트워크 생성**
    ```bash
    # 애플리케이션별 격리된 네트워크 생성
@@ -265,7 +282,9 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        node:16
    ```
 
-2. **컨테이너 상태 관리**
+   &nbsp;
+   
+3. **컨테이너 상태 관리**
    ```bash
    # 실행 중인 컨테이너 목록
    docker ps
@@ -280,7 +299,9 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    docker logs -f webapp
    ```
 
-3. **컨테이너 리소스 제어**
+   &nbsp;
+
+4. **컨테이너 리소스 제어**
    ```bash
    # 메모리 제한
    docker run -d \
@@ -295,6 +316,8 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        --cpus=".5" \
        nginx
    ```
+
+   &nbsp;
 
 <br>
 
@@ -318,6 +341,8 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker rmi nginx:latest
    ```
 
+   &nbsp;
+
 2. **커스텀 이미지 생성**
    ```dockerfile
    # Dockerfile 예시
@@ -331,6 +356,8 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    EXPOSE 3000
    CMD ["npm", "start"]
    ```
+
+   &nbsp;
 
    ```bash
    # 이미지 빌드
@@ -386,6 +413,8 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
      redis_data:
    ```
 
+   &nbsp;
+
 ### CI/CD 파이프라인 구성
    ```yaml
    # .gitlab-ci.yml
@@ -411,6 +440,8 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
      script:
        - docker stack deploy -c docker-compose.prod.yml myapp
    ```
+
+   &nbsp;
 
 ### 백업 및 복구 시스템
    ```bash
@@ -444,6 +475,8 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    # 컨테이너 상태 확인
    docker inspect container_name
    ```
+
+   &nbsp;
 
 2. **성능 최적화**
    ```dockerfile
