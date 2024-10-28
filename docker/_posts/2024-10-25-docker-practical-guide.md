@@ -42,6 +42,7 @@ comments: true
 ## Docker 설치 가이드
 
 ### Windows 환경 설치
+
 Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem for Linux 2)가 필요하다. WSL2는 완전한 Linux 커널을 제공하여 Docker가 네이티브 Linux처럼 동작할 수 있게 해준다.
 
 1. **시스템 요구사항 확인**
@@ -70,6 +71,7 @@ wsl -l -v
    - 설치 완료 후 시스템 재시작
 
 설치 확인:
+
 ```powershell
 # Docker 버전 확인
 docker --version
@@ -80,6 +82,8 @@ docker-compose --version
 # Docker 시스템 정보 확인
 docker info
 ```
+
+<br>
 
 ### Linux(Ubuntu) 환경 설치
 Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여기서는 Ubuntu 22.04 LTS를 기준으로 설명한다.
@@ -133,6 +137,8 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
+<br>
+
 ### Mac 환경 설치
 Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다.
 
@@ -161,6 +167,8 @@ docker --version
 # 테스트 컨테이너 실행
 docker run hello-world
 ```
+
+<br>
 
 <br>
 
@@ -206,6 +214,8 @@ sudo systemctl enable docker
 sudo systemctl restart docker
 ```
 
+<br>
+
 ### 네트워크 설정
 Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한다.
 
@@ -231,6 +241,10 @@ docker network create \
     --opt encrypted \
     secure_network
 ```
+
+<br>
+
+<br>
 
 ## 기본 명령어 실습
 
@@ -287,6 +301,8 @@ docker run -d \
     nginx
 ```
 
+<br>
+
 ### 이미지 관리
 Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
 
@@ -328,6 +344,10 @@ docker build -t myapp:1.0 .
 # 이미지 태그 설정
 docker tag myapp:1.0 registry.example.com/myapp:1.0
 ```
+
+<br>
+
+<br>
 
 ## 실전 컨테이너 구성
 
@@ -372,6 +392,8 @@ volumes:
   redis_data:
 ```
 
+<br>
+
 ### CI/CD 파이프라인 구성
 
 ```yaml
@@ -399,6 +421,8 @@ deploy:
     - docker stack deploy -c docker-compose.prod.yml myapp
 ```
 
+<br>
+
 ### 백업 및 복구 시스템
 
 ```bash
@@ -415,6 +439,10 @@ docker run --rm \
     alpine \
     tar czf /backups/volumes_$(date +%Y%m%d).tar.gz /var/lib/postgresql/data
 ```
+
+<br>
+
+<br>
 
 ## 문제 해결 가이드
 
@@ -444,6 +472,8 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=builder /app/build /usr/share/nginx/html
 ```
+
+<br>
 
 ## 결론
 이 가이드는 Docker의 설치부터 운영까지 필요한 실전적인 내용을 다루었다. 기본적인 설치와 설정부터 시작하여 실전 환경 구성, 문제 해결까지 포괄적으로 다루어 실무에서 바로 활용할 수 있도록 구성하였다.
