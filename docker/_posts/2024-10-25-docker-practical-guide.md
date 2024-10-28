@@ -109,7 +109,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
        lsb-release
    ```
 
-<br>
+   &nbsp;
 
 2. **Docker 공식 저장소 설정**
    Docker의 공식 GPG 키를 추가하고 저장소를 설정한다. 이는 패키지의 신뢰성을 보장한다.
@@ -124,7 +124,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
    ```
 
-<br>
+   &nbsp;
 
 3. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
@@ -133,7 +133,7 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
 
-<br>
+   &nbsp;
 
 4. **사용자 권한 설정**
    일반 사용자가 sudo 없이 Docker를 사용할 수 있도록 설정한다.
@@ -157,7 +157,7 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
-<br>
+   &nbsp;
 
 2. **설치 과정**
 
@@ -169,7 +169,7 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    # https://www.docker.com/products/docker-desktop
    ```
 
-<br>
+   &nbsp;
 
 3. **설치 확인 및 초기 설정**
    ```bash
@@ -180,7 +180,7 @@ Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다
    docker run hello-world
    ```
 
-<br>
+   &nbsp;
 
 <br>
 
@@ -212,7 +212,7 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
    }
    ```
    
-<br>
+   &nbsp;
 
 2. **서비스 활성화 및 시작**
    ```bash
@@ -226,7 +226,9 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
    sudo systemctl restart docker
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ### 네트워크 설정
 Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한다.
@@ -237,7 +239,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    - overlay: 다중 호스트 간 컨테이너 통신
    - none: 네트워크 기능 비활성화
 
-<br>
+   &nbsp;
 
 2. **사용자 정의 네트워크 생성**
    ```bash
@@ -255,7 +257,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        secure_network
    ```
 
-<br>
+   &nbsp;
 
 <br>
 
@@ -280,7 +282,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        node:16
    ```
 
-<br>
+   &nbsp;
 
 2. **컨테이너 상태 관리**
    ```bash
@@ -297,7 +299,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
    docker logs -f webapp
    ```
 
-<br>
+   &nbsp;
 
 3. **컨테이너 리소스 제어**
    ```bash
@@ -315,7 +317,9 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
        nginx
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ### 이미지 관리
 Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
@@ -338,7 +342,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker rmi nginx:latest
    ```
 
-<br>
+   &nbsp;
 
 2. **커스텀 이미지 생성**
 
@@ -363,7 +367,9 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker tag myapp:1.0 registry.example.com/myapp:1.0
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ## 실전 컨테이너 구성
 
@@ -474,7 +480,7 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    docker inspect container_name
    ```
 
-<br>
+   &nbsp;
 
 2. **성능 최적화**
 
