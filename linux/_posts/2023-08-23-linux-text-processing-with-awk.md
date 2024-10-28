@@ -24,6 +24,7 @@ comments: true
 ## 명령어 구조 분석
 
 ### 기본 명령어
+
 ```bash
 sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 ```
@@ -43,6 +44,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 - 동작 방식: 사용자 인증 후 권한 상승
 
 ### 2. 프로그램 경로와 옵션
+
 ```bash
 /usr/local/bin/app-version -v
 ```
@@ -51,6 +53,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 - 예상 출력: "Version: 1.2.3"
 
 ### 3. 파이프와 AWK 처리
+
 ```bash
 | gawk 'NR == 1 {print $2}'
 ```
@@ -65,6 +68,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 ## 실제 사용 예제
 
 ### 1. 기본 사용법
+
 ```bash
 # 버전 정보 추출
 sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
@@ -74,6 +78,7 @@ sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'
 ```
 
 ### 2. 변수에 저장
+
 ```bash
 VERSION=$(sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}')
 echo "현재 버전: $VERSION"
@@ -84,18 +89,21 @@ echo "현재 버전: $VERSION"
 ## 고급 활용 방법
 
 ### 1. 조건부 필드 추출
+
 ```bash
 # 특정 조건에 맞는 필드만 추출
 gawk '$1 == "Version:" {print $2}'
 ```
 
 ### 2. 다중 필드 처리
+
 ```bash
 # 여러 필드 동시 처리
 gawk '{print $2, $3}'
 ```
 
 ### 3. 에러 처리 추가
+
 ```bash
 #!/bin/bash
 if ! version=$(sudo /usr/local/bin/app-version -v | gawk 'NR == 1 {print $2}'); then
