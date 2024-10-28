@@ -11,7 +11,7 @@ comments: true
 # 리눅스 네트워크 자동화: 이더넷 디바이스 설정 스크립트
 - 최초 작성일: 2023년 8월 23일(수)
 
-</br>
+<br/>
 
 ## 목차
 1. [스크립트 개요](#스크립트-개요)
@@ -20,7 +20,7 @@ comments: true
 4. [실행 흐름과 동작 원리](#실행-흐름과-동작-원리)
 5. [고급 기능과 확장성](#고급-기능과-확장성)
 
-</br>
+<br/>
 
 ## 스크립트 개요
 
@@ -43,7 +43,7 @@ fi
 IP1=`cat /system_config.xml|grep -i "NET_CONFIG"|gawk -F"<" '{print $2}'|gawk -F">" '{print $2}'`
 ETH_IP="192.168.1."$IP1
 ```
-</br>
+<br/>
 
 ## 구현 세부사항
 
@@ -83,7 +83,7 @@ function INTERFACES_INIT()
 }
 ```
 
-</br>
+<br/>
 
 ## 주요 함수 분석
 
@@ -106,7 +106,7 @@ GET_ADR=`cat /etc/network/interfaces|grep "192.168.1"|gawk -F" " '{print $2}'`
 echo "GET_ADR: $GET_ADR"
 ```
 
-</br>
+<br/>
 
 ## 실행 흐름과 동작 원리
 
@@ -150,7 +150,7 @@ else
 fi
 ```
 
-</br>
+<br/>
 
 ## 고급 기능과 확장성
 
@@ -184,7 +184,7 @@ function backup_interfaces() {
 backup_interfaces
 ```
 
-</br>
+<br/>
 
 ## 결론
 이 스크립트는 임베디드 리눅스 시스템에서 이더넷 인터페이스를 자동으로 감지하고 설정하는 강력한 도구다. 주요 기능은 다음과 같다:
