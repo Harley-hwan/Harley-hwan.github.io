@@ -11,7 +11,7 @@ comments: true
 # Strip 명령어: ELF 파일 최적화의 핵심 도구
 - 최초 작성일: 2024년 10월 25일 (금)
 
-</br>
+<br/>
 
 ## 목차
 1. [소개](#소개)
@@ -23,12 +23,12 @@ comments: true
 7. [실전 최적화 전략](#실전-최적화-전략)
 8. [결론](#결론)
 
-</br>
+<br/>
 
 ## 소개
 Strip은 GNU Binutils의 핵심 구성 요소로, 실행 파일에서 불필요한 심볼과 섹션을 제거하여 파일 크기를 최적화하는 도구다. 특히 임베디드 시스템에서 중요한 역할을 하며, 실행 파일의 메모리 점유율을 최소화하는 데 결정적인 기여를 한다.
 
-</br>
+<br/>
 
 ## ELF 파일 구조와 이론적 배경
 
@@ -138,9 +138,9 @@ for (each symbol in symtab) {
    - .rodata: 상수 데이터
    - .dynamic: 동적 링킹 정보
 
-</br>
+<br/>
 
-</br>
+<br/>
 
 ## Strip이 제거하는 정보의 상세 분석
 
@@ -172,7 +172,7 @@ DWARF 구조
    - 지역 변수 심볼
    - 소스 파일 정보
 
-</br>
+<br/>
 
 ## Strip 사용법과 고급 기능
 
@@ -204,7 +204,7 @@ objcopy --add-gnu-debuglink=binary.debug binary
 strip -K main -K _init -K _fini binary
 ```
 
-</br>
+<br/>
 
 ## 성능과 트레이드오프
 
@@ -228,7 +228,7 @@ strip -K main -K _init -K _fini binary
    - 런타임 디버깅 불가능
    - 프로파일링 정보 손실
 
-</br>
+<br/>
 
 ## 실전 최적화 전략
 
@@ -263,7 +263,7 @@ strip --strip-all --remove-section=.note --remove-section=.comment binary
 strip -K main -K _start --strip-unneeded binary
 ```
 
-</br>
+<br/>
 
 ## 결론
 Strip은 단순한 바이너리 축소 도구를 넘어서, 임베디드 시스템과 제한된 환경에서의 소프트웨어 최적화에 핵심적인 역할을 한다. ELF 파일 구조에 대한 깊은 이해를 바탕으로 Strip을 효과적으로 활용하면, 실행 파일의 크기를 최적화하면서도 필요한 기능은 모두 보존할 수 있다.
