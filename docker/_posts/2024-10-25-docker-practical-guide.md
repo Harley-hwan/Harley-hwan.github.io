@@ -21,7 +21,7 @@ comments: true
 5. [실전 예제](#실전-예제)
 6. [문제 해결](#문제-해결)
    
-</br>
+<br/>
 
 ## Docker 설치
 
@@ -60,7 +60,7 @@ sudo apt-get update
 sudo apt-get install docker-ce
 ```
 
-</br>
+<br/>
 
 ## 기본 명령어
 
@@ -100,7 +100,7 @@ docker rm container_id
 docker logs container_id
 ```
 
-</br>
+<br/>
 
 ## Dockerfile 작성
 
@@ -144,7 +144,7 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 ```
 
-</br>
+<br/>
 
 ## Docker Compose 활용
 
@@ -187,7 +187,7 @@ docker-compose logs
 docker-compose restart
 ```
 
-</br>
+<br/>
 
 ## 실전 예제
 
@@ -242,7 +242,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-</br>
+<br/>
 
 ## 문제 해결
 
@@ -297,4 +297,4 @@ docker stats
    - 레이어 최소화
    - 의존성 설치 레이어 분리
 
-</br>
+<br/>
