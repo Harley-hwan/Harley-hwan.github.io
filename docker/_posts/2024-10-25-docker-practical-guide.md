@@ -106,6 +106,7 @@ sudo apt install -y \
     lsb-release
 ```
 
+
 2. **Docker 공식 저장소 설정**
    Docker의 공식 GPG 키를 추가하고 저장소를 설정한다. 이는 패키지의 신뢰성을 보장한다.
 
@@ -119,6 +120,7 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
+
 3. **Docker 엔진 설치**
    최신 버전의 Docker 엔진과 관련 도구들을 설치한다.
 
@@ -126,6 +128,7 @@ echo \
 sudo apt update
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
+
 
 4. **사용자 권한 설정**
    일반 사용자가 sudo 없이 Docker를 사용할 수 있도록 설정한다.
@@ -158,6 +161,7 @@ brew install --cask docker
 # 또는 Docker 웹사이트에서 Docker Desktop for Mac 다운로드 후 설치
 # https://www.docker.com/products/docker-desktop
 ```
+
 
 3. **설치 확인 및 초기 설정**
 
@@ -201,6 +205,7 @@ Docker 데몬의 기본 설정을 최적화하고 보안을 강화한다.
     "max-concurrent-uploads": 10
 }
 ```
+
 
 2. **서비스 활성화 및 시작**
 
@@ -269,6 +274,7 @@ docker run -d \
     node:16
 ```
 
+
 2. **컨테이너 상태 관리**
 
 ```bash
@@ -284,6 +290,7 @@ docker inspect webapp
 # 실시간 로그 확인
 docker logs -f webapp
 ```
+
 
 3. **컨테이너 리소스 제어**
 
@@ -322,6 +329,7 @@ docker images
 # 이미지 삭제
 docker rmi nginx:latest
 ```
+
 
 2. **커스텀 이미지 생성**
 
@@ -458,6 +466,7 @@ docker logs --tail 50 container_name
 # 컨테이너 상태 확인
 docker inspect container_name
 ```
+
 
 2. **성능 최적화**
 
