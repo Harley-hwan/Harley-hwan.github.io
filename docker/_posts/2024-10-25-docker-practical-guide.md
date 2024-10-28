@@ -34,6 +34,7 @@ comments: true
 3. Docker Desktop 설치 및 실행
 
 ### Linux(Ubuntu)에 설치
+
 ```bash
 # 이전 버전 제거
 sudo apt-get remove docker docker-engine docker.io
@@ -65,6 +66,7 @@ sudo apt-get install docker-ce
 ## 기본 명령어
 
 ### 이미지 관련 명령어
+
 ```bash
 # 이미지 검색
 docker search nginx
@@ -80,6 +82,7 @@ docker rmi nginx
 ```
 
 ### 컨테이너 관련 명령어
+
 ```bash
 # 컨테이너 실행
 docker run -d -p 80:80 nginx
@@ -105,6 +108,7 @@ docker logs container_id
 ## Dockerfile 작성
 
 ### Node.js 애플리케이션 예제
+
 ```dockerfile
 # 베이스 이미지 선택
 FROM node:14
@@ -129,6 +133,7 @@ CMD ["npm", "start"]
 ```
 
 ### Python 웹 애플리케이션 예제
+
 ```dockerfile
 FROM python:3.9
 
@@ -149,6 +154,7 @@ CMD ["python", "app.py"]
 ## Docker Compose 활용
 
 ### 기본 docker-compose.yml
+
 ```yaml
 version: '3'
 services:
@@ -173,6 +179,7 @@ volumes:
 ```
 
 ### Docker Compose 명령어
+
 ```bash
 # 서비스 시작
 docker-compose up -d
@@ -192,6 +199,7 @@ docker-compose restart
 ## 실전 예제
 
 ### React + Node.js + MongoDB 스택 구성
+
 ```yaml
 version: '3'
 services:
@@ -227,6 +235,7 @@ volumes:
 ```
 
 ### 프로덕션 배포 설정
+
 ```dockerfile
 # 멀티 스테이지 빌드 예제
 FROM node:14 AS builder
@@ -249,6 +258,7 @@ CMD ["nginx", "-g", "daemon off;"]
 ### 일반적인 문제와 해결방법
 
 1. **컨테이너 접속이 안될 때**
+
 ```bash
 # 네트워크 확인
 docker network ls
@@ -259,6 +269,7 @@ docker port container_id
 ```
 
 2. **컨테이너가 자동 종료될 때**
+
 ```bash
 # 로그 확인
 docker logs container_id
@@ -268,6 +279,7 @@ docker run -it image_name /bin/bash
 ```
 
 3. **디스크 공간 부족**
+
 ```bash
 # 미사용 리소스 정리
 docker system prune -a
@@ -277,6 +289,7 @@ docker volume prune
 ```
 
 4. **메모리 문제**
+
 ```bash
 # 메모리 제한 설정
 docker run -m 512m image_name
