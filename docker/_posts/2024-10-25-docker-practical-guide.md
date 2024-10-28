@@ -37,7 +37,9 @@ comments: true
    - 일반적인 문제와 해결
    - 성능 최적화
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ## Docker 설치 가이드
 
@@ -52,7 +54,7 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    - 최소 4GB RAM (8GB 이상 권장)
    - 최소 50GB 여유 디스크 공간
 
-<br>
+   &nbsp;
 
 2. **WSL2 설치 및 설정**
 
@@ -67,7 +69,7 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    wsl -l -v
    ```
 
-<br>
+   &nbsp;
 
 3. **Docker Desktop 설치**
    - Docker Hub에서 최신 버전 다운로드
@@ -87,7 +89,9 @@ Windows 환경에서 Docker를 설치하기 위해서는 WSL2(Windows Subsystem 
    docker info
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ### Linux(Ubuntu) 환경 설치
 Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여기서는 Ubuntu 22.04 LTS를 기준으로 설명한다.
@@ -146,7 +150,9 @@ Linux 환경에서는 패키지 관리자를 통해 Docker를 설치한다. 여�
    newgrp docker
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ### Mac 환경 설치
 Mac 환경에서는 Docker Desktop을 통해 Docker를 설치하고 관리한다.
@@ -324,7 +330,7 @@ Docker의 네트워크는 컨테이너 간 통신과 외부 연결을 관리한�
 ### 이미지 관리
 Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
 
-<br>
+&nbsp;
 
 1. **이미지 기본 관리**
 
@@ -497,7 +503,9 @@ Docker 이미지의 생성, 저장, 배포를 위한 명령어들이다.
    COPY --from=builder /app/build /usr/share/nginx/html
    ```
 
-<br><br>
+   &nbsp;
+
+<br>
 
 ## 결론
 이 가이드는 Docker의 설치부터 운영까지 필요한 실전적인 내용을 다루었다. 기본적인 설치와 설정부터 시작하여 실전 환경 구성, 문제 해결까지 포괄적으로 다루어 실무에서 바로 활용할 수 있도록 구성하였다.
