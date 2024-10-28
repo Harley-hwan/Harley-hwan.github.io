@@ -66,6 +66,7 @@ comments: true
 ## 네트워크 설정 프로세스
 
 ### 1. 인터페이스 상태 확인
+
 ```bash
 # 네트워크 인터페이스 상태 확인
 ip addr show ens33
@@ -75,6 +76,7 @@ ethtool ens33
 ```
 
 ### 2. 인터페이스 활성화 및 설정
+
 ```bash
 # 인터페이스 활성화
 sudo ip link set ens33 up
@@ -87,6 +89,7 @@ sudo ip addr add 192.168.1.100/24 dev ens33
 ```
 
 ### 3. 네트워크 상태 검증
+
 ```bash
 # 연결성 테스트
 ping -c 4 8.8.8.8
@@ -100,6 +103,7 @@ ip route show
 ## SFTP 연결 구성
 
 ### 1. SSH 서버 설정
+
 ```bash
 # SSH 서버 설치
 sudo apt install openssh-server
@@ -118,6 +122,7 @@ sudo ufw allow ssh
    - 로그온 방식: 일반/키 파일
 
 2. **고급 설정**
+   
    ```plaintext
    최적화 설정
    ├── 전송 버퍼 크기: 4MB
@@ -130,6 +135,7 @@ sudo ufw allow ssh
 ## 문제 해결과 최적화
 
 ### 1. 일반적인 문제 해결
+
 ```bash
 # 네트워크 인터페이스 재시작
 sudo ip link set ens33 down
@@ -144,6 +150,7 @@ sudo journalctl -u networking.service
 
 ### 2. 성능 최적화
 1. **MTU 최적화**
+
    ```bash
    # MTU 값 확인
    ip link show ens33
@@ -153,6 +160,7 @@ sudo journalctl -u networking.service
    ```
 
 2. **TCP 튜닝**
+   
    ```bash
    # TCP 윈도우 크기 조정
    sudo sysctl -w net.ipv4.tcp_wmem="4096 87380 16777216"
@@ -164,6 +172,7 @@ sudo journalctl -u networking.service
 ## 보안 고려사항
 
 ### 1. SSH 보안 강화
+
 ```bash
 # SSH 설정 파일 수정
 sudo nano /etc/ssh/sshd_config
@@ -175,6 +184,7 @@ MaxAuthTries 3
 ```
 
 ### 2. 방화벽 구성
+
 ```bash
 # UFW 기본 정책 설정
 sudo ufw default deny incoming
