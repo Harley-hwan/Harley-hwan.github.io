@@ -116,7 +116,7 @@ Windows 환경에서 Docker를 효과적으로 사용하기 위해서는 먼저 
 ## 개발 환경 구성
 
 ### Visual Studio Code 설치
-효율적인 개발을 위해 VS Code를 설치하고 필요한 확장을 구성합니다.
+효율적인 개발을 위해 VS Code를 설치하고 필요한 확장을 구성한다.
 
 1. **VS Code 설치**
    - [VS Code 공식 웹사이트](https://code.visualstudio.com)에서 최신 버전 다운로드
@@ -142,7 +142,7 @@ Windows 환경에서 Docker를 효과적으로 사용하기 위해서는 먼저 
    &nbsp;
 
 ### Docker Desktop 설치
-Windows에서 Docker를 사용하기 위해 Docker Desktop을 설치합니다.
+Windows에서 Docker를 사용하기 위해 Docker Desktop을 설치한다.
 
 1. **사전 준비사항 확인**
    - Windows 10/11 Pro, Enterprise, Education (Build 16299 이상)
