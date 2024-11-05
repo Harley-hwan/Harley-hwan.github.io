@@ -54,7 +54,7 @@ comments: true
 Windows 환경에서 Docker를 효과적으로 사용하기 위해서는 먼저 Git과 Git Bash를 설치해야 한다.
 
 1. **Git 다운로드 및 설치**
-   - Git 공식 웹사이트(https://git-scm.com)에서 최신 버전 다운로드
+   - [Git 공식 웹사이트](https://git-scm.com)에서 최신 버전 다운로드
    - 설치 시 "Git Bash Here" 옵션 선택 확인
    - PATH 환경변수 설정 옵션에서 "Git from the command line and also from 3rd-party software" 선택
 
