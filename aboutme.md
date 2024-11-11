@@ -28,7 +28,7 @@ Previously, I was a Taekwondo athlete, but I had to stop due to a major injury, 
 
 ### Countries I've visited / traveled
 
-UK, Iceland, Porland, France, Italy, Germany, Austria, Philippine, China, Japan, Thailand and more in the future ...
+UK, Iceland, Porland, France, Italy, Germany, Austria, Philippine, China, Japan, Thailand, Vietnam and more in the future ...
 
 <br/>
 
