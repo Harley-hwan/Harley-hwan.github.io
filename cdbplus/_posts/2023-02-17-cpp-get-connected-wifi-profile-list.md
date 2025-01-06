@@ -1,35 +1,35 @@
 ---
 layout: post
-title: 현재 연결된 WiFi 사용자 프로필 리스트 검출
-subtitle: c++, windows, wlan, WlanOpenHandle, WlanGetProfileList, WlanEnumInterfaces, ConvertWCharToString
-gh-repo: harley-hwan/harley-hwan.github.io
+title: "(C++) Windows WLAN API를 이용한 WiFi 프로필 검출"
+subtitle: "현재 연결된 WiFi 사용자 프로필 정보 추출"
+gh-repo: your-github-username/your-repo-name
 gh-badge: [star, fork, follow]
-tags: [c, c++, windows, wlan, WlanOpenHandle, WlanGetProfileList, WlanEnumInterfaces, ConvertWCharToString]
+tags: [c++, windows, wlan, api, profile, network]
 comments: true
 ---
 
-# 현재 연결된 WiFi
-- 최초 작성일: 2023년 2월 17일 (금)
+# Windows WLAN API를 이용한 WiFi 프로필 검출
+- 최초 작성일: 2024년 1월 6일 (월)
+
+<br/>
 
 ## 목차
-
-[TOC]
-
-<br/>
-
-## 내용
-
-시스템 커맨드인 "netsh wlan show profiles" 로 나온 결과 중,
-
-현재 연결 중인 와이파이와 일치하는 사용자 프로필을 뽑고자 한다.
+1. [소개](#소개)
+2. [기본 구현](#기본-구현)
+3. [문제 해결 및 개선](#문제-해결-및-개선)
+4. [특정 프로필 검출](#특정-프로필-검출)
 
 <br/>
 
-## 실습1
+## 소개
+시스템 커맨드 "netsh wlan show profiles"의 기능을 프로그래밍 방식으로 구현한다. WLAN API를 사용하여 현재 연결된 Wi-Fi와 일치하는 사용자 프로필을 검출한다.
 
 <br/>
 
-```c++
+## 기본 구현
+WlanAPI를 사용하여 WiFi 프로필을 검출하는 기본 구현이다.
+
+```cpp
 #include <iostream>
 #include <Windows.h>
 #include <wlanapi.h>
@@ -50,13 +50,14 @@ int main() {
     DWORD negotiatedVersion;
     HANDLE clientHandle = NULL;
 
-    // Initialize the handle to the WLAN client.
+    // WLAN 클라이언트 초기화
     DWORD ret = WlanOpenHandle(2, NULL, &negotiatedVersion, &clientHandle);
     if (ret != ERROR_SUCCESS) {
         std::cerr << "WlanOpenHandle failed with error: " << ret << std::endl;
         return 1;
     }
 
+    // 인터페이스 목록 획득
     PWLAN_INTERFACE_INFO_LIST ifList = NULL;
     ret = WlanEnumInterfaces(clientHandle, NULL, &ifList);
     if (ret != ERROR_SUCCESS) {
@@ -64,21 +65,26 @@ int main() {
         return 1;
     }
 
+    // 각 인터페이스별 처리
     for (DWORD i = 0; i < ifList->dwNumberOfItems; i++) {
         PWLAN_INTERFACE_INFO pIfInfo = &ifList->InterfaceInfo[i];
         PWLAN_CONNECTION_ATTRIBUTES pConnectInfo = NULL;
 
-        // Get the current connection attributes.
-        ret = WlanQueryInterface(clientHandle, &pIfInfo->InterfaceGuid, wlan_intf_opcode_current_connection, NULL,
+        // 현재 연결 정보 획득
+        ret = WlanQueryInterface(clientHandle, &pIfInfo->InterfaceGuid, 
+            wlan_intf_opcode_current_connection, NULL,
             (PDWORD)&pConnectInfo, (PVOID)&pConnectInfo, NULL);
         if (ret != ERROR_SUCCESS) {
             std::cerr << "WlanQueryInterface failed with error: " << ret << std::endl;
             continue;
         }
 
-        std::wcout << "Currently connected to: " << ConvertWCharToString(pConnectInfo->strProfileName) << std::endl;
+        // 프로필 정보 출력
+        std::wcout << "Currently connected to: " 
+                   << ConvertWCharToString(pConnectInfo->strProfileName) << std::endl;
         std::wcout << "Other profiles available: " << std::endl;
 
+        // 프로필 목록 획득
         PWLAN_PROFILE_INFO_LIST profileList = NULL;
         ret = WlanGetProfileList(clientHandle, &pIfInfo->InterfaceGuid, NULL, &profileList);
         if (ret != ERROR_SUCCESS) {
@@ -86,6 +92,7 @@ int main() {
             continue;
         }
 
+        // 프로필 목록 처리
         for (DWORD j = 0; j < profileList->dwNumberOfItems; j++) {
             PWLAN_PROFILE_INFO profileInfo = &profileList->ProfileInfo[j];
             std::wstring profileName = ConvertWCharToString(profileInfo->strProfileName);
@@ -95,59 +102,41 @@ int main() {
             }
         }
 
+        // 메모리 해제
         WlanFreeMemory(pConnectInfo);
         WlanFreeMemory(profileList);
     }
 
+    // 정리
     WlanFreeMemory(ifList);
     WlanCloseHandle(clientHandle, NULL);
     return 0;
 }
-
 ```
 
-<br/>
+#### 구현 설명:
+1. **초기화 및 설정**
+   - WlanOpenHandle로 WLAN 클라이언트를 초기화한다
+   - WlanEnumInterfaces로 무선 인터페이스 목록을 가져온다
 
-위의 코드를 실행하게 되면 아래와 같이 오류가 발생한다.
+2. **연결 정보 획득**
+   - WlanQueryInterface로 현재 연결 상태를 확인한다
+   - WLAN_CONNECTION_ATTRIBUTES 구조체로 정보를 저장한다
 
-![image](https://user-images.githubusercontent.com/68185569/219573358-c18ecd40-2c2e-43b7-b6f5-1b4839c8bf85.png)
+3. **프로필 처리**
+   - WlanGetProfileList로 모든 프로필을 가져온다
+   - 현재 연결된 프로필과 다른 프로필을 구분하여 출력한다
 
-<br/>
-
-<br/>
-
-WlanQueryInterface() 함수는 다음과 같은 인자를 받는다.
-
-```c++
-DWORD WlanQueryInterface(
-HANDLE hClientHandle,
-const GUID *pInterfaceGuid,
-WLAN_INTF_OPCODE OpCode,
-PVOID pReserved,
-PDWORD pdwDataSize,
-PVOID *ppData,
-PWLAN_OPCODE_VALUE_TYPE pWlanOpcodeValueType
-);
-```
+#### 실행 결과:
+![기본 구현 결과](https://user-images.githubusercontent.com/68185569/219573236-74c8eccc-7a33-4673-a126-c28e20bdaaa5.png)
 
 <br/>
 
-```c++
-// Get the current connection attributes.
-ret = WlanQueryInterface(clientHandle, &pIfInfo->InterfaceGuid, wlan_intf_opcode_current_connection, NULL,
-    (PDWORD)&pConnectInfo, (PVOID)&pConnectInfo, NULL);
-```
+## 문제 해결 및 개선
+WlanQueryInterface 함수 호출 시 발생하는 오류를 수정한 개선된 구현이다.
 
-<br/>
-
-하지만 현재 코드에서는 인자를 6개를 넘겨줬기 때문에 발생한 오류이다. 
-
-함수 호출부분에서 넘겨주는 인자를 아래와 같이 수정해주면 된다.
-
-<br/>
-
-```c++
-// Get the current connection attributes.
+```cpp
+// 수정된 WlanQueryInterface 호출
 ret = WlanQueryInterface(
     clientHandle,
     &pIfInfo->InterfaceGuid,
@@ -158,330 +147,48 @@ ret = WlanQueryInterface(
     NULL);
 ```
 
-<br/>
+#### 주요 수정사항:
+1. **매개변수 타입 수정**
+   - (PVOID)&pConnectInfo를 (PVOID*)&pConnectInfo로 수정
+   - 포인터의 포인터로 올바르게 캐스팅
+
+2. **에러 처리 개선**
+   - 정확한 에러 코드 확인이 가능
+   - 명확한 에러 메시지 출력
+
+3. **문자열 출력 방식 변경**
+   - std::cout에서 std::wcout으로 변경
+   - 유니코드 문자열 올바르게 처리
 
 <br/>
 
-## 풀소스
+## 특정 프로필 검출
+특정 문자열로 시작하는 프로필만 선택적으로 검출하는 구현이다.
 
-<br/>
-
-실행시 현재 연결된 와이파이와 해당 와이파이를 사용하는 다른 사용자 프로필 이름이 출력된다.
-
-<br/>
-
-```c++
-#include <iostream>
-#include <Windows.h>
-#include <wlanapi.h>
-#include <objbase.h>
-#include <wtypes.h>
-#include <string>
-#include <vector>
-
-#pragma comment(lib, "Wlanapi.lib")
-#pragma comment(lib, "ole32.lib")
-
-std::wstring ConvertWCharToString(const WCHAR* wstr) {
-    std::wstring str(wstr);
-    return str;
-}
-
-int main() {
-    DWORD negotiatedVersion;
-    HANDLE clientHandle = NULL;
-
-    // Initialize the handle to the WLAN client.
-    DWORD ret = WlanOpenHandle(2, NULL, &negotiatedVersion, &clientHandle);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanOpenHandle failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    PWLAN_INTERFACE_INFO_LIST ifList = NULL;
-    ret = WlanEnumInterfaces(clientHandle, NULL, &ifList);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanEnumInterfaces failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    for (DWORD i = 0; i < ifList->dwNumberOfItems; i++) {
-        PWLAN_INTERFACE_INFO pIfInfo = &ifList->InterfaceInfo[i];
-        PWLAN_CONNECTION_ATTRIBUTES pConnectInfo = NULL;
-
-        // Get the current connection attributes.
-        ret = WlanQueryInterface(
-            clientHandle,
-            &pIfInfo->InterfaceGuid,
-            wlan_intf_opcode_current_connection,
-            NULL,
-            (PDWORD)&pConnectInfo,
-            (PVOID*)&pConnectInfo,
-            NULL);
-
-        if (ret != ERROR_SUCCESS) {
-            std::cerr << "WlanQueryInterface failed with error: " << ret << std::endl;
-            continue;
-        }
-
-        std::wcout << "Currently connected to: " << ConvertWCharToString(pConnectInfo->strProfileName) << std::endl;
-        std::wcout << "Other profiles available: " << std::endl;
-
-        PWLAN_PROFILE_INFO_LIST profileList = NULL;
-        ret = WlanGetProfileList(clientHandle, &pIfInfo->InterfaceGuid, NULL, &profileList);
-        if (ret != ERROR_SUCCESS) {
-            std::cerr << "WlanGetProfileList failed with error: " << ret << std::endl;
-            continue;
-        }
-
-        for (DWORD j = 0; j < profileList->dwNumberOfItems; j++) {
-            PWLAN_PROFILE_INFO profileInfo = &profileList->ProfileInfo[j];
-            std::wstring profileName = ConvertWCharToString(profileInfo->strProfileName);
-
-            if (profileName != ConvertWCharToString(pConnectInfo->strProfileName)) {
-                std::wcout << "- " << profileName << std::endl;
-            }
-        }
-
-        WlanFreeMemory(pConnectInfo);
-        WlanFreeMemory(profileList);
-    }
-
-    WlanFreeMemory(ifList);
-    WlanCloseHandle(clientHandle, NULL);
-    return 0;
-}
-
-```
-<br/>
-
-### 결과1
-
-![image](https://user-images.githubusercontent.com/68185569/219573236-74c8eccc-7a33-4673-a126-c28e20bdaaa5.png)
-
-<br/>
-
-<br/>
-
-## 실습2
-
-하지만 여기서, 필자 같은 경우는 와이파이 동글을 사용하여 동시에 2개의 와이파이가 연결하므로, 해당 와이파이들의 모든 사용자 프로필을 얻고자 한다.
-
-<br/>
-
-아래는 현재 연결된 와이파이의 사용자 프로필만 출력하는 C++ 코드이다.
-
-현재 연결된 와이파이의 사용자 프로필 이름을 가져오고, 이를 기준으로 전체 사용자 프로필 중 연결된 와이파이의 사용자 프로필만 출력하는 방식을 사용했다.
-
-```c++
-#include <iostream>
-#include <Windows.h>
-#include <wlanapi.h>
-#include <objbase.h>
-#include <wtypes.h>
-#include <string>
-#pragma comment(lib, "Wlanapi.lib")
-#pragma comment(lib, "ole32.lib")
-
-std::wstring ConvertWCharToString(const WCHAR* wstr) {
-    std::wstring str(wstr);
-    return str;
-}
-
-int main() {
-    DWORD negotiatedVersion;
-    HANDLE clientHandle = NULL;
-
-    // Initialize the handle to the WLAN client.
-    DWORD ret = WlanOpenHandle(2, NULL, &negotiatedVersion, &clientHandle);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanOpenHandle failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    PWLAN_INTERFACE_INFO_LIST ifList = NULL;
-    ret = WlanEnumInterfaces(clientHandle, NULL, &ifList);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanEnumInterfaces failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    for (DWORD i = 0; i < ifList->dwNumberOfItems; i++) {
-        PWLAN_INTERFACE_INFO pIfInfo = &ifList->InterfaceInfo[i];
-        PWLAN_CONNECTION_ATTRIBUTES pConnectInfo = NULL;
-
-        // Get the current connection attributes.
-        ret = WlanQueryInterface(clientHandle, &pIfInfo->InterfaceGuid, wlan_intf_opcode_current_connection, NULL,
-            (PDWORD)&pConnectInfo, NULL);
-        if (ret != ERROR_SUCCESS) {
-            continue;
-        }
-
-        std::wstring connectedProfileName = ConvertWCharToString(pConnectInfo->strProfileName);
-        std::cout << "Connected WiFi profile: " << connectedProfileName << std::endl;
-
-        WlanFreeMemory(pConnectInfo);
-
-        PWLAN_PROFILE_INFO_LIST pProfileList = NULL;
-        ret = WlanGetProfileList(clientHandle, &pIfInfo->InterfaceGuid, NULL, &pProfileList);
-        if (ret == ERROR_SUCCESS) {
-            for (DWORD j = 0; j < pProfileList->dwNumberOfItems; j++) {
-                PWLAN_PROFILE_INFO pProfileInfo = &pProfileList->ProfileInfo[j];
-                std::wstring profileName = ConvertWCharToString(pProfileInfo->strProfileName);
-                if (profileName == connectedProfileName) {
-                    std::cout << "Matched connected WiFi profile: " << profileName << std::endl;
-                }
-            }
-
-            WlanFreeMemory(pProfileList);
-        }
-    }
-
-    WlanFreeMemory(ifList);
-    WlanCloseHandle(clientHandle, NULL);
-    return 0;
-}
-
-```
-
-<br/>
-
-코드를 실행해보면 아래와 같은 에러가 뜬다.
-
-![image](https://user-images.githubusercontent.com/68185569/219581944-80a37a51-81f2-4eaa-b5a1-33e24d6949a2.png)
-
-<br/>
-
-이 에러는 std::wstring 타입의 값에 대해 << 연산자를 지원하지 않는 것으로 보인다.
-이를 해결하기 위해서는 std::wstring 타입을 출력 가능한 형태로 변환하는 방법을 사용하면 된다.
-
-예를 들어, std::wcout 스트림을 사용하여 std::wstring 값을 출력하거나, std::wstringstream을 사용하여 std::wstring 값을 문자열로 변환하는 방법이 있다.
-아래는 std::wstringstream을 사용하여 std::wstring 값을 출력하는 코드 예시이다.
-
-```c++
-std::wstring str = L"example";
-std::wstringstream ss;
-ss << str;
-std::wcout << ss.str() << std::endl;
-```
-
-<br/>
-
-위 코드는 std::wstring 값을 std::wstringstream 객체에 넣어 문자열로 변환한 후, std::wcout 스트림을 사용하여 출력하는 방식으로 동작한다.
-
-이를 참고하여 코드를 수정해보자. 사실 std::cout 을 std::wcout 으로만 바꿔주면 된다.
-
-<br/>
-
-### 풀 소스
-
-```c++
-#include <iostream>
-#include <Windows.h>
-#include <wlanapi.h>
-#include <objbase.h>
-#include <wtypes.h>
-#include <string>
-#pragma comment(lib, "Wlanapi.lib")
-#pragma comment(lib, "ole32.lib")
-
-std::wstring ConvertWCharToString(const WCHAR* wstr) {
-    std::wstring str(wstr);
-    return str;
-}
-
-int main() {
-    DWORD negotiatedVersion;
-    HANDLE clientHandle = NULL;
-
-    // Initialize the handle to the WLAN client.
-    DWORD ret = WlanOpenHandle(2, NULL, &negotiatedVersion, &clientHandle);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanOpenHandle failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    PWLAN_INTERFACE_INFO_LIST ifList = NULL;
-    ret = WlanEnumInterfaces(clientHandle, NULL, &ifList);
-    if (ret != ERROR_SUCCESS) {
-        std::cerr << "WlanEnumInterfaces failed with error: " << ret << std::endl;
-        return 1;
-    }
-
-    for (DWORD i = 0; i < ifList->dwNumberOfItems; i++) {
-        PWLAN_INTERFACE_INFO pIfInfo = &ifList->InterfaceInfo[i];
-        PWLAN_CONNECTION_ATTRIBUTES pConnectInfo = NULL;
-
-        // Get the current connection attributes.
-        ret = WlanQueryInterface(
-            clientHandle,
-            &pIfInfo->InterfaceGuid,
-            wlan_intf_opcode_current_connection,
-            NULL,
-            (PDWORD)&pConnectInfo,
-            (PVOID*)&pConnectInfo,
-            NULL);
-        if (ret != ERROR_SUCCESS) {
-            continue;
-        }
-
-        std::wstring connectedProfileName = ConvertWCharToString(pConnectInfo->strProfileName);
-        std::wcout << "Connected WiFi profile: " << connectedProfileName << std::endl;
-
-        WlanFreeMemory(pConnectInfo);
-
-        PWLAN_PROFILE_INFO_LIST pProfileList = NULL;
-        ret = WlanGetProfileList(clientHandle, &pIfInfo->InterfaceGuid, NULL, &pProfileList);
-        if (ret == ERROR_SUCCESS) {
-            for (DWORD j = 0; j < pProfileList->dwNumberOfItems; j++) {
-                PWLAN_PROFILE_INFO pProfileInfo = &pProfileList->ProfileInfo[j];
-                std::wstring profileName = ConvertWCharToString(pProfileInfo->strProfileName);
-                if (profileName == connectedProfileName) {
-                    std::wcout << "Matched connected WiFi profile: " << profileName << std::endl;
-                }
-            }
-
-            WlanFreeMemory(pProfileList);
-        }
-    }
-
-    WlanFreeMemory(ifList);
-    WlanCloseHandle(clientHandle, NULL);
-    return 0;
-}
-
-```
-
-<br/>
-
-### 결과2
-
-![image](https://user-images.githubusercontent.com/68185569/219582653-68ab9172-7ad5-47b6-b541-11ce38c1959d.png)
-
-<br/>
-
-<br/>
-
-## 실습3
-
-그렇게 뽑은 프로필 리스트 중 원하는 것만 뽑아내보자.
-
-```c++
+```cpp
 for (DWORD j = 0; j < pProfileList->dwNumberOfItems; j++) {
     PWLAN_PROFILE_INFO pProfileInfo = &pProfileList->ProfileInfo[j];
     std::wstring profileName = ConvertWCharToString(pProfileInfo->strProfileName);
     if (profileName == connectedProfileName) {
         std::wcout << "Matched connected WiFi profile: " << profileName << std::endl;
-        // Select profiles that start with "WAVE"
+        // "VISION"으로 시작하는 프로필 선택
         if (profileName.compare(0, 6, L"VISION") == 0) {
             std::wcout << "Selected profile: " << profileName << std::endl;
         }
     }    
 }
-
 ```
 
-### 결과3
+#### 구현 특징:
+1. **프로필 필터링**
+   - compare 함수로 문자열 시작 부분 비교
+   - 특정 접두사를 가진 프로필만 선택
 
-![image](https://user-images.githubusercontent.com/68185569/219586052-a188aa65-f17a-44b0-bef6-bf65ea401082.png)
+2. **정보 출력**
+   - 매칭된 프로필 정보 출력
+   - 선택된 프로필 별도 표시
 
+#### 실행 결과:
+![선택적 프로필 검출 결과](https://user-images.githubusercontent.com/68185569/219586052-a188aa65-f17a-44b0-bef6-bf65ea401082.png)
+
+이 구현을 통해 Windows 환경에서 Wi-Fi 프로필을 효과적으로 검출하고 관리할 수 있다. WLAN API의 다양한 함수들을 활용하여 현재 연결 상태 확인, 프로필 목록 획득, 특정 프로필 선택 등의 기능을 구현했다.
