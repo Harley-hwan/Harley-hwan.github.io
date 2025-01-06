@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "(C++) Windows 환경에서의 Wi-Fi 네트워크 프로그래밍"
+title: "(C++) Windows WlanAPI를 활용한 Wi-Fi 네트워크 프로그래밍 구현"
 subtitle: "WlanAPI를 활용한 Wi-Fi 스캔 및 연결 구현"
 gh-repo: your-github-username/your-repo-name
 gh-badge: [star, fork, follow]
