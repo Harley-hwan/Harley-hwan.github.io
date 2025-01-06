@@ -4,7 +4,7 @@ title: "(C++) Windows WlanAPI를 활용한 Wi-Fi 네트워크 프로그래밍 �
 subtitle: "WlanAPI를 활용한 Wi-Fi 스캔 및 연결 구현"
 gh-repo: your-github-username/your-repo-name
 gh-badge: [star, fork, follow]
-tags: [c++, programming, wifi, wlanapi, windows, network]
+tags: [c++, mfc, programming, wifi, wlanapi, windows, network]
 comments: true
 ---
 
