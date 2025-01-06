@@ -9,7 +9,7 @@ comments: true
 ---
 
 # Windows WLAN API를 이용한 WiFi 프로필 검출
-- 최초 작성일: 2024년 1월 6일 (월)
+- 최초 작성일: 2023년 2월 17일 (금)
 
 <br/>
 
