@@ -23,14 +23,18 @@ comments: true
 <br/>
 
 ## 소개
-Windows에서는 WlanAPI를 통해 Wi-Fi 네트워크 관련 기능을 프로그래밍 방식으로 제어할 수 있습니다. 이 문서에서는 주변의 Wi-Fi 네트워크를 검색하고 선택한 네트워크에 연결하는 기능의 구현 방법을 자세히 알아보겠습니다. 특히 "WAVE"로 시작하는 SSID를 가진 네트워크만을 대상으로 하는 특수한 요구사항을 반영한 구현 방법을 소개합니다.
+Windows에서는 WlanAPI를 통해 Wi-Fi 네트워크 관련 기능을 프로그래밍 방식으로 제어할 수 있다. 
+
+이 문서에서는 주변의 Wi-Fi 네트워크를 검색하고 선택한 네트워크에 연결하는 기능의 구현 방법을 자세히 알아보겠다. 
+
+특히 "WAVE"로 시작하는 SSID를 가진 네트워크만을 대상으로 하는 특수한 요구사항을 반영한 구현 방법을 소개한다.
 
 <br/>
 
 ## Wi-Fi 검색 기능
 
 ### 스캔 버튼 이벤트 처리
-Wi-Fi 스캔 버튼 클릭 시 실행되는 함수로, 사용자 인터페이스와 Wi-Fi 스캔 로직을 연결합니다.
+Wi-Fi 스캔 버튼 클릭 시 실행되는 함수로, 사용자 인터페이스와 Wi-Fi 스캔 로직을 연결한다.
 
 ```cpp
 void CWifiManagerDlg::OnBnClickedButtonWifiScan()
@@ -85,7 +89,7 @@ void CWifiManagerDlg::OnBnClickedButtonWifiScan()
    - 신호 강도와 첫 연결 시간 정보를 함께 표시
 
 ### Wi-Fi 목록 스캔 구현
-실제 Wi-Fi 스캔을 수행하는 핵심 함수입니다.
+실제 Wi-Fi 스캔을 수행하는 핵심 함수이다.
 
 ```cpp
 std::vector<std::tuple<CString, LONG, CString>> CWifiManagerDlg::ListAvailableWifiNetworks()
@@ -176,7 +180,7 @@ std::vector<std::tuple<CString, LONG, CString>> CWifiManagerDlg::ListAvailableWi
 ## Wi-Fi 연결 기능
 
 ### 연결 버튼 이벤트 처리
-사용자가 선택한 Wi-Fi 네트워크에 연결을 시도하는 함수입니다.
+사용자가 선택한 Wi-Fi 네트워크에 연결을 시도하는 함수이다.
 
 ```cpp
 void CWifiManagerDlg::OnBnClickedButtonWifiConnect()
@@ -228,7 +232,7 @@ void CWifiManagerDlg::OnBnClickedButtonWifiConnect()
    - 성공 시 윈도우 타이틀 업데이트
 
 ### Wi-Fi 연결 구현
-XML 프로파일을 생성하고 실제 연결을 수행하는 함수입니다.
+XML 프로파일을 생성하고 실제 연결을 수행하는 함수이다.
 
 ```cpp
 bool CWifiManagerDlg::ConnectToSelectedWifi(const std::wstring& networkName, const std::wstring& password)
@@ -299,7 +303,7 @@ bool CWifiManagerDlg::ConnectToSelectedWifi(const std::wstring& networkName, con
 <br/>
 
 ## 유틸리티 함수들
-문자열 변환과 SSID 처리를 위한 보조 함수들입니다.
+문자열 변환과 SSID 처리를 위한 보조 함수들이다.
 
 ```cpp
 std::wstring CWifiManagerDlg::ConvertSSID(const unsigned char* ssid, size_t ssidLength)
@@ -351,7 +355,7 @@ std::string CWifiManagerDlg::WStringToString(const std::wstring& wstr)
 <br/>
 
 ## 결론
-이 구현은 Windows 환경에서 WlanAPI를 사용하여 Wi-Fi 네트워크를 효과적으로 제어하는 방법을 보여줍니다. 특히 다음과 같은 특징을 가지고 있습니다:
+이 구현은 Windows 환경에서 WlanAPI를 사용하여 Wi-Fi 네트워크를 효과적으로 제어하는 방법을 보여준다. 특히 다음과 같은 특징을 가지고 있다:
 
 1. **기능적 특징**
    - "WAVE" 접두사를 가진 네트워크만 필터링하여 처리
@@ -368,4 +372,4 @@ std::string CWifiManagerDlg::WStringToString(const std::wstring& wstr)
    - 자동 Wi-Fi 연결 시스템 구축에 응용
    - 네트워크 모니터링 도구 개발에 참조
 
-이 코드는 Wi-Fi 네트워크 관리 기능이 필요한 Windows 애플리케이션 개발에 유용한 참조가 될 수 있으며, 필요에 따라 SSID 필터링 조건이나 보안 설정을 수정하여 다양한 요구사항에 맞게 확장할 수 있습니다.
+이 코드는 Wi-Fi 네트워크 관리 기능이 필요한 Windows 애플리케이션 개발에 유용한 참조가 될 수 있으며, 필요에 따라 SSID 필터링 조건이나 보안 설정을 수정하여 다양한 요구사항에 맞게 확장할 수 있다.
