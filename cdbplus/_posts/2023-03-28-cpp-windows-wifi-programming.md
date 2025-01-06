@@ -1,79 +1,91 @@
 ---
 layout: post
-title: "(C++) Windows WlanAPI를 활용한 Wi-Fi 네트워크 프로그래밍 구현"
-subtitle: "WlanAPI를 활용한 Wi-Fi 스캔 및 연결 구현"
+title: "(C++) WlanAPI를 이용한 Wi-Fi 검색 및 연결 기능 구현"
+subtitle: "Windows 환경에서 Wi-Fi 네트워크 검색과 연결하기"
 gh-repo: your-github-username/your-repo-name
 gh-badge: [star, fork, follow]
-tags: [c++, mfc, programming, wifi, wlanapi, windows, network]
+tags: [c++, programming, wifi, wlanapi, windows]
 comments: true
 ---
 
-# Windows 환경에서의 Wi-Fi 네트워크 프로그래밍
+# WlanAPI를 이용한 Wi-Fi 검색 및 연결 기능 구현
 - 최초 작성일: 2024년 1월 6일 (월)
 
 <br/>
 
 ## 목차
 1. [소개](#소개)
-2. [Wi-Fi 스캔 기능](#wi-fi-스캔-기능)
+2. [Wi-Fi 검색 기능](#wi-fi-검색-기능)
 3. [Wi-Fi 연결 기능](#wi-fi-연결-기능)
 4. [유틸리티 함수들](#유틸리티-함수들)
-5. [주의사항](#주의사항)
-6. [전체 코드 분석](#전체-코드-분석)
-7. [결론](#결론)
+5. [결론](#결론)
 
 <br/>
 
 ## 소개
-Windows 환경에서 Wi-Fi 네트워크를 프로그래밍 방식으로 제어하는 것은 매우 유용한 기능이다. 이 포스트에서는 WlanAPI를 사용하여 Wi-Fi 네트워크를 스캔하고 연결하는 방법을 상세히 살펴보겠다.
+Windows에서는 WlanAPI를 통해 Wi-Fi 네트워크 관련 기능을 프로그래밍 방식으로 제어할 수 있습니다. 이 문서에서는 주변의 Wi-Fi 네트워크를 검색하고 선택한 네트워크에 연결하는 기능의 구현 방법을 자세히 알아보겠습니다. 특히 "WAVE"로 시작하는 SSID를 가진 네트워크만을 대상으로 하는 특수한 요구사항을 반영한 구현 방법을 소개합니다.
 
 <br/>
 
-## Wi-Fi 스캔 기능
+## Wi-Fi 검색 기능
 
-### OnBnClickedButtonWifiScan 함수
-Wi-Fi 스캔 버튼 클릭 시 실행되는 핵심 함수.
+### 스캔 버튼 이벤트 처리
+Wi-Fi 스캔 버튼 클릭 시 실행되는 함수로, 사용자 인터페이스와 Wi-Fi 스캔 로직을 연결합니다.
 
 ```cpp
 void CWifiManagerDlg::OnBnClickedButtonWifiScan()
 {
-    std::vector<std::tuple<CString, LONG, CString>> v_Wifilist;
-    m_lcWifiList.DeleteAllItems();
+	std::vector<std::tuple<CString, LONG, CString>> v_Wifilist;
+	m_lcWifiList.DeleteAllItems();
 
-    v_Wifilist = ListAvailableWifiNetworks();
+	v_Wifilist = ListAvailableWifiNetworks();
 
-    // RSSI 값 기준으로 내림차순 정렬
-    std::sort(v_Wifilist.begin(), v_Wifilist.end(),
-        [](const auto& a, const auto& b) {
-            return std::get<1>(a) > std::get<1>(b);
-        });
+	// RSSI 값 기준으로 내림차순 정렬
+	std::sort(v_Wifilist.begin(), v_Wifilist.end(),
+		[](const auto& a, const auto& b) {
+			return std::get<1>(a) > std::get<1>(b);
+		});
 
-    int nIndex = 0;
-    for (const auto& item : v_Wifilist) {
-        CString ssid, listItem;
-        LONG rssi;
-        CString linkTime;
-        std::tie(ssid, rssi, linkTime) = item;
+	int nIndex = 0;
+	for (const auto& item : v_Wifilist) {
+		CString ssid, listItem;
+		LONG rssi;
+		CString linkTime;
+		std::tie(ssid, rssi, linkTime) = item;
 
-        // WAVE로 시작하는 SSID만 리스트에 추가
-        if (ssid.Find(_T("WAVE")) == 0)
-        {
-            listItem.Format(_T("%s - RSSI: %d - First Connect: %s"),
-                ssid, rssi, linkTime);
-            m_lcWifiList.InsertItem(nIndex, listItem);
-            nIndex++;
-        }
-    }
+		// WAVE로 시작하는 SSID만 리스트에 추가
+		if (ssid.Find(_T("WAVE")) == 0)
+		{
+			listItem.Format(_T("%s - RSSI: %d - First Connect: %s"),
+				ssid, rssi, linkTime);
+			m_lcWifiList.InsertItem(nIndex, listItem);
+			nIndex++;
+		}
+	}
 }
+
 ```
 
-주요 특징:
-1. `std::tuple`을 사용하여 SSID, RSSI, 연결 시간 정보를 관리
-2. 람다 표현식을 활용한 RSSI 기준 정렬
-3. "WAVE" 접두사를 가진 네트워크만 필터링
+#### 동작 원리:
+1. **초기화 및 데이터 구조**
+   - `std::tuple<CString, LONG, CString>`을 사용하여 각 네트워크의 SSID, 신호 강도, 연결 시간을 저장
+   - 기존 리스트 항목들을 모두 삭제하여 새로운 스캔 결과를 표시할 준비
 
-### ListAvailableWifiNetworks 함수
-실제 Wi-Fi 스캔을 수행하는 함수.
+2. **네트워크 스캔**
+   - `ListAvailableWifiNetworks()`를 호출하여 실제 Wi-Fi 스캔 수행
+   - WlanAPI를 통해 모든 가용한 네트워크 정보 수집
+
+3. **결과 정렬**
+   - 람다 표현식을 사용하여 RSSI(신호 강도) 기준 내림차순 정렬
+   - 사용자가 신호가 강한 네트워크를 쉽게 식별할 수 있도록 함
+
+4. **필터링 및 표시**
+   - "WAVE" 접두사를 가진 SSID만 선택
+   - 각 네트워크 정보를 포맷팅하여 리스트에 추가
+   - 신호 강도와 첫 연결 시간 정보를 함께 표시
+
+### Wi-Fi 목록 스캔 구현
+실제 Wi-Fi 스캔을 수행하는 핵심 함수입니다.
 
 ```cpp
 std::vector<std::tuple<CString, LONG, CString>> CWifiManagerDlg::ListAvailableWifiNetworks()
@@ -141,18 +153,30 @@ std::vector<std::tuple<CString, LONG, CString>> CWifiManagerDlg::ListAvailableWi
 }
 ```
 
-주요 기능:
-1. WlanAPI 초기화 및 핸들 관리
-2. 인터페이스 열거 및 BSS 목록 획득
-3. 타임스탬프 변환 및 시간 정보 포맷팅
-4. 메모리 관리 및 리소스 해제
+#### 구현 세부사항:
+1. **WlanAPI 초기화**
+   - `WlanOpenHandle`을 사용하여 Wlan 클라이언트 핸들 생성
+   - 버전 2를 지정하여 최신 기능 사용
+
+2. **인터페이스 열거**
+   - `WlanEnumInterfaces`로 시스템의 모든 무선 인터페이스 열거
+   - 노트북의 내장 Wi-Fi, 외장 Wi-Fi 어댑터 등 모든 인터페이스 처리
+
+3. **BSS 목록 획득**
+   - 각 인터페이스에 대해 `WlanGetNetworkBssList` 호출
+   - BSS(Basic Service Set) 정보를 통해 각 네트워크의 세부 정보 획득
+
+4. **시간 정보 처리**
+   - 호스트 타임스탬프를 시스템 시간으로 변환
+   - 1970년 기준 시간을 기준으로 계산
+   - 시:분:초 형식으로 포맷팅
 
 <br/>
 
 ## Wi-Fi 연결 기능
 
-### OnBnClickedButtonWifiConnect 함수
-Wi-Fi 연결 버튼 처리 함수.
+### 연결 버튼 이벤트 처리
+사용자가 선택한 Wi-Fi 네트워크에 연결을 시도하는 함수입니다.
 
 ```cpp
 void CWifiManagerDlg::OnBnClickedButtonWifiConnect()
@@ -189,14 +213,22 @@ void CWifiManagerDlg::OnBnClickedButtonWifiConnect()
 }
 ```
 
-핵심 기능:
-1. 선택된 네트워크 정보 추출
-2. 정규식을 통한 SSID 파싱
-3. 연결 상태 UI 업데이트
-4. 에러 처리 및 사용자 피드백
+#### 주요 기능:
+1. **선택 항목 확인**
+   - 리스트에서 선택된 항목의 위치 확인
+   - 선택된 항목이 없는 경우 사용자에게 알림
 
-### ConnectToSelectedWifi 함수
-실제 Wi-Fi 연결을 수행하는 함수.
+2. **SSID 추출**
+   - 정규식을 사용하여 전체 텍스트에서 SSID 부분만 추출
+   - 공백 전까지의 문자열을 네트워크 이름으로 사용
+
+3. **연결 시도**
+   - 기본 비밀번호("wave1234") 사용
+   - 연결 성공/실패 여부를 사용자에게 알림
+   - 성공 시 윈도우 타이틀 업데이트
+
+### Wi-Fi 연결 구현
+XML 프로파일을 생성하고 실제 연결을 수행하는 함수입니다.
 
 ```cpp
 bool CWifiManagerDlg::ConnectToSelectedWifi(const std::wstring& networkName, const std::wstring& password)
@@ -247,18 +279,27 @@ bool CWifiManagerDlg::ConnectToSelectedWifi(const std::wstring& networkName, con
 }
 ```
 
-구현 특징:
-1. XML 프로파일 생성
-2. WPA2-PSK 보안 설정
-3. netsh 명령어 실행
-4. 연결 상태 모니터링
+#### 구현 세부사항:
+1. **XML 프로파일 구조**
+   - WLANProfile 형식의 XML 문서 생성
+   - SSID 정보를 일반 텍스트와 16진수 형태로 모두 포함
+   - WPA2-PSK/AES 보안 설정 지정
+
+2. **프로파일 설정**
+   - connectionType: ESS(Extended Service Set) 사용
+   - connectionMode: 자동 연결 설정
+   - 인증 방식: WPA2-PSK
+   - 암호화: AES
+   - MAC 무작위화: 비활성화
+
+3. **네트워크 연결**
+   - netsh 명령어를 사용하여 프로파일 추가
+   - 추가된 프로파일을 사용하여 네트워크 연결 시도
 
 <br/>
 
 ## 유틸리티 함수들
-
-### ConvertSSID 함수
-SSID 문자열 변환을 담당하는 유틸리티 함수.
+문자열 변환과 SSID 처리를 위한 보조 함수들입니다.
 
 ```cpp
 std::wstring CWifiManagerDlg::ConvertSSID(const unsigned char* ssid, size_t ssidLength)
@@ -284,17 +325,7 @@ std::wstring CWifiManagerDlg::ConvertSSID(const unsigned char* ssid, size_t ssid
 	// 변환 실패시 빈 문자열 반환
 	return std::wstring();
 }
-```
 
-주요 특징:
-1. UTF-8 우선 시도
-2. 시스템 코드페이지 폴백
-3. 견고한 에러 처리
-
-### WStringToString 함수
-문자열 타입 변환 유틸리티.
-
-```cpp
 std::string CWifiManagerDlg::WStringToString(const std::wstring& wstr)
 {
 	string str;
@@ -305,59 +336,36 @@ std::string CWifiManagerDlg::WStringToString(const std::wstring& wstr)
 }
 ```
 
-<br/>
+#### 기능 설명:
+1. **ConvertSSID**
+   - 바이트 배열 형태의 SSID를 문자열로 변환
+   - UTF-8 인코딩 우선 시도
+   - UTF-8 실패 시 시스템 기본 코드페이지 사용
+   - 다양한 언어의 SSID 처리 가능
 
-## 주의사항
-1. **메모리 관리**
-   - WlanAPI 리소스는 반드시 해제해야 함
-   - 문자열 변환 시 버퍼 오버플로우 주의
-   
-2. **보안 고려사항**
-   - 비밀번호는 평문으로 저장되지 않도록 주의
-   - XML 파일 생성 시 적절한 권한 설정 필요
-
-3. **에러 처리**
-   - WlanAPI 함수 호출 결과 항상 검증
-   - 네트워크 상태 변화 고려
-
-4. **성능 최적화**
-   - 불필요한 스캔 작업 최소화
-   - 리소스 적절한 시점에 해제
-
-<br/>
-
-## 전체 코드 분석
-
-### 코드 구조
-```
-CWifiManagerDlg
-├── OnBnClickedButtonWifiScan
-│   └── ListAvailableWifiNetworks
-│       └── ConvertSSID
-├── OnBnClickedButtonWifiConnect
-│   ├── ConnectToSelectedWifi
-│   └── WStringToString
-└── 유틸리티 함수들
-```
-
-### 주요 특징
-1. **모듈화**
-   - 기능별 명확한 분리
-   - 재사용 가능한 구조
-
-2. **에러 처리**
-   - 단계별 상태 확인
-   - 사용자 피드백 제공
-
-3. **리소스 관리**
-   - RAII 패턴 활용
-   - 적절한 메모리 해제
-
-4. **코드 스타일**
-   - 일관된 명명 규칙
-   - 명확한 주석 처리
+2. **WStringToString**
+   - 유니코드 문자열을 멀티바이트 문자열로 변환
+   - 시스템 기본 인코딩 사용
+   - 메모리 크기 계산 및 할당 자동 처리
 
 <br/>
 
 ## 결론
-Windows 환경에서의 Wi-Fi 프로그래밍은 WlanAPI를 통해 효과적으로 구현할 수 있다. 적절한 에러 처리와 리소스 관리가 중요하며, 사용자 경험을 고려한 UI 업데이트도 필수적이다. 이 코드는 Wi-Fi 관련 기능을 구현하는 좋은 참고 사례가 될 수 있다.
+이 구현은 Windows 환경에서 WlanAPI를 사용하여 Wi-Fi 네트워크를 효과적으로 제어하는 방법을 보여줍니다. 특히 다음과 같은 특징을 가지고 있습니다:
+
+1. **기능적 특징**
+   - "WAVE" 접두사를 가진 네트워크만 필터링하여 처리
+   - 신호 강도 기반 정렬로 사용자 편의성 제공
+   - WPA2-PSK/AES 보안 설정으로 안전한 연결 지원
+
+2. **구현 특징**
+   - MFC 기반의 사용자 인터페이스 제공
+   - XML 프로파일을 통한 네트워크 설정 관리
+   - 다국어 SSID 지원을 위한 문자열 처리
+
+3. **활용 방안**
+   - 특정 SSID 패턴을 가진 네트워크 관리에 활용
+   - 자동 Wi-Fi 연결 시스템 구축에 응용
+   - 네트워크 모니터링 도구 개발에 참조
+
+이 코드는 Wi-Fi 네트워크 관리 기능이 필요한 Windows 애플리케이션 개발에 유용한 참조가 될 수 있으며, 필요에 따라 SSID 필터링 조건이나 보안 설정을 수정하여 다양한 요구사항에 맞게 확장할 수 있습니다.
