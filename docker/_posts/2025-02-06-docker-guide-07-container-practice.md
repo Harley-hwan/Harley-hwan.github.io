@@ -81,6 +81,8 @@ docker run -p 80:80 --name hellonginx nginx
 
 <img width="700" alt="image" src="https://github.com/user-attachments/assets/baf29599-440c-4417-972f-ef39971c10a0" />
 
+<br>
+
 ## 웹페이지 접속 및 확인
 
 Nginx가 실행되었으면 웹 브라우저를 열고 **localhost** 또는 **127.0.0.1**에 접속한다.
@@ -115,6 +117,8 @@ ctrl + c  # 실행 중인 컨테이너 종료 (터미널 점유 상태에서)
 docker stop hellonginx
 ```
 
+<br>
+
 ### 2. 컨테이너 삭제
 실행이 종료된 컨테이너를 삭제하려면 다음 명령을 실행한다:
 
@@ -123,6 +127,8 @@ docker rm hellonginx
 ```
 
 이제 컨테이너가 완전히 제거되었다.
+
+<br>
 
 ## 정리
 
