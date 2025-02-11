@@ -6,6 +6,7 @@ gh-repo: harley-hwan/harley-hwan.github.io
 gh-badge: [star, fork, follow]
 tags: [c#, wpf, mvvm, data-binding]
 comments: true
+filename: "2023-05-18-wpf-project-01-getting-started.md"
 ---
 
 # (WPF) 1. WPF 프로젝트 시작하기 (프로젝트 생성, MVVM)
