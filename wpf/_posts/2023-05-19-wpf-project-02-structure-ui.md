@@ -55,16 +55,16 @@ Visual Studio의 **솔루션 탐색기**에서 기본적인 프로젝트 구조�
 
 XAML은 WPF에서 UI를 구성하는 XML 기반의 마크업 언어이다. UI 요소를 선언적으로 정의할 수 있으며, `MainWindow.xaml` 파일을 열어보면 기본적인 구조를 확인할 수 있다.
 
-```xml
-<Window x:Class="FirstProject.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="First Project" Height="350" Width="525">
-    <Grid>
-        <!-- UI 요소가 여기에 추가됨 -->
-    </Grid>
-</Window>
-```
+  ```xml
+  <Window x:Class="FirstProject.MainWindow"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          Title="First Project" Height="350" Width="525">
+      <Grid>
+          <!-- UI 요소가 여기에 추가됨 -->
+      </Grid>
+  </Window>
+  ```
 
 ### 도구 상자 활용
 
@@ -73,9 +73,9 @@ Visual Studio의 **도구 상자 (Toolbox)** 에는 WPF에서 사용할 수 있�
 1. `도구 상자 (Toolbox)`를 열어 `Button` 컨트롤을 드래그하여 `MainWindow.xaml`의 `<Grid>` 내부에 추가한다.
 2. 추가된 버튼은 XAML 코드에서 다음과 같이 자동으로 생성된다.
 
-```xml
-<Button Content="클릭하세요" Width="100" Height="30" Click="Button_Click"/>
-```
+  ```xml
+  <Button Content="Button" HorizontalAlignment="Left" Margin="641,49,0,0" VerticalAlignment="Top" Height="51" Width="104" Click="Button_Click"/>
+  ```
 
 이제 버튼 클릭 이벤트를 처리하는 방법을 살펴보자.
 
@@ -86,12 +86,12 @@ Visual Studio의 **도구 상자 (Toolbox)** 에는 WPF에서 사용할 수 있�
 1. `MainWindow.xaml`에서 버튼을 추가한 후 속성 창에서 `Click` 이벤트를 더블 클릭한다.
 2. `MainWindow.xaml.cs`에서 자동으로 생성된 이벤트 핸들러에 코드를 추가한다.
 
-```csharp
-private void Button_Click(object sender, RoutedEventArgs e)
-{
-    MessageBox.Show("버튼이 클릭되었습니다!");
-}
-```
+  ```csharp
+  private void Button_Click(object sender, RoutedEventArgs e)
+  {
+      MessageBox.Show("버튼이 클릭되었습니다!");
+  }
+  ```
 
 3. `Ctrl + S`를 눌러 저장한 후, `Ctrl + F5`를 눌러 실행하면 버튼 클릭 시 메시지 박스가 나타나는 것을 확인할 수 있다.
 
@@ -103,18 +103,18 @@ private void Button_Click(object sender, RoutedEventArgs e)
 
 1. `MainWindow.xaml`에서 `<Label>` 태그를 추가한다.
 
-```xml
-<Label Name="MyLabel" Content="초기 텍스트" Width="200" Height="30"/>
-```
+  ```xml
+  <Label Name="MyLabel" Content="초기 텍스트" Width="200" Height="30"/>
+  ```
 
 2. 버튼 클릭 이벤트에서 라벨의 내용을 변경하도록 수정한다.
 
-```csharp
-private void Button_Click(object sender, RoutedEventArgs e)
-{
-    MyLabel.Content = "버튼이 눌렸습니다!";
-}
-```
+  ```csharp
+  private void Button_Click(object sender, RoutedEventArgs e)
+  {
+      MyLabel.Content = "버튼이 눌렸습니다!";
+  }
+  ```
 
 3. 실행 후 버튼을 클릭하면 라벨의 텍스트가 변경되는지 확인한다.
 
@@ -127,20 +127,20 @@ WPF 애플리케이션이 실행될 때 **App.xaml** 파일이 초기 설정을 
 1. `App.xaml` 파일을 열어보면 `StartupUri` 속성이 `MainWindow.xaml`로 지정되어 있다.
 2. 이는 애플리케이션이 실행될 때 자동으로 `MainWindow`를 로드하도록 하는 역할을 한다.
 
-```xml
-<Application x:Class="FirstProject.App"
-             StartupUri="MainWindow.xaml">
-</Application>
-```
+  ```xml
+  <Application x:Class="FirstProject.App"
+               StartupUri="MainWindow.xaml">
+  </Application>
+  ```
 
 3. `MainWindow.xaml.cs`의 생성자에서 `InitializeComponent();` 메서드를 호출하여 XAML에서 정의된 UI를 초기화한다.
 
-```csharp
-public MainWindow()
-{
-    InitializeComponent();
-}
-```
+  ```csharp
+  public MainWindow()
+  {
+      InitializeComponent();
+  }
+  ```
 
 이제 WPF 프로젝트의 기본 구조와 UI 요소를 구성하는 방법을 이해할 수 있다.
 
